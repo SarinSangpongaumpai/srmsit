@@ -12,6 +12,7 @@ class Main extends CI_Controller {
     $this->load->view("side");
     $data = $this->event();
     $this->load->view("main",$data);
+    //$this->load->view("main");
     $this->load->view("footer");
   }
   public function event(){
@@ -22,7 +23,10 @@ class Main extends CI_Controller {
          return $data;
       }
       else{
-        return null;
+        $result = $this->mainEvent->getLastEvent();
+        $data['Event'] =  $result;
+        $data['Current'] =  $result;
+        return $data;
       }
   }
   public function changeEvent($data){
@@ -33,7 +37,9 @@ class Main extends CI_Controller {
          return $data;
       }
       else{
-        return null;
+        $result = $this->mainEvent->getLastEvent();
+        $data['Current'] =  $result;
+        return $data;
       }
   }
    public function previous(){

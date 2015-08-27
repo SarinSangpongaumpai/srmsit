@@ -7,7 +7,9 @@
         <li class="active">Data tables</li>
       </ol>
   </section>
-  
+  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+  Launch demo modal
+</button>
   <section class="content">
     <div class="row">
       <div class="col-md-7">   
@@ -39,11 +41,11 @@
               <img  style="width:100%;"src='../img/schoolLogo/<?php echo trim($currentSchool) ?>.png' >
             </div>
             <a href="next?date=<?php echo $currentDate?>"
-              style="position:relative;display: inline-block;width:30% ;left:120px" >
+              style="position:relative;display: inline-block;width:30% ;left:25%" >
               <img  style="width:30%;"src="../img/button/rightArrow.png" >
             </a>
             <ul class="products-list product-list-in-box">        
-              <div style="text-align:center">
+              <div style="text-align:center;">
                 <a href="javascript::;" class="product-title"><?php echo $currentSchoolName ?>
                   </ul>
               </div><!-- /.box-body -->
@@ -136,8 +138,52 @@
             </div><!-- /.info-box-content -->
           </div><!-- /.info-box -->
         </div><!-- /.col --> 
-        </div><!-- /.row -->
-
+      </div><!-- /.row -->
+    </div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Event</h4>
+      </div>
+      <div class="modal-body">
+        <div class="table-responsive">
+              <table id="example1" class="table table-bordered table-striped">
+                <thead >
+                  <tr>
+                    <th>No</th>
+                    <th>Event</th>
+                    <th>Duration</th>
+                    <th>Remainning Day</th>
+                    <th>Place</th>
+                  </tr>
+                </thead>
+                    <?php $ID = 1; ?>
+                    <?php foreach($Event as $event){
+                    ?>
+                <tbody>
+                  <tr    style="text-align:center">
+                    <td  style="text-align:left"><?php echo $ID ?></td>
+                    <td  style="text-align:left"><?= $event->title;?></td>
+                    <td><?= $event->duration;?> day</span></td>
+                    <td><?= $event->timeLeft;?> day</td>
+                    <td><?= $event->place;?></span></td>
+                  </tr>
+                <?php $ID= $ID+1; ?>  
+                </tbody>
+                    <?php }?>   <!-- for each-->
+              </table>
+            </div><!-- /.table-responsive -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 
