@@ -1,0 +1,5 @@
+RewriteEngine On
+RewriteBase /CI210/
+RewriteCond $1 !^(index\.php|css|img|js|plugins|pages)
+RewriteRule ^(.*)$ index.php [L]
+

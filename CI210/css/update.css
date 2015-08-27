@@ -1,0 +1,18 @@
+
+.html {
+  background: #2d2d2d;
+  background: url("../img/loginBg.jpg") no-repeat center center fixed 
+  
+  }
+  /*
+   background: url(http://lazybrowndog.net/debian/wheezy/journey/_login-background/linen/journey-login-background.png);
+*/
+.block {
+  background: #2d2d2d}
+  .form-box .header {
+      background:#3c8dbc;
+  }
+  .bg-olive {
+    background-color: #3c8dbc !important;
+  }
+}
