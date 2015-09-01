@@ -12,23 +12,33 @@ class Main extends CI_Controller {
     $this->load->view("side");
     $data = $this->event();
     $this->load->view("main",$data);
-    //$this->load->view("main");
     $this->load->view("footer");
   }
   public function event(){
     $result = $this->mainEvent->getEvent();
+    if($result){
+      $data['Event'] =  $result;
+      $data = $this->changeEvent($data);
+         
+      $result = $this->mainEvent->getCalendar();
       if($result){
-         $data['Event'] =  $result;
-         $data = $this->changeEvent($data);
-         return $data;
+        $data['Calendar'] = $result;
       }
-      else{
-        $result = $this->mainEvent->getLastEvent();
-        $data['Event'] =  $result;
-        $data['Current'] =  $result;
-        return $data;
+      return $data;
+    }
+    else{
+      $result = $this->mainEvent->getLastEvent();
+      //$data['Event'] =  $result;
+      $data['Current'] =  $result;
+      $result = $this->mainEvent->getCalendar();
+      if($result){
+        $data['Calendar'] = $result;
       }
+      return $data;
+    }
   }
+
+
   public function changeEvent($data){
     $data   = $data;
     $result = $this->mainEvent->changeEvent();
@@ -42,6 +52,8 @@ class Main extends CI_Controller {
         return $data;
       }
   }
+
+
    public function previous(){
     if ( isset($_GET['date']) ) {
       $date = $_GET['date'];
@@ -52,6 +64,11 @@ class Main extends CI_Controller {
       $result = $this->mainEvent->previous($date);
       if($result){
          $data['Current'] =  $result;
+      }
+
+      $result = $this->mainEvent->getCalendar();
+      if($result){
+         $data['Calendar'] =  $result;
       }
       $this->load->view("main",$data);
       $this->load->view("footer");
@@ -71,6 +88,10 @@ class Main extends CI_Controller {
       if($result){
          $data['Current'] =  $result;
       }
+      $result = $this->mainEvent->getCalendar();
+      if($result){
+         $data['Calendar'] =  $result;
+      }
       $this->load->view("main",$data);
       $this->load->view("footer");
     } 
@@ -78,5 +99,6 @@ class Main extends CI_Controller {
       $this->index;
     }
   }
+
 }
 

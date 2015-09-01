@@ -63,8 +63,8 @@ Class MainEvent extends CI_Model
     DATEDIFF( end,start ) AS duration");
    $this -> db -> from('activity');
    $this -> db -> where("start > '".$date."'");
-   $this->db->join('school', 'activity.place = school.school_code');
-   $this->db->order_by("timeLeft", "asc");
+   $this -> db -> join('school', 'activity.place = school.school_code');
+   $this -> db -> order_by("timeLeft", "asc");
    $this -> db -> limit(1);
    $query = $this -> db -> get();
    if($query -> num_rows() >= 1)
@@ -95,5 +95,23 @@ Class MainEvent extends CI_Model
      return false;
    }
  }
+
+
+ function getCalendar()
+ {
+   $this -> db -> select("title,start,place");
+   $this -> db -> from('activity');
+   $this -> db -> order_by("start");
+   $query = $this -> db -> get();
+   if($query -> num_rows() >= 1)
+   {
+     return $query->result();
+   }
+   else
+   {
+     return false;
+   }
+ }
+    
 }
 ?>

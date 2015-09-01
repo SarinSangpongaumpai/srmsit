@@ -7,9 +7,6 @@
         <li class="active">Data tables</li>
       </ol>
   </section>
-  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-  Launch demo modal
-</button>
   <section class="content">
     <div class="row">
       <div class="col-md-7">   
@@ -50,7 +47,7 @@
                   </ul>
               </div><!-- /.box-body -->
               <div class="box-footer text-center">
-                <a href="javascript::;" class="uppercase">View More Details</a>
+                <div class="uppercase">View More Details</div>
               </div><!-- /.box-footer -->
           </div><!-- /.box -->
         </div><!-- /.col -->
@@ -76,7 +73,8 @@
                   </tr>
                 </thead>
                     <?php $ID = 1; ?>
-                    <?php foreach($Event as $event){
+                    <?php if(isset($Event)){
+                      foreach($Event as $event){
                     ?>
                 <tbody>
                   <tr    style="text-align:center">
@@ -88,12 +86,26 @@
                   </tr>
                 <?php $ID= $ID+1; ?>  
                 </tbody>
-                    <?php }?>   <!-- for each-->
+                    <?php }
+                      }
+                      else{
+                    ?>
+                    <tr    style="text-align:center">
+                      <td  style="text-align:left">- </td>
+                      <td  style="text-align:left">- </td>
+                      <td> - </span></td>
+                      <td> - </td>
+                      <td> - </span></td>
+                    </tr>
+                    <?php
+                      }
+                    ?>   <!-- for each-->
+
               </table>
-            </div><!-- /.table-responsive -->
+            </div><!-- /.table-responsive -- <button type="button"data-toggle="modal" data-target="#myModal">>
           </div><!-- /.box-body -->
           <div class="box-footer text-center">
-            <a href="javascript::;" class="uppercase">View more events</a>
+            <a data-toggle="modal" data-target="#myModal" class="uppercase">View more events</a>
           </div><!-- /.box-footer -->
         </div><!-- /.box -->
       </div><!-- /.col -->  
@@ -155,25 +167,31 @@
                   <tr>
                     <th>No</th>
                     <th>Event</th>
-                    <th>Duration</th>
-                    <th>Remainning Day</th>
-                    <th>Place</th>
+                    <th style="text-align:center">Date</th>
+                    <th style="text-align:center">Place</th>
                   </tr>
                 </thead>
-                    <?php $ID = 1; ?>
-                    <?php foreach($Event as $event){
+                    <?php $ID = 0; ?>
+                    <?php foreach($Calendar as $calendar){
                     ?>
                 <tbody>
                   <tr    style="text-align:center">
                     <td  style="text-align:left"><?php echo $ID ?></td>
-                    <td  style="text-align:left"><?= $event->title;?></td>
-                    <td><?= $event->duration;?> day</span></td>
-                    <td><?= $event->timeLeft;?> day</td>
-                    <td><?= $event->place;?></span></td>
+                    <td  style="text-align:left"><?= $calendar->title;?></td>
+                    <td><?= $calendar->start;?> </span></td>
+                    <td><?= $calendar->place;?></span></td>
                   </tr>
                 <?php $ID= $ID+1; ?>  
                 </tbody>
                     <?php }?>   <!-- for each-->
+                <tfoot >
+                  <tr>
+                    <th>No</th>
+                    <th>Event</th>
+                    <th style="text-align:center">Date</th>
+                    <th style="text-align:center">Place</th>
+                  </tr>
+                </tfoot>
               </table>
             </div><!-- /.table-responsive -->
       </div>
