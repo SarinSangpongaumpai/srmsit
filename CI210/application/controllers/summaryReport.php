@@ -12,6 +12,9 @@ class SummaryReport extends CI_Controller {
 
    		 $this->load->view("header");
    		 $data['Gender'] = $this->summary->get_genderTable();
+       $data['total'] = $this->summary->get_totalTable();
+       $data['totalEvent'] = $this->summary->get_totalEvent();
+       $data['Program'] = $this->summary->get_programTable();
        $this->load->view("summary/graph",$data);
 
 			 $this->load->view("side");
@@ -22,6 +25,10 @@ class SummaryReport extends CI_Controller {
 	{
 		print $json = json_encode($this->summary->get_pieChart());
 	}
+  public function columnChart()
+  {
+    print $json = json_encode($this->summary->get_columnChart());
+  }
   public function table(){
     //$data['gender'] = $this->summary->get_genderTable());
   }

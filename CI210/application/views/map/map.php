@@ -1,44 +1,136 @@
+<!DOCTYPE html>
 <html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<?php echo $maps['js']; ?></head>  
-<body>
-	 <?php echo $maps['html']; ?>  
+  <head>
+    <title>Place searches</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+    </style>
+    <script>
+var map;
+var infowindow;
+
+function initMap() {
+  var pyrmont = {lat: 13.6523831, lng: 100.49387189999993};
+  
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: pyrmont,
+    zoom: 14
+  });
+  var image = '../img/university.png';
+  var beachMarker = new google.maps.Marker({
+    position: {lat: 13.6523831, lng: 100.49387189999993} ,
+    map: map,
+    icon: image,
+    title: 'King Mongkut’s University of Technology Thonburi'
+  });
+  var cityCircle = new google.maps.Circle({
+      clickable: false,
+      strokeColor: '#FF0000',
+      strokeOpacity: 0.8,
+      strokeWeight: 2,
+      fillColor: '#FF0000',
+      fillOpacity: 0.35,
+      map: map,
+      center: map.center,
+      radius: 5000
+  });
+  infowindow = new google.maps.InfoWindow();
+  
+  var service = new google.maps.places.PlacesService(map);
+  service.nearbySearch({
+    location: pyrmont,
+    radius: 2000,
+    types: ['school']
+  }, callback);
 
 
+}
 
-
-	<?php echo form_open('map/index'); ?>
-  <?php echo validation_errors(); ?>
-  <?php
-  	 $data = array(
-  	 		  'name'        => 'myPlaceTextBox',
-          'id'          => 'myPlaceTextBox',
-  	  );
-  	 //echo form_input($data);
-  //echo form_input('lon', $this->input->post('myPlaceTextBox')); 
-  //echo form_submit('submit','submit'); 
-  echo form_close(); 
-  ?>
-
-
-
-
-<?php
-  echo form_open('map/index');
- 
-  echo "<input id=\"place\" name=\"place\"  list=\"place1\" >
-  <datalist id=\"place1\" autocomplete=\"off\" >";
-   foreach($myDropdown as $dd) {
-  echo  "<option value=\"$dd[Place_name]\"/>"; // Format for adding options 
+function callback(results, status) {
+  if (status === google.maps.places.PlacesServiceStatus.OK) {
+    for (var i = 0; i < results.length; i++) {
+      createMarker(results[i]);
+    }
   }
-  echo "</datalist>";
-  echo form_submit('submit','submit'); 
-  echo form_close(); 
+}
 
-   //$this->input->post('place');
-?>
+function createMarker(place) {
+  var placesList = document.getElementById('places');
+  var placeLoc = place.geometry.location;
+  var marker = new google.maps.Marker({
+    map: map,
+    title: place.name,
+    position: place.geometry.location
+  });
 
+  google.maps.event.addListener(marker, 'click', function() {
+    infowindow.setContent(place.name);
+    infowindow.open(map, this);
+  });
+  placesList.innerHTML += '<li>' + place.name + '</li>';
 
-</body>
+}
+
+    </script>
+
+    <style>
+      #results {
+        font-family: Arial, Helvetica, sans-serif;
+        position: absolute;
+        right: 5px;
+        top: 60%;
+        margin-top: -195px;
+        height: 330px;
+        width: 200px;
+        padding: 5px;
+        z-index: 5;
+        border: 1px solid #999;
+        background: #fff;
+      }
+      h2 {
+        font-size: 22px;
+        margin: 0 0 5px 0;
+      }
+      ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        height: 271px;
+        width: 200px;
+        overflow-y: scroll;
+      }
+      li {
+        background-color: #f1f1f1;
+        padding: 10px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+      li:nth-child(odd) {
+        background-color: #fcfcfc;
+      }
+      #more {
+        width: 100%;
+        margin: 5px 0 0 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <div id="results" class="panel">
+      <h2>Results</h2>
+      <ul id="places"></ul>
+      <button id="more">More results</button>
+    </div>
+    <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initMap" async defer></script>
+  </body>
 </html>
