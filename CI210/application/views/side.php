@@ -6,7 +6,7 @@
           <!-- Sidebar user panel -->
           <div class="user-panel">
             <div class="pull-left image">
-              <img src="../img/User.png" class="img-circle" alt="User Image" />
+              <img src="<?php echo site_url(); ?>img/User.png" class="img-circle" alt="User Image" />
             </div>
             <div class="pull-left info">
               <p>SIT's SRM</p>
@@ -21,13 +21,13 @@
                   <span>Summary Report</span> <i class="fa fa-angle-left pull-right"></i>
                 </a>
                   <ul class="treeview-menu">
-                        <li><a href="../chart/index"><i class="fa fa-angle-double-right"></i>
+                        <li><a href="<?php echo site_url(); ?>chart/index"><i class="fa fa-angle-double-right"></i>
                             <span> School Report</span></a>
                         </li>
-                        <li><a href="pages/charts/flot.html"><i class="fa fa-angle-double-right"></i>
+                        <li><a href="<?php echo site_url(); ?>pages/charts/flot.html"><i class="fa fa-angle-double-right"></i>
                           <span> Student Report</span></a>
                         </li>
-                        <li><a href="pages/charts/inline.html"> <i class="fa fa-angle-double-right"></i>
+                        <li><a href="<?php echo site_url(); ?>pages/charts/inline.html"> <i class="fa fa-angle-double-right"></i>
                           <span> SIT'SRM activities Report</span></a>
                         </li>
                   </ul>
@@ -39,9 +39,9 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="pages/charts/morris.html"><i class="fa fa-angle-double-right"></i> School</a></li>
-                <li><a href="pages/charts/flot.html"><i class="fa fa-angle-double-right"></i> Student</a></li>
-                <li><a href="pages/charts/inline.html"><i class="fa fa-angle-double-right"></i> SIT'SRM activities</a></li>
+                <li><a href="<?php echo site_url(); ?>pages/charts/morris.html"><i class="fa fa-angle-double-right"></i> School</a></li>
+                <li><a href="<?php echo site_url(); ?>pages/charts/flot.html"><i class="fa fa-angle-double-right"></i> Student</a></li>
+                <li><a href="<?php echo site_url(); ?>pages/charts/inline.html"><i class="fa fa-angle-double-right"></i> SIT'SRM activities</a></li>
               </ul>
             </li>
             <li class="treeview">

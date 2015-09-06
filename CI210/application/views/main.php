@@ -27,7 +27,7 @@
                           $currentSchool         = $current->place;
                           $currentDuration       = $current->duration;
                           $currentCost           = $current->cost;
-                          $currentSchoolName     = $current->school_name;
+                          $currentSchoolName     = $current->name;
                   }
             ?>
             <a href="previous?date=<?php echo $currentDate?>"

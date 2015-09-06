@@ -9,9 +9,25 @@
        }
 ?>
 <?php 
-      if(isset($totalEvent)){
-          foreach($totalEvent as $totalEvent){
-             $totalEvent = $totalEvent->totalEvent;
+      if(isset($distinctEvent)){
+          foreach($distinctEvent as $distinctEvent){
+             $distinctEvent = $distinctEvent->distinctEvent;
+           }
+       }
+       else{
+
+       }
+?>
+<?php 
+      if(isset($Profile)){
+          foreach($Profile as $profile){
+             $name = $profile->name;
+             $cost = $profile->cost;
+             $location = $profile->location;
+             $latitude = $profile->latitude;
+             $longitude = $profile->longitude;
+             $totalEvent = $profile->totalEvent;
+             $note = $profile->note;
            }
        }
        else{
@@ -43,18 +59,17 @@
                 <div class="box-body box-profile">
                   <img class="profile-user-img img-responsive "
                   src="../img/schoolLogo/ACBK.png" alt="User profile picture">
-                  <h3 class="profile-username text-center">Assumption</h3>
+                  <h3 class="profile-username text-center"><?php echo $name ?></h3>
                   <br>
                   <ul class="list-group list-group-unbordered">
                     <li class="list-group-item">
-                      <b>Events</b> <a class="pull-right">4 times</a>
+                      <b>Events</b> <a class="pull-right"><?php echo $totalEvent ?> times</a>
                     </li>
                     <li class="list-group-item">
-                      <b>Participants</b> <a class="pull-right">543 people</a>
+                      <b>Participants</b> <a class="pull-right"><?php echo $total ?> peoples</a>
                     </li>
                   </ul>
-
-                  <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+                  <a data-toggle="modal" data-target="#myModal" class="btn btn-primary btn-block"><b>Follow</b></a>
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
 
@@ -66,27 +81,42 @@
                 <div class="box-body">
                   <strong><i class="fa fa-book margin-r-5"></i>  Contact person</strong>
                   <p class="text-muted">
-                    P' Khing (Teacher) 0851216552
+                    <?php if(isset($Contact)){
+                        foreach($Contact as $contact){
+                      ?>
+                      <?= $contact->firstname;?>
+                      <?= $contact->lastname ?>
+                      (<?= $contact->profession ?>)<br>
+                      เบอร์ติดต่อ <?= $contact->phoneNum ?>
+                      <br>
+                      <?php }
+                      }
+                      else{
+                      ?>
+                        -
+                      <?php
+                      }
+                      ?>   <!-- for each-->
                   </p>
 
                   <hr>
 
                   <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
-                  <p class="text-muted">Malibu, California</p>
+                  <p class="text-muted"><?php echo $location ?></p>
 
                   <hr>
 
                   <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+                  <p class="text-muted"><?php echo $note ?></p>
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
             </div><!-- /.col -->
             <div class="col-md-9">
               <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
-                  <li class="active"><a href="#activity" data-toggle="tab">Activity</a></li>
-                  <li><a href="#timeline" data-toggle="tab">Timeline</a></li>
-                  <li><a href="#settings" data-toggle="tab">Settings</a></li>
+                  <li class="active"><a href="<?php echo site_url(); ?>summaryReport/#activity" data-toggle="tab">Activity</a></li>
+                  <li><a href="<?php echo site_url(); ?>summaryReport/#timeline" data-toggle="tab">Timeline</a></li>
+                  <li><a href="<?php echo site_url(); ?>summaryReport/#settings" data-toggle="tab">Settings</a></li>
                 </ul>
                 <div class="tab-content">
                   <div class="active tab-pane" id="activity">
@@ -94,13 +124,13 @@
               <div class="nav-tabs-custom">
                 <!-- Tabs within a box -->
                 <ul class="nav nav-tabs pull-right">
-                  <li class="active"><a href="#chartdiv" data-toggle="tab">PieChart</a></li>
-                  <li><a href="#columnChart" data-toggle="tab">ColumnChart</a></li>
+                  <li class="active"><a href="<?php echo site_url(); ?>summaryReport/#pieChart" data-toggle="tab">PieChart</a></li>
+                  <li><a href="<?php echo site_url(); ?>summaryReport/#columnChart" data-toggle="tab">ColumnChart</a></li>
                   <li class="pull-left header"><i class="fa fa-inbox"></i> Sales</li>
                 </ul>
                 <div class="tab-content no-padding">
                   <!-- Morris chart - Sales -->
-                  <div class="chart tab-pane active" id="chartdiv" style="position: relative; height: 300px;"></div>
+                  <div class="chart tab-pane active" id="pieChart" style="position: relative; height: 300px;"></div>
                   <div class="chart tab-pane" id="columnChart" style="position: relative; height: 300px;"></div>
                 </div>
 
@@ -111,10 +141,37 @@
                     </ul>
                     </div>
                     <ul class="nav nav-tabs pull-right">
-                      <li ><a href="#chartdiv" data-toggle="tab">OpenHouse</a></li>
-                      <li><a href="#sales-chart" data-toggle="tab">Camp</a></li>
-                      <li><a href="#sales-chart" data-toggle="tab">WIP</a></li>
-                      <li class="active"><a href="#chartdiv" data-toggle="tab">Total Event</a></li>
+                    <?php if(isset($Event)){  ?>
+                      
+                      <?php $number = 1;
+                        foreach($Event as $event){
+                      ?>    
+
+                        <?php if(isset($_GET['Event'])){ ?>
+                          <?php if($number == 1){ ?>
+                            <li><a href="index" data-toggle="tab">Total Event</a></li>
+                          <?php  $number = $number+1; }?>
+                          <?php if (strcmp($_GET['Event'], $event->type) == 0) { ?>
+                            <li class="active"><a  
+                            href="changeEvent?Event=<?php echo $event->type ?>" data-toggle="tab">
+                            <?= $event->type ?></a></li>
+                          <?php  }
+                          else if (strcmp($_GET['Event'], $event->type) !== 0){ ?>
+                          <li> <a  href="changeEvent?Event=<?php echo $event->type ?>">
+                          <?= $event->type ?></a></li>
+                          <?php  }
+                        }
+                      } ?>
+                      <?php if(!isset($_GET['Event'])){ ?>
+                        <li class="active"><a href="#chartdiv" data-toggle="tab">Total Event</a></li>
+                      <?php 
+                        foreach($Event as $event){
+                      ?>    
+                          <li> <a  href="changeEvent?Event=<?php echo $event->type ?>">
+                          <?= $event->type ?></a></li>
+                      <?php  }
+                      }
+                    } ?>
                       <li class="pull-left header"><i class="fa fa-inbox"></i> Table</li>
 
                     </ul>
@@ -125,7 +182,9 @@
                       <thead>
                         <tr>
                           <th >เพศ</th>
-                          <th style="text-align:right;">จำนวน(คน)</th>
+                          <th style="text-align:right;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;จำนวน(คน)</th>
                           <th style="text-align:center;">%</th>
                         </tr>
                       </thead>
@@ -156,7 +215,7 @@
                       <thead>
                         <tr>
                           <th >สายวิชา</th>
-                          <th style="text-align:right">จำนวน(คน)</th>
+                          <th style="text-align:right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;จำนวน(คน)</th>
                           <th style="text-align:center;">%</th>
                         </tr>
                       </thead>
@@ -182,12 +241,44 @@
                       ?>   <!-- for each-->
                     </table>
                   </div><!-- /.table-responsive -->
+                  <div class="table-responsive">
+                    <table class="table no-margin">
+                      <thead>
+                        <tr>
+                          <th >ชั้นปี</th>
+                          <th style="text-align:right">จำนวน(คน)</th>
+                          <th style="text-align:center;">%</th>
+                        </tr>
+                      </thead>
+                      <?php if(isset($schoolYear)){
+                        foreach($schoolYear as $schoolYear){
+                      ?>
+                      <tbody>
+                        <tr>
+                          <td ><?= $schoolYear->schoolYear;?></td>
+                          <td style="text-align:right"><?= $schoolYear->number;?></td>
+                          <td style="text-align:center;"><?= $schoolYear->number/ $total*100 ?></td>
+                        </tr>  
+                      </tbody>
+                      <?php }
+                      }
+                      else{
+                      ?>
+                        <tr>
+                        <td>- </td>
+                        </tr>
+                      <?php
+                      }
+                      ?>   <!-- for each-->
+                    </table>
+                  </div><!-- /.table-responsive -->
                 </div><!-- /.box-body -->
                   </div><!-- /.tab-pane -->
               
 
 
                   <div class="tab-pane" id="timeline">
+
                     <!-- The timeline -->
                     <ul class="timeline timeline-inverse">
                       <!-- timeline time label -->
@@ -291,12 +382,6 @@
 
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->
-      <footer class="main-footer">
-        <div class="pull-right hidden-xs">
-          <b>Version</b> 2.3.0
-        </div>
-        <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights reserved.
-      </footer>
 
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>      
@@ -313,7 +398,7 @@
         chart.validateData();
       });
     });
-        var chart = AmCharts.makeChart("chartdiv", {
+        var chart = AmCharts.makeChart("pieChart", {
           "type": "pie",
           "startDuration": 0,
            "theme": "light",
@@ -376,7 +461,7 @@
              $(document).ready(function(){
                $.getJSON("columnChart",  function (data) {
                     columnChart.dataProvider = data;   
-                    var numberEvent = "<?php echo $totalEvent; ?>"
+                    var numberEvent = "<?php echo $distinctEvent; ?>"
                     colorSet(numberEvent);
                     columnChart.validateData();
                 });
@@ -482,8 +567,53 @@
 </style>
 
 
+<script>
+function initMap() {
+  var myLatLng = {lat: <?php echo $latitude?>, lng: <?php echo $longitude?>};
 
+  // Create a map object and specify the DOM element for display.
+  var map = new google.maps.Map(document.getElementById('map'), {
+    center: myLatLng,
+    zoom: 10
+  });
 
+  // Create a marker and set its position.
+  var marker = new google.maps.Marker({
+    map: map,
+    position: myLatLng,
+  });
+}
+</script>
+<style>
+      #modal-body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+    </style>
+<script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initMap" async defer></script>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Event</h4>
+      </div>
+      <div class="modal-body">
+        <div id="map" style="height: 380px; width: 580px;">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 
