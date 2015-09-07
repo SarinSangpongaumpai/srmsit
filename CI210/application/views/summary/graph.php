@@ -34,6 +34,30 @@
 
        }
 ?>
+<?php 
+      if(isset($Profile)){
+          foreach($Profile as $profile){
+             $name = $profile->name;
+             $cost = $profile->cost;
+             $location = $profile->location;
+             $latitude = $profile->latitude;
+             $longitude = $profile->longitude;
+             $totalEvent = $profile->totalEvent;
+             $note = $profile->note;
+           }
+       }
+       else{
+
+       }
+?>
+<?php 
+  if(isset($_GET['Place'])){
+         $place = $_GET['Place'];
+  }
+  if(isset($_GET['Event'])){
+         $event = $_GET['Event'];
+  }
+?>
  <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -81,7 +105,7 @@
                 <div class="box-body">
                   <strong><i class="fa fa-book margin-r-5"></i>  Contact person</strong>
                   <p class="text-muted">
-                    <?php if(isset($Contact)){
+                    <?php if(!is_null($Contact)){
                         foreach($Contact as $contact){
                       ?>
                       <?= $contact->firstname;?>
@@ -112,11 +136,11 @@
               </div><!-- /.box -->
             </div><!-- /.col -->
             <div class="col-md-9">
-              <div class="nav-tabs-custom">
+             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
-                  <li class="active"><a href="<?php echo site_url(); ?>summaryReport/#activity" data-toggle="tab">Activity</a></li>
-                  <li><a href="<?php echo site_url(); ?>summaryReport/#timeline" data-toggle="tab">Timeline</a></li>
-                  <li><a href="<?php echo site_url(); ?>summaryReport/#settings" data-toggle="tab">Settings</a></li>
+                  <li class="active"><a href="<?php echo site_url(); ?>summaryReport/index#activity" data-toggle="tab">Activity</a></li>
+                  <li><a href="<?php echo site_url(); ?>summaryReport/index?Place=<?php echo $place ?>#timeline" data-toggle="tab">Timeline</a></li>
+                  <li><a href="<?php echo site_url(); ?>summaryReport?index?Place=<?php echo $place ?>#settings" data-toggle="tab">Settings</a></li>
                 </ul>
                 <div class="tab-content">
                   <div class="active tab-pane" id="activity">
@@ -124,8 +148,8 @@
               <div class="nav-tabs-custom">
                 <!-- Tabs within a box -->
                 <ul class="nav nav-tabs pull-right">
-                  <li class="active"><a href="<?php echo site_url(); ?>summaryReport/#pieChart" data-toggle="tab">PieChart</a></li>
-                  <li><a href="<?php echo site_url(); ?>summaryReport/#columnChart" data-toggle="tab">ColumnChart</a></li>
+                  <li class="active"><a href="<?php echo site_url(); ?>summaryReport/index?Place=<?php echo $place ?>#pieChart" data-toggle="tab">PieChart</a></li>
+                  <li><a href="<?php echo site_url(); ?>summaryReport/index?Place=<?php echo $place ?>#columnChart" data-toggle="tab">ColumnChart</a></li>
                   <li class="pull-left header"><i class="fa fa-inbox"></i> Sales</li>
                 </ul>
                 <div class="tab-content no-padding">
@@ -149,25 +173,30 @@
 
                         <?php if(isset($_GET['Event'])){ ?>
                           <?php if($number == 1){ ?>
-                            <li><a href="index" data-toggle="tab">Total Event</a></li>
+                            <li><a href="<?php echo 
+                          base_url() ?>summaryReport/index?Place=<?php echo $place ?>" data-toggle="tab">Total Event</a></li>
                           <?php  $number = $number+1; }?>
                           <?php if (strcmp($_GET['Event'], $event->type) == 0) { ?>
                             <li class="active"><a  
-                            href="changeEvent?Event=<?php echo $event->type ?>" data-toggle="tab">
+                            href="<?php echo 
+                          base_url() ?>summaryReport/changeEvent?Place=<?php echo $place ?>&Event=<?php echo $event->type ?>" data-toggle="tab">
                             <?= $event->type ?></a></li>
                           <?php  }
                           else if (strcmp($_GET['Event'], $event->type) !== 0){ ?>
-                          <li> <a  href="changeEvent?Event=<?php echo $event->type ?>">
+                          <li> <a  href="<?php echo 
+                          base_url() ?>summaryReport/changeEvent?Place=<?php echo $place ?>&Event=<?php echo $event->type ?>">
                           <?= $event->type ?></a></li>
                           <?php  }
                         }
                       } ?>
                       <?php if(!isset($_GET['Event'])){ ?>
-                        <li class="active"><a href="#chartdiv" data-toggle="tab">Total Event</a></li>
+                        <li class="active"><a href="<?php echo 
+                          base_url() ?>summaryReport/index?Place=<?php echo $place ?>" data-toggle="tab">Total Event</a></li>
                       <?php 
                         foreach($Event as $event){
                       ?>    
-                          <li> <a  href="changeEvent?Event=<?php echo $event->type ?>">
+                          <li> <a  href="<?php echo 
+                          base_url() ?>summaryReport/changeEvent?Place=<?php echo $place ?>&Event=<?php echo $event->type ?>">
                           <?= $event->type ?></a></li>
                       <?php  }
                       }
@@ -276,8 +305,7 @@
                   </div><!-- /.tab-pane -->
               
 
-
-                  <div class="tab-pane" id="timeline">
+                  <div class="tab-pane" id="timeline" >
 
                     <!-- The timeline -->
                     <ul class="timeline timeline-inverse">
@@ -393,7 +421,8 @@
 <script>;
   var chart;            
     $(document).ready(function(){
-      $.getJSON("pieChart",  function (data) {
+      $.getJSON("<?php echo base_url() ?>summaryReport/pieChart?Place=<?php 
+                echo $place ?>",  function (data) {
         chart.dataProvider = data; 
         chart.validateData();
       });
@@ -459,7 +488,8 @@
   var columnChart;
              
              $(document).ready(function(){
-               $.getJSON("columnChart",  function (data) {
+               $.getJSON("<?php echo base_url() ?>summaryReport/columnChart?Place=<?php 
+                echo $place ?>",  function (data) {
                     columnChart.dataProvider = data;   
                     var numberEvent = "<?php echo $distinctEvent; ?>"
                     colorSet(numberEvent);

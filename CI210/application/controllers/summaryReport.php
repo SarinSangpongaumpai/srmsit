@@ -9,51 +9,59 @@ class SummaryReport extends CI_Controller {
 	
 	public function index()
 	{
-
+      if ( isset($_GET['Place']) ) {
+       $place = $_GET['Place'];
    		 $this->load->view("header");
        $this->load->view("side");
-   		 $data['Gender'] = $this->summary->get_genderTable(null);
-       $data['total'] = $this->summary->get_totalTable(null);
-       $data['distinctEvent'] = $this->summary->get_distinctEvent();
-       $data['Program'] = $this->summary->get_programTable(null);
-       $data['Profile'] = $this->summary->get_schoolProfile(null);
-       $data['schoolYear'] = $this->summary->get_schoolYearTable(null);
-       $data['Contact'] = $this->summary->get_ContactPerson();
-       $data['Event'] = $this->summary->get_Event();
+   		 $data['Gender'] = $this->summary->get_genderTable(null,$place);
+       $data['total'] = $this->summary->get_totalTable(null,$place);
+       $data['distinctEvent'] = $this->summary->get_distinctEvent($place);
+       $data['Program'] = $this->summary->get_programTable(null,$place);
+       $data['Profile'] = $this->summary->get_schoolProfile($place);
+       $data['schoolYear'] = $this->summary->get_schoolYearTable(null,$place);
+       $data['Contact'] = $this->summary->get_ContactPerson($place);
+       $data['Event'] = $this->summary->get_Event($place);
        $this->load->view("summary/graph",$data);
 
 			 
 			 $this->load->view("footer");
+      }
+      else{
+        $this->load->view("footer");
+      }
 	}
   public function changeEvent()
   {
-       if ( isset($_GET['Event']) ) {
+       if ( isset($_GET['Event']) and isset($_GET['Place'])) {
          $event = $_GET['Event'];
+         $place = $_GET['Place'];
          $this->load->view("header");
          $this->load->view("side");
-         $data['Gender'] = $this->summary->get_genderTable($event);
-         $data['total'] = $this->summary->get_totalTable($event);
-         $data['distinctEvent'] = $this->summary->get_distinctEvent();
-         $data['Program'] = $this->summary->get_programTable($event);
-         $data['Profile'] = $this->summary->get_schoolProfile($event);
-         $data['schoolYear'] = $this->summary->get_schoolYearTable($event);
-         $data['Contact'] = $this->summary->get_ContactPerson();
-         $data['Event'] = $this->summary->get_Event();
+         $data['Gender'] = $this->summary->get_genderTable($event,$place);
+         $data['total'] = $this->summary->get_totalTable($event,$place);
+         $data['distinctEvent'] = $this->summary->get_distinctEvent($place);
+         $data['Program'] = $this->summary->get_programTable($event,$place);
+         $data['Profile'] = $this->summary->get_schoolProfile($place);
+         $data['schoolYear'] = $this->summary->get_schoolYearTable($event,$place);
+         $data['Contact'] = $this->summary->get_ContactPerson($place);
+         $data['Event'] = $this->summary->get_Event($place);
          $this->load->view("summary/graph",$data);
        }
        else{
         echo "<script type='text/javascript'>alert('Some error occur');</script>";
-        $this->index();
+       
        }
   }
   
 	public function pieChart()
 	{
-		print $json = json_encode($this->summary->get_pieChart());
+    $place = $_GET['Place'];
+		print $json = json_encode($this->summary->get_pieChart($place));
 	}
   public function columnChart()
   {
-    print $json = json_encode($this->summary->get_columnChart());
+    $place = $_GET['Place'];
+    print $json = json_encode($this->summary->get_columnChart($place));
   }
   public function table(){
     //$data['gender'] = $this->summary->get_genderTable());

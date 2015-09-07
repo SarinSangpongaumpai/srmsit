@@ -1,5 +1,6 @@
 
-
+<?php include 'header.php'; ?>
+<?php include 'side.php'; ?>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <link href="http://cdnjs.cloudflare.com/ajax/libs/jquery.colorbox/1.4.33/example1/colorbox.min.css" rel="stylesheet"/>
         <script src="https://code.jquery.com/jquery-2.1.1.min.js"/>
@@ -14,16 +15,7 @@
 
         <div id="response"></div>
         <table id="example1"class="table">
-            <thead><tr>
-              <th>เลขประชาชน</th>
-              <th>ชื่อ</th>
-              <th>นามสกุล</th>
-              <th>ชั้นปี</th>
-              <th>สายวิชา</th>
-              <th>เพศ</th>
-              <th>gpa</th>
-              <th>โรงเรียน</th>
-              <th>Action</th></tr></thead>
+            <thead><tr><th>Name</th><th>Email</th><th>Contact</th><th>facebook link</th><th>created</th><th>Action</th></tr></thead>
             <tbody id="fillgrid">
             
             </tbody>
@@ -31,71 +23,30 @@
         </table>
     </div>
 </div>
-
 <div class="well">
-   <table id="example1"class="table">
-            <thead><tr>
-              <th>เลขประชาชน</th>
-              <th>ชื่อ</th>
-              <th>นามสกุล</th>
-              <th>ชั้นปี</th>
-              <th>สายวิชา</th>
-              <th>เพศ</th>
-              <th>gpa</th>
-              <th>โรงเรียน</th></tr></thead>
-            <tbody >
             <form class="form-inline" role="form" id="frmadd" action="<?php echo base_url() ?>table/create" method="POST">
-                <td>
-                    <input type="text" name="nationalID" class="form-control" placeholder="เลขประจำตัวประชาชน">
-                </td>
-                <td>
-                    
-                        <input class="form-control" name="FName"  placeholder="ชื่อ">
-                    </td>
-                <td>
-                    <input type="text" class="form-control" name="LName" placeholder="นามสกุล">
-                </td>
-                <td>
-                    <select id = "school_year" name = "school_year"  class="form-control" >
-                            
-                                <option value="มัธยมศึกษาปีที่1">มัธยมศึกษาปีที่1</option>
-                                <option value="มัธยมศึกษาปีที่2">มัธยมศึกษาปีที่2</option>
-                                <option value="มัธยมศึกษาปีที่3">มัธยมศึกษาปีที่3</option>
-                                <option value="มัธยมศึกษาปีที่4" >มัธยมศึกษาปีที่4</option>
-                                <option value="มัธยมศึกษาปีที่5">มัธยมศึกษาปีที่5</option>
-                                <option value="มัธยมศึกษาปีที่6">มัธยมศึกษาปีที่6</option>
-                              </select>
-                </td>
-                <td>
-                    <select id="program" name = "program"  class="form-control" >
-                                
-                                 <option value="วิทย์-คณิต">วิทย์-คณิต</option>
-                                 <option value="ศิลป์-คำนวน">ศิลป์-คำนวน</option>
-                                 <option value="ศิลป์-ภาษา" >ศิลป์-ภาษา</option>
-                                 <option value="ศิลป์-สังคม">ศิลป์-สังคม</option>
-                                 <option value="อื่นๆ">อื่นๆ</option>
-                              </select>
-                </td>
-                <td>
-                    <select name="gender" class="form-control">
-                                
-                                <option value="ชาย">ชาย</option>
-                                <option value="หญิง">หญิง</option>
-                              </select>
-                </td>
-                <td>
-                   <input type="number"  name="gpa" id = "gpa" class="form-control"  placeholder="GPA" ng-model="gpa" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required 
-                    />
-                </td>
-                <td>
-                    <input type="text" name="place" class="form-control" >
-                </td>
-                    <input type="submit" class="btn btn-success" value="submit">
-                
+                <div class="form-group">
+                    <label class="sr-only" for="exampleInputEmail2">Full name</label>
+                    <input type="text" name="name" class="form-control" id="exampleInputEmail2" placeholder="name">
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon">@</div>
+                        <input class="form-control" name="email" type="email" placeholder="Enter email">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="exampleInputPassword2">Contact</label>
+                    <input type="text" class="form-control" name="contact" id="exampleInputPassword2" placeholder="contact number">
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="exampleInputPassword2">facebook link</label>
+                    <input type="text" name="facebook" class="form-control" id="exampleInputPassword2" placeholder="http://facebook.com/pariharvikram1989">
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-success" id="exampleInputPassword2" value="submit">
+                </div>
             </form>
-            </tbody>
-            <tfoot></tfoot>
-        </table>
         </div>
 </div>
 </div>
