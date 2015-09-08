@@ -1,16 +1,18 @@
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <link href="http://cdnjs.cloudflare.com/ajax/libs/jquery.colorbox/1.4.33/example1/colorbox.min.css" rel="stylesheet"/>
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"/>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.colorbox/1.4.33/jquery.colorbox-min.js"></script>
+
 <style>#loader{display: none}</style>
 <div class="content-wrapper">
   <section class="content-header">
-    <h1>User Profile</h1>
+    <h1><i class="fa fa-user"></i> Student Table</h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Examples</a></li>
-        <li class="active">User profile</li>
+        <li><a href="<?php echo base_url()?>main/index"><i class="fa fa-home"></i> Home</a></li>
+        <li><a href="#"><i class="fa fa-table"></i>Table</a></li>
+        <li class="active">Student</li>
       </ol>
   </section>
   <section class="content">
@@ -28,9 +30,9 @@
               <th>ชั้นปี</th>
               <th>สายวิชา</th>
               <th>เพศ</th>
-              <th>gpa</th>
+              <th>เกรดเฉลี่ย</th>
               <th>โรงเรียน</th>
-              <th>Action</th>
+              <th>แก้ไข/ลบ</th>
             </tr></thead>
             <!-- query table -->
             <tbody id="fillgrid"></tbody>
@@ -48,11 +50,11 @@
         <th>ชั้นปี</th>
         <th>สายวิชา</th>
         <th>เพศ</th>
-        <th>gpa</th>
+        <th>เกรดเฉลี่ย</th>
         <th>โรงเรียน</th>
       </tr></thead>
       <tbody >
-      <form class="form-inline" role="form" id="frmadd" action="<?php echo base_url() ?>table/create" method="POST">
+      <form class="form-inline" role="form" id="frmadd" action="<?php echo base_url() ?>table/createStudent" method="POST">
         <td><input type="number" class="form-control" name="nationalID" placeholder="เลขประจำตัวประชาชน"></td>
         <td><input type="text"   class="form-control" name="FName"      placeholder="ชื่อ"></td>
         <td><input type="text"   class="form-control" name="LName"      placeholder="นามสกุล"></td>
@@ -166,7 +168,7 @@ $(document).ready(function (){
                 e.preventDefault();
                 var editid = $(this).data('id');
                 $.colorbox({
-                  href:"<?php echo base_url()?>table/edit/"+editid,
+                  href:"<?php echo base_url()?>table/editStudent/"+editid,
                   top:50,
                   width:500,
                   onClosed:function() {fillgrid();}
@@ -176,6 +178,11 @@ $(document).ready(function (){
     }  
 });
 </script>
-
-</body>
-</html>
+</div>
+</div>
+<footer class="main-footer">
+  <div class="pull-right hidden-xs">
+    <b>Version</b> 1.0
+  </div>
+  <strong>Copyright &copy; 2014-2015 <a href="https://www4.sit.kmutt.ac.th">SIT's SRM</a>.</strong> All rights reserved.
+</footer>

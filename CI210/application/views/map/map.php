@@ -1,17 +1,44 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Place searches</title>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <meta charset="utf-8">
-    <style>
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
+ <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <h1>
+            Calendar
+            <small>Control panel</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Calendar</li>
+          </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+
+
+          <div class="row">
+            <div id="map"></div>
+            <script>
+
+var map;
+function initMap() {
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: -34.397, lng: 150.644},
+    zoom: 8
+  });
+}
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?callback=initMap"
+        async defer></script>
+    </div>
+  </section>
+</div>
+</div>
+
+<!--
+<style>
       #map {
-        height: 100%;
+        height: 80%;
       }
     </style>
     <script>
@@ -125,7 +152,8 @@ function createMarker(place) {
     </style>
   </head>
   <body>
-    <div id="map"></div>
+    -->
+    <!--
     <div id="results" class="panel">
       <h2>Results</h2>
       <ul id="places"></ul>
@@ -133,4 +161,5 @@ function createMarker(place) {
     </div>
     <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initMap" async defer></script>
   </body>
-</html>
+
+  -->

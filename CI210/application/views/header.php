@@ -16,61 +16,48 @@
     <link href="<?php echo site_url(); ?>plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
     <!-- Theme style -->
     <link href="<?php echo site_url(); ?>css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-        <link href="http://cdnjs.cloudflare.com/ajax/libs/jquery.colorbox/1.4.33/example1/colorbox.min.css" rel="stylesheet"/>
-        <script src="https://code.jquery.com/jquery-2.1.1.min.js"/>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-        <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.colorbox/1.4.33/jquery.colorbox-min.js"></script>
-        <style>#loader{display: none}</style>
   </head>
-    <body class="skin-black">
+  <body class="skin-black">
     <div class="wrapper">
       <!-- header logo: style can be found in header.less -->
       <header class="main-header">
-         <!-- Logo -->
+      <!-- Logo -->
         <img src="<?php echo site_url(); ?>img/SIT_logo.png" class="logo-image" />
         <!-- Sidebar toggle button-->
         <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">Toggle navigation</span>
         </a>
         <!-- Navbar Right Menu -->
-         <div class="navbar-custom-menu">
-            <ul class="nav navbar-nav">
-            <!-- User Account: style can be found in dropdown.less -->
-                <li class="dropdown user user-menu">
-                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="<?php echo site_url(); ?>img/User.png" class="user-image" alt="User Image"/>
-                             <span class="hidden-xs">SIT's SRM </span>
-                     </a>
-                <ul class="dropdown-menu">
-                                <!-- User image -->
-                    <li class="user-header">
-                       <img src="<?php echo site_url(); ?>img/User.png" class="img-circle" alt="User Image" />
-                        <p>
-                            <?php echo $name; ?>!
-                        </p>
-                    </li>
-                    <!-- Menu Footer-->
-                     <li class="user-footer">
-                        <div class="pull-left">
-                         <a href="#" class="btn btn-default btn-flat">Profile</a>
-                        </div>
-                       <div class="pull-right">
-                        <a href="logout" class="btn btn-default btn-flat">Sign out</a>
-                     </div>
-                   </li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-        </nav>
-      </header>
+        <div class="navbar-custom-menu">
+          <ul class="nav navbar-nav">
+          <!-- User Account: style can be found in dropdown.less -->
+            <li class="dropdown user user-menu">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <img src="<?php echo site_url(); ?>img/User.png" class="user-image" alt="User Image"/>
+                <span class="hidden-xs">SIT's SRM </span>
+              </a>
+              <ul class="dropdown-menu">
+              <!-- User image -->
+                <li class="user-header">
+                <img src="<?php echo site_url(); ?>img/User.png" class="img-circle" alt="User Image" />
+                <p><?php echo $name; ?>!</p>
+                </li>
+                <!-- Menu Footer-->
+                <li class="user-footer">
+                  <div class="pull-left">
+                    <a href="#" class="btn btn-default btn-flat">Profile</a>
+                  </div>
+                  <div class="pull-right">
+                    <a href="logout" class="btn btn-default btn-flat">Sign out</a>
+                  </div>
+                </li>
+              </ul>
+            </li>
+           </ul>
+        </div>
+      </nav>
+    </header>
+  
 
       
 

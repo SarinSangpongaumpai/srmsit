@@ -9,7 +9,7 @@ class Map extends CI_Controller {
 	}  
 	
 	public function index()
-	{	
+	{	/*
 		$config['center'] = '13.652383, 100.493872';
 		$config['zoom'] = 'auto';
 		$config['places'] = TRUE;
@@ -24,17 +24,12 @@ class Map extends CI_Controller {
 		$marker['flat'] = TRUE;
 		$this->googlemaps->add_marker($marker);
 		$data['map'] = $this->googlemaps->create_map();
+		*/
 
-		$this->load->view('map/map', $data);
+		$this->load->view('header');
+		$this->load->view('side');
+		$this->load->view('map/map');
+		$this->load->view('footer');
 	}
-
-	
- function logout()
- {
-   $this->session->unset_userdata('logged_in');
-   session_destroy();
-   redirect('home', 'refresh');
- }
-
 }
 ?>
