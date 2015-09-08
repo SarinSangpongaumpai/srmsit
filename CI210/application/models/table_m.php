@@ -2,7 +2,7 @@
 
 class Table_M extends CI_Model {
 
-  	public function fillgrid(){
+  	public function fillstudentTable(){
         $this->db->order_by("nationalID", "desc"); 
         $data = $this->db->get('student');
         foreach ($data->result() as $row){

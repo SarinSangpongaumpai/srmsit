@@ -9,20 +9,18 @@ class Table extends CI_Controller {
     }
 
     public function index()
-  {   
+    {   
   		$this->load->view('header');
   		$this->load->view('side');
-        $this->load->view('table/schoolTable');
-  }
-        
-        public function fillgrid(){
-            $this->table_m->fillgrid();
-        }
-
-
-        public function create(){
-            $this->form_validation->set_rules('nationalID', 'เลขประจำตัวประชาชน', 'trim|required|exact_length[13]|is_unique[student.nationalID]');
-		  $this->form_validation->set_rules('FName', 'ชื่อ', 'trim|required|min_length[1]|max_length[30]');
+        $this->load->view('table/studentTable');
+    }
+    // Fill table    
+    public function fillstudentTable(){
+        $this->table_m->fillstudentTable();
+    }
+    public function create(){
+        $this->form_validation->set_rules('nationalID', 'เลขประจำตัวประชาชน', 'trim|required|exact_length[13]|is_unique[student.nationalID]');
+		$this->form_validation->set_rules('FName', 'ชื่อ', 'trim|required|min_length[1]|max_length[30]');
 		  $this->form_validation->set_rules('LName', 'นามสกุล', 'trim|required|min_length[1]|max_length[30]');
 		  $this->form_validation->set_rules('gpa', 'เกรด', 'trim|required|');
 		  $this->form_validation->set_message('min_length', 'ต้องมีความยาวอย่างน้อย 1 ตัวอักษร');
@@ -40,10 +38,10 @@ class Table extends CI_Controller {
 				    'FName'       =>$this->input->post('FName'),
 				    'LName'       =>$this->input->post('LName'),
 				    'school_year' =>$this->input->post('school_year'),
-				    'program'     =>$this->input->post('program'),
+                    'program' =>$this->input->post('program'),
 				    'gender'      =>$this->input->post('gender'),   
 				    'gpa'         =>$this->input->post('gpa'),
-				    'Place'         =>$this->input->post('place')
+				    'study_In'         =>$this->input->post('place')
 				  );
 				  $this->db->insert('student  ',$data);
             }
@@ -60,30 +58,24 @@ class Table extends CI_Controller {
         public function update(){
                 $res['error']="";
                 $res['success']="";
+                $this->form_validation->set_rules('FName', 'ชื่อ', 'trim|required|min_length[1]|max_length[30]');
+                  $this->form_validation->set_rules('LName', 'นามสกุล', 'trim|required|min_length[1]|max_length[30]');
+                  $this->form_validation->set_rules('gpa', 'เกรด', 'trim|required|');
+                 if ($this->form_validation->run() == FALSE){
 
-                if ($this->form_validation->run() == FALSE){
-                	$data = array('FName'=>  $this->input->post('FName'),
-                'LName'=>$this->input->post('LName'),
-                'school_year'=>$this->input->post('school_year'),
-                'program,'=>$this->input->post('program'),
-                'gender'=>$this->input->post('gender'),
-                'gpa'=>$this->input->post('gpa'));
-                $this->db->where('nationalID', $this->input->post('nationalID'));
-                $this->db->update('student', $data);
-                $res['success']='<div class="alert alert-success">One record inserted Successfully</div>';    
-                //$data['success'] = '<div class="alert alert-success">One record inserted Successfully</div>';
+                $res['error']='<div class="alert alert-danger">'.validation_errors().'</div>';
           
                 }           
             else{
                 $data = array('FName'=>  $this->input->post('FName'),
                 'LName'=>$this->input->post('LName'),
-                'program,'=>$this->input->post('program'),
                 'school_year'=>$this->input->post('school_year'),
                 'gender'=>$this->input->post('gender'),
+                'program' =>$this->input->post('program'),
                 'gpa'=>$this->input->post('gpa'));
                 $this->db->where('nationalID', $this->input->post('nationalID'));
                 $this->db->update('student', $data);
-                $data['success'] = '<div class="alert alert-success">One record inserted Successfully</div>';
+                $res['success']='<div class="alert alert-success">One record inserted Successfully</div>';   
             }
             header('Content-Type: application/json');
             echo json_encode($res);
