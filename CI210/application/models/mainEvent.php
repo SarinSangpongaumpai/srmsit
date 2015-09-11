@@ -112,6 +112,36 @@ Class MainEvent extends CI_Model
      return false;
    }
  }
-    
+  function firstDate()
+ {
+   $this -> db -> select("min(start) as min");
+   $this -> db -> from('activity');
+   $this -> db -> limit(1);
+   $query = $this -> db -> get();
+   if($query -> num_rows() >= 1)
+   {
+     return $query->result();
+   }
+   else
+   {
+     return false;
+   }
+ }
+   function lastDate()
+ {
+   $this -> db -> select("max(start) as max");
+   $this -> db -> from('activity');
+   $this -> db -> limit(1);
+   $query = $this -> db -> get();
+   if($query -> num_rows() >= 1)
+   {
+     return $query->result();
+   }
+   else
+   {
+     return false;
+   }
+ } 
+
 }
 ?>

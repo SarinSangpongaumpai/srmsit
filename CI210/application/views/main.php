@@ -29,18 +29,74 @@
                           $currentCost           = $current->cost;
                           $currentSchoolName     = $current->name;
                   }
+                  foreach($max as $max)
+                  {
+                          $max           = $max->max;
+                  }
+                  foreach($min as $min)
+                  {
+                          $min           = $min->min;
+                  }
             ?>
-            <a href="previous?date=<?php echo $currentDate?>"
-              style="position:relative;display: inline-block;width:30% " >
-              <img  style="width:30%;"src="../img/button/leftArrow.png" >
+            <script>
+            </script>
+            <?php if(isset($min)){
+                if(!strcmp($min,$currentDate)){
+              ?>
+              <a 
+              style="position:relative;display: inline-block;width:30%;" >
+              <img  style="width:30%;"src="../img/button/rightArrow.png" >
             </a>
+            <?php
+                }
+                else{
+                    ?>
+                    <a href="previous?date=<?php echo $currentDate?>"
+                    style="position:relative;display: inline-block;width:30%; " >
+                    <img  style="width:30%;"src="../img/button/leftArrow.png" >
+                   </a>
+                   <?php
+                }
+            }
+            else{
+            ?>
+              <a href="previous?date=<?php echo $currentDate?>"
+              style="position:relative;display: inline-block;width:30%; " >
+              <img  style="width:30%;"src="../img/button/rightArrow.png" >
+             </a>
+            <?php
+            }
+            ?>
             <div style="position:relative;display: inline-block;width:36% ">
               <img  style="width:100%;"src='../img/schoolLogo/<?php echo trim($currentSchool) ?>.png' >
             </div>
-            <a href="next?date=<?php echo $currentDate?>"
-              style="position:relative;display: inline-block;width:30% ;left:25%" >
-              <img  style="width:30%;"src="../img/button/rightArrow.png" >
+            <?php if(isset($max)){
+                if(!strcmp($max,$currentDate)){
+              ?>
+              <a 
+              style="position:relative;display: inline-block;width:30%;left:25% " >
+              <img  style="width:30%;"src="../img/button/leftArrow.png" >
             </a>
+            <?php
+                }
+                else{
+                    ?>
+                    <a href="next?date=<?php echo $currentDate?>"
+                    style="position:relative;display: inline-block;width:30%;left:25% " >
+                    <img  style="width:30%;"src="../img/button/rightArrow.png" >
+                   </a>
+                   <?php
+                }
+            }
+            else{
+            ?>
+              <a href="next?date=<?php echo $currentDate?>"
+              style="position:relative;display: inline-block;width:30%;left:25% " >
+              <img  style="width:30%;"src="../img/button/rightArrow.png" >
+             </a>
+            <?php
+            }
+            ?>
             <ul class="products-list product-list-in-box">        
               <div style="text-align:center;">
                 <a href="javascript::;" class="product-title"><?php echo $currentSchoolName ?>
@@ -162,7 +218,7 @@
       </div>
       <div class="modal-body">
         <div class="table-responsive">
-              <table id="example1" class="table table-bordered table-striped">
+              <table id="example1" class="table table-bordered table-striped" >
                 <thead >
                   <tr>
                     <th>No</th>
@@ -194,10 +250,6 @@
                 </tfoot>
               </table>
             </div><!-- /.table-responsive -->
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>

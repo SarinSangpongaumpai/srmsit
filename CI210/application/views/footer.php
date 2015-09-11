@@ -13,27 +13,13 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script>
     <!-- DATA TABES SCRIPT -->
-    <script src="<?php echo site_url(); ?>plugins/datatables/jquery.dataTables.js" type="text/javascript"></script>
-    <script src="<?php echo site_url(); ?>plugins/datatables/dataTables.bootstrap.js" type="text/javascript"></script>
     <script src="<?php echo site_url(); ?>plugins/slimScroll/jquery.slimscroll.min.js" type="text/javascript"></script>
     <!-- AdminLTE App -->
     <script src="<?php echo site_url(); ?>js/app.js" type="text/javascript"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="<?php echo site_url(); ?>js/demo.js" type="text/javascript"></script>
     <!-- page script -->
-    <script type="text/javascript">
-      $(function () {
-        $("#example1").dataTable();
-        $('#example2').dataTable({
-          "bPaginate": true,
-          "bLengthChange": false,
-          "bFilter": false,
-          "bSort": true,
-          "bInfo": true,
-          "bAutoWidth": false
-        });
-      });
-    </script>
+   
     <style>
       #chartdiv2 .loading-data {
       width: 100%;

@@ -6,20 +6,44 @@ class Main extends CI_Controller {
 		parent::__construct();
 		$this->load->model('mainEvent','',TRUE);
 	}  
-   public function index()
+  public function logout()
   {
-    $this->load->view("header");
-    $this->load->view("side");
-    $data = $this->event();
-    $this->load->view("main",$data);
-    $this->load->view("footer");
+    $this->session->unset_userdata('logged_in');
+    session_destroy();
+    redirect('login', 'refresh');
+  }
+   public function current()
+  {
+    if($this->session->userdata('logged_in'))
+    {
+      $session_data = $this->session->userdata('logged_in');
+      $data['name'] = $session_data['name'];
+      $this->load->view("header",$data);
+      $data = $this->event();
+
+      $this->load->view("main",$data);
+      $this->load->view("footer");
+    }
+      else
+    {
+      redirect('login', 'refresh');
+    }
   }
   public function event(){
     $result = $this->mainEvent->getEvent();
     if($result){
       $data['Event'] =  $result;
       $data = $this->changeEvent($data);
-         
+      $result = $this->mainEvent->lastDate();  
+      if($result){
+         $data['max'] =  $result;
+      }
+      $result = $this->mainEvent->firstDate();
+      if($result){
+         $data['min'] =  $result;
+      }
+
+
       $result = $this->mainEvent->getCalendar();
       if($result){
         $data['Calendar'] = $result;
@@ -28,8 +52,17 @@ class Main extends CI_Controller {
     }
     else{
       $result = $this->mainEvent->getLastEvent();
-      //$data['Event'] =  $result;
       $data['Current'] =  $result;
+      //$data['Event'] =  $result;
+       $result = $this->mainEvent->lastDate();  
+      if($result){
+         $data['max'] =  $result;
+      }
+      $result = $this->mainEvent->firstDate();
+      if($result){
+         $data['min'] =  $result;
+      }
+      
       $result = $this->mainEvent->getCalendar();
       if($result){
         $data['Calendar'] = $result;
@@ -59,7 +92,6 @@ class Main extends CI_Controller {
       $date = $_GET['date'];
 
       $this->load->view("header");
-      $this->load->view("side");
       $data = $this->event();
       $result = $this->mainEvent->previous($date);
       if($result){
@@ -70,11 +102,19 @@ class Main extends CI_Controller {
       if($result){
          $data['Calendar'] =  $result;
       }
+      $result = $this->mainEvent->lastDate();
+      if($result){
+         $data['max'] =  $result;
+      }
+      $result = $this->mainEvent->firstDate();
+      if($result){
+         $data['min'] =  $result;
+      }
       $this->load->view("main",$data);
       $this->load->view("footer");
     } 
     else {  
-      $this->index;
+      $this->current;
     }
   }
    public function next(){
@@ -82,7 +122,6 @@ class Main extends CI_Controller {
       $date = $_GET['date'];
 
       $this->load->view("header");
-      $this->load->view("side");
       $data = $this->event();
       $result = $this->mainEvent->next($date);
       if($result){
@@ -92,11 +131,19 @@ class Main extends CI_Controller {
       if($result){
          $data['Calendar'] =  $result;
       }
+      $result = $this->mainEvent->lastDate();
+      if($result){
+         $data['max'] =  $result;
+      }
+      $result = $this->mainEvent->firstDate();
+      if($result){
+         $data['min'] =  $result;
+      }
       $this->load->view("main",$data);
       $this->load->view("footer");
     } 
     else {  
-      $this->index;
+      $this->current;
     }
   }
 

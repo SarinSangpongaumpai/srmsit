@@ -12,7 +12,6 @@ class Calendar extends CI_Controller {
 	{
 		
 		$this->load->view("header");
-		$this->load->view("side");
 		$this->load->view("calendar/calendar");
 		$this->data();
 	}	

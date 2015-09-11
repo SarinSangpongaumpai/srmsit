@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,17 +5,16 @@
     <title>Responsive login with social buttons - Bootsnipp.com</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-  <style type="text/css">
-      body {
-        background: #2d2d2d;
-        background: 
-        url("img/bg.jpg") no-repeat center fixed   
+    <style type="text/css">
+        body {
+          background: #2d2d2d;
+          background: 
+          url("img/bg.jpg") no-repeat center fixed   
       }   
         p {text-align:center ;color:red;} 
-  </style>
-  <script src="js/jquery-1.10.2.min.js"></script>
-  <script src="js/bootstrap/bootstrap.min.js"></script>
-  
+    </style>
+    <script src="js/jquery-1.10.2.min.js"></script>
+    <script src="js/bootstrap/bootstrap.min.js"></script>
 </head>
 <body >
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
@@ -52,7 +50,7 @@
     </div>
     <div class="row omb_row-sm-offset-3" >
         <p class="omb_forgotPwd" style="text-align:center;  text-decoration: underline;">
-          <a href="login/forgetPassword">Forgot password?</a>
+          <a data-toggle="modal" data-target="#myModal">Forget password?</a>
         </p>   
    </div>
   </div>
@@ -83,3 +81,42 @@
       });
     </script>
 
+ <!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Forget password</h4>
+      </div>
+      <div class="modal-body">
+        <?php echo form_open('login/sendMail'); ?>
+        <div class="body bg-gray">
+          <div class="form-group">
+            <div class="input-group">
+              <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+              <input type="email"  id="forgetEmail" name="forgetEmail" class="form-control" placeholder="Email"/>
+            </div>
+          </div>
+        </div>
+        <div class="footer">
+          <button type="submit" id = "submit2" value="Submit" class="btn btn-lg btn-primary btn-block">Send Email</button>
+          <style>
+            p {text-align:center ;color:red;}
+          </style>
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+      $('#submit2').bind("click",function() 
+      { 
+      if(!$('#forgetEmail').val())
+                  {
+                      alert("Please input email");
+                      return false;
+                  }
+      });
+    </script>

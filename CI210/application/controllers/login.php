@@ -43,31 +43,25 @@ class Login extends CI_Controller {
 
   function verifylogin()
  {
-   //This method will have the credentials validation
    $this->load->library('form_validation');
  
    $this->form_validation->set_rules('password', 'Password', 'trim|required|xss_clean|callback_check_database');
  
    if($this->form_validation->run() == FALSE)
    {
-     //Field validation failed.  User redirected to login page
      print "<script type=\"text/javascript\">alert('Invalid Username or Password');</script>";
      redirect('login', 'refresh');
    }
    else
    {
-     //Go to private area
-     redirect('chart/index', 'refresh');
+     redirect('main/current', 'refresh');
    }
  
  }
  
  function check_database($password)
  {
-   //Field validation succeeded.  Validate against database
    $username = $this->input->post('username');
- 
-   //query the database
    $result = $this->user->login($username, $password);
  
    if($result)
@@ -90,22 +84,20 @@ class Login extends CI_Controller {
      return false;
    }
  }
-  function forgetPassword()
- {
-   $this->load->helper(array('form'));
-   $this->load->view('login/forgetPassword_view');
- }
  function sendMail(){
+  $emailUser = $this->input->post('forgetEmail');
  	$this->load->library('email');
 
-	$this->email->from('sarin.s19@gmail.com', 'Sarin');
-	$this->email->to('test@gmail.com'); 
+	$this->email->from('noreply@hotmail.com', 'System');
+	$this->email->to($emailUser); 
 
-	$this->email->subject('Email Test');
+	$this->email->subject('Forget password');
 	$this->email->message('Testing the email class.');	
 
 	$this->email->send();
-	echo $this->email->print_debugger();
+	//echo $this->email->print_debugger();
+  print "<script type=\"text/javascript\">alert('Send maill Successfully');</script>";
+  redirect('login', 'refresh');
  }
 }
 
