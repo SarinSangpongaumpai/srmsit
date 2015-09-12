@@ -2,8 +2,26 @@
 Class Summary extends CI_Model
 {
  
-    
- function get_pieChart($place)
+
+  function get_schoolSuccessChart($place)
+ {
+   $this -> db -> select("COUNT(Distinct(participant.nationalID)) as student , register.type");
+   $this -> db -> from('participant ');
+   $this -> db -> where('activity.place',$place);
+   $this->db->join('activity', 'participant.ac_id = activity.id', 'inner');
+   $this->db->join('register', 'participant.nationalID = register.nationalID', 'inner');
+   $this->db->group_by("register.type"); 
+   $query = $this -> db -> get();
+   if($query -> num_rows() >= 1)
+   {
+     return $query->result();
+   }
+   else
+   {
+     return false;
+   }
+ }  
+ function get_schoolpieChart($place)
  {
    $this -> db -> select("activity.type , count(participant.no_student) As student");
    $this -> db -> from('activity ');
@@ -35,7 +53,7 @@ Class Summary extends CI_Model
      return false;
    }
  }
-  function get_columnChart($place)
+  function get_schoolcolumnChart($place)
  {
    $this -> db -> select("activity.type , count(participant.no_student) As student");
    $this -> db -> from('activity ');

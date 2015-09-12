@@ -43,7 +43,7 @@
               ?>
               <a 
               style="position:relative;display: inline-block;width:30%;" >
-              <img  style="width:30%;"src="../img/button/rightArrow.png" >
+              <img  style="width:30%;"src="../img/button/leftArrow.png" >
             </a>
             <?php
                 }
@@ -51,7 +51,7 @@
                     ?>
                     <a href="previous?date=<?php echo $currentDate?>"
                     style="position:relative;display: inline-block;width:30%; " >
-                    <img  style="width:30%;"src="../img/button/leftArrow.png" >
+                    <img  style="width:30%;"src="../img/button/leftArrowAct.png" >
                    </a>
                    <?php
                 }
@@ -60,7 +60,7 @@
             ?>
               <a href="previous?date=<?php echo $currentDate?>"
               style="position:relative;display: inline-block;width:30%; " >
-              <img  style="width:30%;"src="../img/button/rightArrow.png" >
+              <img  style="width:30%;"src="../img/button/rightArrowAct.png" >
              </a>
             <?php
             }
@@ -73,7 +73,7 @@
               ?>
               <a 
               style="position:relative;display: inline-block;width:30%;left:25% " >
-              <img  style="width:30%;"src="../img/button/leftArrow.png" >
+              <img  style="width:30%;"src="../img/button/rightArrow.png" >
             </a>
             <?php
                 }
@@ -81,7 +81,7 @@
                     ?>
                     <a href="next?date=<?php echo $currentDate?>"
                     style="position:relative;display: inline-block;width:30%;left:25% " >
-                    <img  style="width:30%;"src="../img/button/rightArrow.png" >
+                    <img  style="width:30%;"src="../img/button/rightArrowAct.png" >
                    </a>
                    <?php
                 }

@@ -11,16 +11,7 @@ class SummaryReport extends CI_Controller {
 	public function school()
 	{
 
-    $this->load->library('googlemaps');
 
-$config['center'] = '37.4419, -122.1419';
-$config['zoom'] = 'auto';
-$this->googlemaps->initialize($config);
-
-$marker = array();
-$marker['position'] = '37.429, -122.1419';
-$this->googlemaps->add_marker($marker);
-$data['map'] = $this->googlemaps->create_map();
 
 
     
@@ -37,7 +28,7 @@ $data['map'] = $this->googlemaps->create_map();
        $data['Event'] = $this->summary->get_Event($place);
        $this->load->view("summary/graph",$data);
 
-			 
+			 $this->schoolsuccessChart();
 			 $this->load->view("footer");
       }
       else{
@@ -66,18 +57,19 @@ $data['map'] = $this->googlemaps->create_map();
        }
   }
   
-	public function pieChart()
+	public function schoolpieChart()
 	{
     $place = $_GET['Place'];
-		print $json = json_encode($this->summary->get_pieChart($place));
+		print $json = json_encode($this->summary->get_schoolpieChart($place));
 	}
-  public function columnChart()
+  public function schoolcolumnChart()
   {
     $place = $_GET['Place'];
-    print $json = json_encode($this->summary->get_columnChart($place));
+    print $json = json_encode($this->summary->get_schoolcolumnChart($place));
   }
-  public function table(){
-    //$data['gender'] = $this->summary->get_genderTable());
+  public function schoolsuccessChart(){
+    $place = $_GET['Place'];
+    print $json = json_encode($this->summary->get_schoolSuccessChart($place));
   }
 }
 

@@ -53,7 +53,6 @@ class Main extends CI_Controller {
     else{
       $result = $this->mainEvent->getLastEvent();
       $data['Current'] =  $result;
-      //$data['Event'] =  $result;
        $result = $this->mainEvent->lastDate();  
       if($result){
          $data['max'] =  $result;
