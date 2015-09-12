@@ -19,6 +19,7 @@
     <link href="<?php echo site_url(); ?>plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
     <!-- Theme style -->
     <link href="<?php echo site_url(); ?>css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+    
   </head>
   <body class="skin-black">
     <div class="wrapper">

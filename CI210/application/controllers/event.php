@@ -11,7 +11,7 @@ class Event extends CI_Controller {
 	{
 		
 		$this->load->view("header");
-		$this->load->view("side");
+		//$this->load->view("side");
 		$this->load->view("event/event");
 		
 

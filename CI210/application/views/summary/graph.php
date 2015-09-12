@@ -58,17 +58,18 @@
          $event = $_GET['Event'];
   }
 ?>
+
  <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-            User Profile
+            School Report
           </h1>
           <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a href="#">Examples</a></li>
-            <li class="active">User profile</li>
+            <li><a href="<?php echo base_url()?>main/current"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="<?php echo base_url()?>summaryReport/index">summaryReport</a></li>
+            <li class="active">school</li>
           </ol>
         </section>
 
@@ -82,8 +83,8 @@
               <div class="box box-primary">
                 <div class="box-body box-profile">
                   <img class="profile-user-img img-responsive "
-                  src="../img/schoolLogo/ACBK.png" alt="User profile picture">
-                  <h3 class="profile-username text-center"><?php echo $name ?></h3>
+                  src="<?php echo base_url()?>img/schoolLogo/<?php echo $place?>.jpg" alt="User profile picture">
+                  <br><h5 style=" font-weight: bold;"class="profile-username text-center"><?php echo $name ?></h5>
                   <br>
                   <ul class="list-group list-group-unbordered">
                     <li class="list-group-item">
@@ -93,7 +94,7 @@
                       <b>Participants</b> <a class="pull-right"><?php echo $total ?> peoples</a>
                     </li>
                   </ul>
-                  <a data-toggle="modal" data-target="#myModal" class="btn btn-primary btn-block"><b>Follow</b></a>
+                  <a href="#mapmodals" data-toggle="modal" class="btn btn-primary btn-block"><b>ViewMap</b></a>
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
 
@@ -148,9 +149,9 @@
               <div class="nav-tabs-custom">
                 <!-- Tabs within a box -->
                 <ul class="nav nav-tabs pull-right">
-                  <li class="active"><a href="<?php echo site_url(); ?>summaryReport/index?Place=<?php echo $place ?>#pieChart" data-toggle="tab">PieChart</a></li>
-                  <li><a href="<?php echo site_url(); ?>summaryReport/index?Place=<?php echo $place ?>#columnChart" data-toggle="tab">ColumnChart</a></li>
-                  <li class="pull-left header"><i class="fa fa-inbox"></i> Sales</li>
+                  <li class="active"><a href="<?php echo site_url(); ?>summaryReport/school?Place=<?php echo $place ?>#pieChart" data-toggle="tab">PieChart</a></li>
+                  <li><a href="<?php echo site_url(); ?>summaryReport/school?Place=<?php echo $place ?>#columnChart" data-toggle="tab">ColumnChart</a></li>
+                  <li class="pull-left header"><i class="fa fa-inbox"></i> Number of participants</li>
                 </ul>
                 <div class="tab-content no-padding">
                   <!-- Morris chart - Sales -->
@@ -174,7 +175,7 @@
                         <?php if(isset($_GET['Event'])){ ?>
                           <?php if($number == 1){ ?>
                             <li><a href="<?php echo 
-                          base_url() ?>summaryReport/index?Place=<?php echo $place ?>" data-toggle="tab">Total Event</a></li>
+                          base_url() ?>summaryReport/school?Place=<?php echo $place ?>" data-toggle="tab">Total Event</a></li>
                           <?php  $number = $number+1; }?>
                           <?php if (strcmp($_GET['Event'], $event->type) == 0) { ?>
                             <li class="active"><a  
@@ -191,7 +192,7 @@
                       } ?>
                       <?php if(!isset($_GET['Event'])){ ?>
                         <li class="active"><a href="<?php echo 
-                          base_url() ?>summaryReport/index?Place=<?php echo $place ?>" data-toggle="tab">Total Event</a></li>
+                          base_url() ?>summaryReport/school?Place=<?php echo $place ?>" data-toggle="tab">Total Event</a></li>
                       <?php 
                         foreach($Event as $event){
                       ?>    
@@ -213,8 +214,8 @@
                           <th >เพศ</th>
                           <th style="text-align:right;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            &nbsp;จำนวน(คน)</th>
-                          <th style="text-align:center;">%</th>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;จำนวน(คน)</th>
+                          <th style="text-align:left;">%</th>
                         </tr>
                       </thead>
                       <?php if(isset($Gender)){
@@ -224,7 +225,8 @@
                         <tr>
                           <td><?= $gender->gender;?></td>
                           <td style="text-align:right;"><?= $gender->number;?></td>
-                          <td style="text-align:center;"><?= $gender->number/ $total*100 ?></td>
+                          <td class="progress-bar progress-bar-blue" style="width:<?= $gender->number/ $total*100 ?>%;margin-top:5px"></td>
+                          <td style="text-align:left;"><?= $gender->number/ $total*100 ?></td>
                         </tr>  
                       </tbody>
                       <?php }
@@ -244,8 +246,8 @@
                       <thead>
                         <tr>
                           <th >สายวิชา</th>
-                          <th style="text-align:right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;จำนวน(คน)</th>
-                          <th style="text-align:center;">%</th>
+                          <th style="text-align:right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;จำนวน(คน)</th>
+                          <th style="text-align:left;">%</th>
                         </tr>
                       </thead>
                       <?php if(isset($Program)){
@@ -255,7 +257,8 @@
                         <tr>
                           <td ><?= $program->program;?></td>
                           <td style="text-align:right"><?= $program->number;?></td>
-                          <td style="text-align:center;"><?= $program->number/ $total*100 ?></td>
+                          <td class="progress-bar progress-bar-blue" style="width:<?= $program->number/ $total*100 ?>%;margin-top:5px"></td>
+                          <td style="text-align:left;"><?= $program->number/ $total*100 ?></td>
                         </tr>  
                       </tbody>
                       <?php }
@@ -276,7 +279,7 @@
                         <tr>
                           <th >ชั้นปี</th>
                           <th style="text-align:right">จำนวน(คน)</th>
-                          <th style="text-align:center;">%</th>
+                          <th style="text-align:left;">%</th>
                         </tr>
                       </thead>
                       <?php if(isset($schoolYear)){
@@ -286,7 +289,8 @@
                         <tr>
                           <td ><?= $schoolYear->schoolYear;?></td>
                           <td style="text-align:right"><?= $schoolYear->number;?></td>
-                          <td style="text-align:center;"><?= $schoolYear->number/ $total*100 ?></td>
+                          <td class="progress-bar progress-bar-blue" style="width:<?= $schoolYear->number/ $total*100 ?>%;margin-top:5px"></td>
+                          <td style="text-align:left;"><?= $schoolYear->number/ $total*100 ?></td>
                         </tr>  
                       </tbody>
                       <?php }
@@ -433,7 +437,7 @@
            "theme": "light",
           "addClassNames": true,
           "legend":{
-            "title":"(Student)",
+            "title":"(Participants)",
             "position":"bottom",
             "autoMargins":true
           },
@@ -597,56 +601,105 @@
 </style>
 
 
-<script>
-function initMap() {
-  var myLatLng = {lat: <?php echo $latitude?>, lng: <?php echo $longitude?>};
-
-  // Create a map object and specify the DOM element for display.
-  var map = new google.maps.Map(document.getElementById('map'), {
-    center: myLatLng,
-    zoom: 10
-  });
-
-  // Create a marker and set its position.
-  var marker = new google.maps.Marker({
-    map: map,
-    position: myLatLng,
-  });
-}
-</script>
 <style>
-      #modal-body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
+  #map-container { height: 450px }
+  .myInfobox {
+          border: solid 1px black;
+          background-color:rgba(255, 255, 255, 0.5);
+          width: 280px;
+          color: #000;
+          font-family: Arial;
+          font-size: 14px;
+          padding: .5em 1em;
+          border-radius: 10px;
+          margin-left: -30px;
+          margin-top: -6px
       }
-      #map {
-        height: 100%;
-      }
-    </style>
-<script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initMap" async defer></script>
+</style>
 
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Event</h4>
-      </div>
-      <div class="modal-body">
-        <div id="map" style="height: 380px; width: 580px;">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
+  <div class="modal fade" id="mapmodals">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div id="map-container"></div>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+</div><!-- /container -->
+ 
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
+<script>
+      var var_map;
+        var var_location = new google.maps.LatLng(
+          <?php echo $latitude?>,<?php echo $longitude?>);
+  
+     function map_init() {      
+      
+            var var_mapoptions = {
+              center: var_location,
+              zoom: 18,
+              mapTypeId: google.maps.MapTypeId.ROADMAP,
+              mapTypeControl: false,
+              panControl:false,
+              rotateControl:false,
+              streetViewControl: false,
+            };
+      
+        var_map = new google.maps.Map(document.getElementById("map-container"),
+            var_mapoptions);
+  
+      //var mappin = "Pin-icon.png"
+      var var_marker = new google.maps.Marker({
+        map: var_map,
+        draggable: false,
+        //icon: mappin,
+        position: var_location,
+        title: "Click on this Pin to re-open Infobox",
+        maxWidth: 200,
+        maxHeight: 200,
+        visible: true
+      });
+       
+      var var_infobox_props = {
+         content: "<strong><?php echo $name ?></strong>"
+        ,disableAutoPan: false
+        ,maxWidth: 0
+        ,pixelOffset: new google.maps.Size(-10, 0)
+        ,zIndex: null
+        ,boxClass: "myInfobox"
+        ,closeBoxMargin: "2px"
+        //,closeBoxURL: "close_sm.png"
+        ,infoBoxClearance: new google.maps.Size(1, 1)
+        ,visible: true
+        ,pane: "floatPane"
+        ,enableEventPropagation: false
+      };
+ 
+          google.maps.event.addListener(var_marker, 'click', function(e) {
+           var_infobox.open(var_map, this);
+          });
+      
+      var var_infobox = new InfoBox(var_infobox_props);
+  
+        //var_infobox.open(var_map, var_marker);
+      
+      }
+      
+        google.maps.event.addDomListener(window, 'load', map_init);
+      
+      //start of modal google map
+      $('#mapmodals').on('shown.bs.modal', function () {
+          google.maps.event.trigger(var_map, "resize");
+          var_map.setCenter(var_location);
+      });
+</script>
 
 
 

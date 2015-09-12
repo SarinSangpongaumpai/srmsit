@@ -1,39 +1,113 @@
- <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-          <h1>
-            Calendar
-            <small>Control panel</small>
-          </h1>
-          <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Calendar</li>
-          </ol>
-        </section>
 
-        <!-- Main content -->
-        <section class="content">
+<style>
+  #map-container { height: 400px }
+.myInfobox {
+        border: solid 1px black;
+        background-color:rgba(255, 255, 255, 0.5);
+        width: 280px;
+        color: #000;
+        font-family: Arial;
+        font-size: 14px;
+        padding: .5em 1em;
+        border-radius: 10px;
+        margin-left: -30px;
+        margin-top: -6px
+    }
+</style>
 
-
-          <div class="row">
-            <div id="map"></div>
-            <script>
-
-var map;
-function initMap() {
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: -34.397, lng: 150.644},
-    zoom: 8
-  });
-}
-
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?callback=initMap"
-        async defer></script>
+<div class="container">
+<div class="row">
+<a href="#mapmodals" data-toggle="modal" role="button"><img src="04_maps.png" width="64" height="64" alt="map Venice" title="click to open Map"></a></p>  
     </div>
-  </section>
-</div>
-</div>
+  </div> <!-- /column 2 -->
+</div> <!-- /row -->
+ 
+<!-- Modal -->
+  <div class="modal fade" id="mapmodals">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Peggy Guggenheim Collection - Venice</h4>
+        </div>
+        <div class="modal-body">
+          <div id="map-container"></div>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+</div><!-- /container -->
+ 
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
+<script>
+      var var_map;
+        var var_location = new google.maps.LatLng(13.652383100000000,100.493871900000000);
+  
+     function map_init() {      
+      
+            var var_mapoptions = {
+              center: var_location,
+              zoom: 18,
+              mapTypeId: google.maps.MapTypeId.ROADMAP,
+              mapTypeControl: false,
+              panControl:false,
+              rotateControl:false,
+              streetViewControl: false,
+            };
+      
+        var_map = new google.maps.Map(document.getElementById("map-container"),
+            var_mapoptions);
+  
+      //var mappin = "Pin-icon.png"
+      var var_marker = new google.maps.Marker({
+        map: var_map,
+        draggable: false,
+        //icon: mappin,
+        position: var_location,
+        title: "Click on this Pin to re-open Infobox",
+        maxWidth: 200,
+        maxHeight: 200,
+        visible: true
+      });
+       
+      var var_infobox_props = {
+         content: "<strong>Peggy Guggenheim Collection</strong><br><br>Dorsoduro, 701-704<br>30123<br>Venezia<br>P: (+39) 041 240 5411<br><br><a href='http://www.guggenheim.org/venice' target='_blank' style='color:darkblue'>Plan your visit</a>"
+        ,disableAutoPan: false
+        ,maxWidth: 0
+        ,pixelOffset: new google.maps.Size(-10, 0)
+        ,zIndex: null
+        ,boxClass: "myInfobox"
+        ,closeBoxMargin: "2px"
+        //,closeBoxURL: "close_sm.png"
+        ,infoBoxClearance: new google.maps.Size(1, 1)
+        ,visible: true
+        ,pane: "floatPane"
+        ,enableEventPropagation: false
+      };
+ 
+          google.maps.event.addListener(var_marker, 'click', function(e) {
+           var_infobox.open(var_map, this);
+          });
+      
+      var var_infobox = new InfoBox(var_infobox_props);
+  
+        //var_infobox.open(var_map, var_marker);
+      
+      }
+      
+        google.maps.event.addDomListener(window, 'load', map_init);
+      
+      //start of modal google map
+      $('#mapmodals').on('shown.bs.modal', function () {
+          google.maps.event.trigger(var_map, "resize");
+          var_map.setCenter(var_location);
+      });
+</script>
 
 <!--
 <style>

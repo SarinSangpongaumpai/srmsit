@@ -5,14 +5,28 @@ class SummaryReport extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('summary','',TRUE);
+
 	}  
 	
-	public function index()
+	public function school()
 	{
+
+    $this->load->library('googlemaps');
+
+$config['center'] = '37.4419, -122.1419';
+$config['zoom'] = 'auto';
+$this->googlemaps->initialize($config);
+
+$marker = array();
+$marker['position'] = '37.429, -122.1419';
+$this->googlemaps->add_marker($marker);
+$data['map'] = $this->googlemaps->create_map();
+
+
+    
       if ( isset($_GET['Place']) ) {
        $place = $_GET['Place'];
    		 $this->load->view("header");
-       $this->load->view("side");
    		 $data['Gender'] = $this->summary->get_genderTable(null,$place);
        $data['total'] = $this->summary->get_totalTable(null,$place);
        $data['distinctEvent'] = $this->summary->get_distinctEvent($place);
@@ -36,7 +50,6 @@ class SummaryReport extends CI_Controller {
          $event = $_GET['Event'];
          $place = $_GET['Place'];
          $this->load->view("header");
-         $this->load->view("side");
          $data['Gender'] = $this->summary->get_genderTable($event,$place);
          $data['total'] = $this->summary->get_totalTable($event,$place);
          $data['distinctEvent'] = $this->summary->get_distinctEvent($place);

@@ -2,9 +2,7 @@
   <section class="content-header">
     <h1>Main</h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Tables</a></li>
-        <li class="active">Data tables</li>
+        <li><a href="<?php echo base_url()?>main/current"><i class="fa fa-home"></i> Home</a></li>
       </ol>
   </section>
   <section class="content">
@@ -12,7 +10,7 @@
       <div class="col-md-7">   
         <div class="box box-primary">
           <div class="box-header with-border">
-            <h3 class="box-title">Event Details</h3>
+            <h3 class="box-title"><p>Event Details<p></h3>
             <div class="box-tools pull-right">
               <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
               <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
@@ -103,7 +101,7 @@
                   </ul>
               </div><!-- /.box-body -->
               <div class="box-footer text-center">
-                <div class="uppercase">View More Details</div>
+                <a href="<?php echo base_url()?>summaryReport/school?Place=<?php echo $currentSchool ?>" class="product-title">View more details</a>
               </div><!-- /.box-footer -->
           </div><!-- /.box -->
         </div><!-- /.col -->

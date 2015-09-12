@@ -13,7 +13,7 @@ class Upload extends CI_Controller {
 	{
 		
 		$this->load->view("header");
-		$this->load->view("side");
+		//$this->load->view("side");
 	    $this->load->view("upload/upload");
 
 	}
@@ -31,7 +31,7 @@ class Upload extends CI_Controller {
 			$name="temp";
 			rename($data['full_path'],$data['file_path'].$name.$data['file_ext']);
 			$this->load->view("header");
-			$this->load->view("side");
+			//$this->load->view("side");
 			$this->load->view('upload/upload2');
 
 		}
