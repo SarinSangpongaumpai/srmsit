@@ -1,13 +1,37 @@
 <?php
 Class Summary extends CI_Model
 {
- 
-
+  function get_schoolTotalRegisterChart($place)
+ {
+   $this -> db -> select("COUNT(Distinct(register.nationalID)) as student , register.type");
+   $this -> db -> from('register');
+   if(!strcmp($place,"KMUTT")){
+    //$this -> db -> where ('register.study_In');
+   }
+   else{
+    $this -> db -> where('register.study_In',$place);
+   }
+   $this->db->group_by("register.type"); 
+   $query = $this -> db -> get();
+   if($query -> num_rows() >= 1)
+   {
+     return $query->result();
+   }
+   else
+   {
+     return false;
+   }
+ }  
   function get_schoolSuccessChart($place)
  {
    $this -> db -> select("COUNT(Distinct(participant.nationalID)) as student , register.type");
    $this -> db -> from('participant ');
-   $this -> db -> where('activity.place',$place);
+   if(!strcmp($place,"KMUTT")){
+    //$this -> db -> where ('register.study_In');
+   }
+   else{
+    $this -> db -> where('register.study_In',$place);
+   }
    $this->db->join('activity', 'participant.ac_id = activity.id', 'inner');
    $this->db->join('register', 'participant.nationalID = register.nationalID', 'inner');
    $this->db->group_by("register.type"); 
@@ -21,6 +45,95 @@ Class Summary extends CI_Model
      return false;
    }
  }  
+function get_FacultyTable($place)
+ {
+   $this -> db -> select("COUNT(Distinct(register.nationalID)) as number , register.faculty");
+   $this -> db -> from('register');
+   if(!strcmp($place,"KMUTT")){
+    //$this -> db -> where ('register.study_In');
+   }
+   else{
+    $this -> db -> where('register.study_In',$place);
+   }
+   $this->db->group_by("register.faculty"); 
+   $query = $this -> db -> get();
+   if($query -> num_rows() >= 1)
+   {
+     return $query->result();
+   }
+   else
+   {
+     return false;
+   }
+ }
+ function get_FacultyParticipantTable($place)
+ {
+   $this -> db -> select("COUNT(Distinct(participant.nationalID)) as number,faculty");
+   $this -> db -> from('participant ');
+   $this -> db -> where('activity.place',$place);
+   $this->db->join('activity', 'participant.ac_id = activity.id', 'inner');
+   $this->db->join('register', 'participant.nationalID = register.nationalID', 'inner');
+   $this->db->group_by("register.faculty"); 
+   if(!strcmp($place,"KMUTT")){
+    //$this -> db -> where ('register.study_In');
+   }
+   else{
+    $this -> db -> where('register.study_In',$place);
+   }
+   $query = $this -> db -> get();
+   if($query -> num_rows() >= 1)
+   {
+     return $query->result();
+   }
+   else
+   {
+     return false;
+   }
+ }
+ function get_totalRegisterPTable($place)
+ {
+   $this -> db -> select("COUNT(Distinct(participant.nationalID)) as total");
+   $this -> db -> from('participant ');
+   $this -> db -> where('activity.place',$place);
+   $this->db->join('activity', 'participant.ac_id = activity.id', 'inner');
+   $this->db->join('register', 'participant.nationalID = register.nationalID', 'inner');
+   if(!strcmp($place,"KMUTT")){
+    //$this -> db -> where ('register.study_In');
+   }
+   else{
+    $this -> db -> where('register.study_In',$place);
+   }
+   $query = $this -> db -> get();
+   if($query -> num_rows() >= 1)
+   {
+     return $query->result();
+   }
+   else
+   {
+     return false;
+   }
+ }
+function get_totalRegisterTable($place)
+ {
+   $this -> db -> select("COUNT(Distinct(register.nationalID)) as total");
+   $this -> db -> from('register');
+   if(!strcmp($place,"KMUTT")){
+    //$this -> db -> where ('register.study_In');
+   }
+   else{
+    $this -> db -> where('register.study_In',$place);
+   }
+   $query = $this -> db -> get();
+   if($query -> num_rows() >= 1)
+   {
+     return $query->result();
+   }
+   else
+   {
+     return false;
+   }
+ }
+
  function get_schoolpieChart($place)
  {
    $this -> db -> select("activity.type , count(participant.no_student) As student");
@@ -203,5 +316,55 @@ function get_schoolProfile($place)
      return false;
    }
   }
+
+  function get_TimeLine($place)
+ {
+   $this -> db -> select("title,start,end,type,place,cost,detail,DATEDIFF( start,NOW()) AS timeLeft,
+    DATEDIFF( end,start ) AS duration");
+   $this -> db -> from('activity');
+   //$this -> db -> where('NOW()< start');
+   $this -> db -> where('place',$place);
+   $this->db->order_by("timeLeft", "asc");
+   $this -> db -> limit(5);
+   $query = $this -> db -> get();
+   if($query -> num_rows() >= 1)
+   {
+     return $query->result();
+   }
+   else
+   {
+     return false;
+   }
+ }
+
+ function editSchoolData()
+ {
+  $school_code = $this->input->post('code');
+  $data=array(
+    'name'=>$this->input->post('name'),
+    //'school_code'=>$this->input->post('code'),
+    'location'=>($this->input->post('location')),
+    'note'=>$this->input->post('note')
+  );
+  $this->db->where('school_code', $school_code);
+  $this->db->update('school',$data);
+  return ($this->db->affected_rows() != 1) ? false : true;
+ }
+ function sendSchoolMail(){
+  $To = $this->input->post('To');
+  $Subject = $this->input->post('Subject');
+  $Message = $this->input->post('Message');
+  $this->load->library('email');
+
+  $this->email->from('noreply@hotmail.com', 'System');
+  $this->email->to($To); 
+
+  $this->email->subject($Subject);
+  $this->email->message($Message);  
+  $this->email->send();
+  //echo $this->email->print_debugger();
+  print "<script type=\"text/javascript\">alert('Send maill Successfully');</script>";
+  redirect('login', 'refresh');
+ }
 }
 ?>
