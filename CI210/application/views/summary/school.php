@@ -143,7 +143,7 @@
        <div class="nav-tabs-custom">
           <ul class="nav nav-tabs">
             <li class="active"><a href="<?php echo site_url(); ?>summaryReport/index#activity" data-toggle="tab">Activity</a></li>
-            <li><a href="<?php echo site_url(); ?>summaryReport?index?Place=<?php echo $place ?>#succession" data-toggle="tab">Succession</a></li>
+            <li><a href="<?php echo site_url(); ?>summaryReport?index?Place=<?php echo $place ?>#succession" data-toggle="tab">Success</a></li>
             <li><a href="<?php echo site_url(); ?>summaryReport/index?Place=<?php echo $place ?>#timeline" data-toggle="tab">Timeline</a></li>
             <li><a href="<?php echo site_url(); ?>summaryReport?index?Place=<?php echo $place ?>#sendEmail" data-toggle="tab">Send Email</a></li>
             <li><a href="<?php echo site_url(); ?>summaryReport?index?Place=<?php echo $place ?>#edit" data-toggle="tab">Edit</a></li>
