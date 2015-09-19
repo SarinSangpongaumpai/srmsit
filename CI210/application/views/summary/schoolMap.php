@@ -102,3 +102,8 @@
 
 
 
+    <script src="<?php echo site_url(); ?>plugins/slimScroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+    <!-- AdminLTE App -->
+    <script src="<?php echo site_url(); ?>js/app.js" type="text/javascript"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="<?php echo site_url(); ?>js/demo.js" type="text/javascript"></script>

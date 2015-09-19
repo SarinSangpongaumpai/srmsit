@@ -122,7 +122,7 @@
                     <th>No</th>
                     <th>Event</th>
                     <th>Duration</th>
-                    <th>Remainning Day</th>
+                    <th>Remainning</th>
                     <th>Place</th>
                   </tr>
                 </thead>

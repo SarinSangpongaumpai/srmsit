@@ -219,7 +219,7 @@
                     <th style="text-align:left;">%</th>
                   </tr>
                 </thead>
-                <?php if(isset($Gender)){
+                <?php if(false !==($Gender)){
                   foreach($Gender as $gender){
                 ?>
                 <tbody>
@@ -251,7 +251,7 @@
                     <th style="text-align:left;">%</th>
                   </tr>
                 </thead>
-                <?php if(isset($Program)){
+                <?php if(false !==($Program)){
                   foreach($Program as $program){
                 ?>
                 <tbody>
@@ -283,7 +283,7 @@
                     <th style="text-align:left;">%</th>
                   </tr>
                 </thead>
-                <?php if(isset($schoolYear)){
+                <?php if(false !==($schoolYear)){
                   foreach($schoolYear as $schoolYear){
                 ?>
                 <tbody>

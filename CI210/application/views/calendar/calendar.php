@@ -162,16 +162,17 @@
          selectable: true,
          selectHelper: true,
          select: function(start, end, allDay) {
-           var title = prompt('Type title');
-           var type = prompt('Type type');
+           var title = prompt('Type Title Event');
+           var type = prompt('Type Event Type');
+           var place = prompt('Type Place');
            if (title) {
              var start = $.fullCalendar.moment(start).format();
              var end = $.fullCalendar.moment(end).format();
-             var confirms = confirm('Event '+title + '\n Type '+ type);
+             var confirms = confirm('Event '+title + '\n Type '+ type + '\n Place '+ place);
              if(confirms == true){
              $.ajax({
              url: '<?php echo base_url('calendar/addEvent');?>',
-             data: 'title='+ title+'&start='+ start +'&end='+ end +'&type='+ type ,
+             data: 'title='+ title+'&start='+ start +'&end='+ end +'&type='+ type +'&place='+ place ,
              type: "POST",
              success: function(json) {
              alert('Added Successfully');

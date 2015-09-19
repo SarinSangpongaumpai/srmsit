@@ -1,3 +1,12 @@
+<?php 
+      if(isset($range)){
+          $radius = $range;
+       }
+       else{
+          $radius = 1000;
+       }
+       $circle = $radius*1.2;
+?>
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
@@ -98,17 +107,17 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Search School in Range</h4>
+        <h4 class="modal-title" id="myModalLabel">Search School in Range(Meters)</h4>
       </div>
       <div class="modal-body">
-        <?php echo form_open('login/sendMail'); ?>
+        <?php echo form_open('map/searchRange'); ?>
         <div class="body ">
           <div class="input-group"><span class="input-group-addon"><i class="fa fa-search"></i></span>
-            <input type="text" class="form-control" id="name" name="name" placeholder="Name">
+            <input type="text" class="form-control" id="range" name="range" placeholder="Please input bettween 1 - 50,000">
           </div><br>
         <div class="modal-footer">
           <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Search</button>
+          <button type="submit" class="btn btn-primary">Search</button>
         </div>
       </form>
       </div>
@@ -172,7 +181,7 @@ function initMap() {
   var service = new google.maps.places.PlacesService(map);
   service.nearbySearch({
     location: pyrmont,
-    radius: 2000,
+    radius: <?php echo $radius ?>,
     types: ['school']
   }, processResults);
 }
@@ -193,7 +202,7 @@ function placeKMUTT(){
       fillOpacity: 0.35,
       map: map,
       center: map.center,
-      radius: 3000
+      radius: <?php echo $circle ?>
   });
 }
 function processResults(results, status, pagination) {

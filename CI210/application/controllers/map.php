@@ -23,5 +23,11 @@ class Map extends CI_Controller {
         print "<script type=\"text/javascript\">alert('ลงทะเบียนสำเร็จแล้ว');</script>";
    		redirect('map/index', 'refresh');
 	}
+	public function searchRange(){
+		$data['range'] = $this->input->post('range');
+   		$this->load->view('header');
+		$this->load->view('map/map',$data);
+		$this->load->view('footer');
+	}
 }
 ?>

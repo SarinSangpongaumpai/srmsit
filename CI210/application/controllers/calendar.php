@@ -20,12 +20,13 @@ class Calendar extends CI_Controller {
 	}
 	public function addEvent(){
 		if (isset($_POST['title']) && isset($_POST['start']) && isset($_POST['end']) 
-				&& isset($_POST['type']) ){
+				&& isset($_POST['type']) && isset($_POST['place']) ){
 			$title = $_POST['title'];
 			$start = $_POST['start'];
 			$end = $_POST['end'];
 			$type = $_POST['type'];
-			$this->calendar_m->addEvent($title,$start,$end,$type);
+			$place = $_POST['place'];
+			$this->calendar_m->addEvent($title,$start,$end,$type,$place);
 		}
 	}
 	public function removeEvent(){

@@ -14,12 +14,13 @@ class Calendar_m extends CI_Model {
         $query = $this->db->get();
         return $query->result();
     }
-    function addEvent($title,$start,$end,$type)
+    function addEvent($title,$start,$end,$type,$place)
     {
         $data = array(
         'title' => $title,
         'start' =>  $start,
         'end' =>  $end,
+        'Place' => $place,
         'type' => $type
         );
         $this->db->insert('activity', $data);
