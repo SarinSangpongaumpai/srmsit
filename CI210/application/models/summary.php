@@ -366,5 +366,24 @@ function get_schoolProfile($place)
   print "<script type=\"text/javascript\">alert('Send maill Successfully');</script>";
   redirect('login', 'refresh');
  }
+
+
+  function get_allSchool($place)
+ {
+   $this -> db -> select("school_code,name");
+   $this -> db -> from('school');
+   //$this -> db -> where('NOW()< start');
+   $this -> db -> where_not_in('school_code',$place);
+   $this->db->order_by("name", "");
+   $query = $this -> db -> get();
+   if($query -> num_rows() >= 1)
+   {
+     return $query->result();
+   }
+   else
+   {
+     return false;
+   }
+ }
 }
 ?>

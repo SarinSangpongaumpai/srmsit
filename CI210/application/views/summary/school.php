@@ -83,11 +83,18 @@
     <div class="row">
       <div class="col-md-3">
         <!-- Profile Image -->
+
         <div class="box box-primary">
-          <div class="box-body box-profile">
+            <div class="box-tools pull-right">
+             <a href="#uploadSchoolImage" data-toggle="modal"
+            style=" font-weight: bold;"class="btn btn-box-tool" ><i class="fa fa-upload"></i></a>
+            </div>
+          <div class="box-body box-profile" style="text-align:center">
             <img class="profile-user-img img-responsive "
             src="<?php echo base_url()?>img/schoolLogo/<?php echo $place?>.png" alt="User profile picture">
             <br><h5 style=" font-weight: bold;"class="profile-username text-center"><?php echo $name ?></h5>
+            <a href="#changeSchool" data-toggle="modal"
+            style=" font-weight: bold;"class="profile-username text-center" >change school</a><br>
             <br>
             <ul class="list-group list-group-unbordered">
               <li class="list-group-item">

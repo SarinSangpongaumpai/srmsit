@@ -5,11 +5,13 @@ class SummaryReport extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('summary','',TRUE);
+    $this->load->library('upload');
 
 	}  
 	
 	public function school()
-	{
+	{  //$this->load->view("summary/upload");
+  
       if ( isset($_GET['Place']) ) {
        $place = $_GET['Place'];
    		 $this->load->view("header");
@@ -29,12 +31,15 @@ class SummaryReport extends CI_Controller {
        $data['FacultyParticipant'] = $this->summary->get_FacultyParticipantTable($place);
 
        $data['timeLine'] = $this->summary->get_TimeLine($place);
+
+       $data['allSchool'] = $this->summary->get_allSchool($place);
        $this->load->view("summary/school",$data);
 			 $this->load->view("footer");
       }
       else{
         $this->load->view("footer");
       }
+      
 	}
   public function changeEvent()
   {
@@ -122,6 +127,40 @@ class SummaryReport extends CI_Controller {
   //echo $this->email->print_debugger();
   print "<script type=\"text/javascript\">alert('Send maill Successfully');</script>";
   redirect('summaryReport/school?Place='.$place, 'refresh');
+ }
+
+
+ function do_upload(){
+  $name = $this->input->post('image_Name');
+    $config = array(
+      "upload_path"=>"img/schoolLogo/",
+      "allowed_types"=>"png",
+      "max_size"=>1024,
+      "max_height"=>2000,
+      "max_width"=>2000,
+      "file_name"=>$name
+      );
+    $this->upload->initialize($config);
+    if($this->upload->do_upload("upload")){
+      $data = $this->upload->data();
+
+      $this->load->library("image_lib");
+      $config = array(
+      "image_library"=>"gd2",
+      "source_image"=>"img/schoolLogo/".$name.".png",
+      "create_thumb"=>FALSE,
+      "maintain_ratio"=>FALSE,
+      "width"=>534,
+      "height"=>600
+    );
+    $this->image_lib->initialize($config);
+    if(!$this->image_lib->resize()){
+      echo $this->image_lib->display_errors();
+    }
+  }
+    else{
+      echo $this->upload->display_errors();
+    } 
  }
 }
 

@@ -1,3 +1,4 @@
+
 <style>
   #map-container { height: 450px }
   .myInfobox {
@@ -24,13 +25,12 @@
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
-</div><!-- /container -->
  
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
 <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <script src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
 <script>
@@ -103,7 +103,89 @@
 
 
     <script src="<?php echo site_url(); ?>plugins/slimScroll/jquery.slimscroll.min.js" type="text/javascript"></script>
-    <!-- AdminLTE App -->
-    <script src="<?php echo site_url(); ?>js/app.js" type="text/javascript"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="<?php echo site_url(); ?>js/demo.js" type="text/javascript"></script>
+<!-- Modal -->
+  <div class="modal fade" id="changeSchool">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div style="height: 300px;overflow: scroll;">
+            <?php if(false !== ($allSchool)){
+                      foreach($allSchool as $allSchool){
+                      $name= $allSchool->name;
+                      $code= $allSchool->school_code;
+            ?>
+            <div class="input-group">
+              <span class="input-group-addon">
+                <button class="btn-default"onclick="location.href='<?php echo base_url()?>summaryReport/school?Place=<?php echo $code?>'"
+                style="position:relative;text-align:left;padding: 0;border:none;background: none;">
+                <img style="width:10%;"src="<?php echo base_url()?>img/schoolLogo/<?php echo $code?>.png" alt="User profile picture">
+                <?php echo $name?>
+                </buton>
+              </span> 
+          </div>
+              <?php
+                    }
+                  }
+              ?>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+</div>
+
+<script>
+function readURL(input,id) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      $('#'+id).attr('src', e.target.result).width(50).height(50);
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+</script>
+<div class="modal fade" id="uploadSchoolImage">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+          <h4 class="modal-title" style="text-align:center">Upload School's Logo</h4>
+        </div>
+        <div class="modal-body"> 
+          <?php echo form_open_multipart('summaryReport/do_upload');?>
+          <div class="form-group" style="text-align:center">
+            <div data-provides="fileupload" class="fileupload fileupload-new" style="text-align:center">
+              <div style="
+                width: 67px; height: 50px;" class="fileupload-new img-thumbnail">
+                  <img id="userfile_preview" class="media-object img-thumbnail pull-left" 
+                  src="<?php if(!empty($profile_image)){  echo base_url(); ?>uploads/profile/<?php echo $profile_image; } 
+                  else {  echo base_url(); ?>img/schoolLogo/no_img.png<?php } ?>" alt="" />
+              </div>        
+                <br><br>     
+                       <label for="file-upload" class="custom-file-upload">
+                          <i class="fa fa-cloud-upload"></i> Select file
+                      </label>
+                      <input id="file-upload" type="file" name="upload" id="upload" onchange="readURL(this,'userfile_preview');"/>
+                      <input type="hidden" name="image_Name" id="image_Name" value="<?php echo $place?>"/>
+              </div>
+            </div>
+          <input class="btn btn-primary btn-block" type="submit" value="Upload" name="submit"/>
+          <?php echo form_close();?>
+          </form>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+</div>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<style>
+input[type="file"] {
+    display: none;
+}
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+</style>

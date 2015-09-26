@@ -86,17 +86,23 @@ class Login extends CI_Controller {
  }
  function sendMail(){
   $emailUser = $this->input->post('forgetEmail');
+
  	$this->load->library('email');
 
 	$this->email->from('noreply@hotmail.com', 'System');
 	$this->email->to($emailUser); 
 
-	$this->email->subject('Forget password');
-	$this->email->message('Testing the email class.');	
-
+	$this->email->subject("Reset your SRM's SIT BI system password");
+	$this->email->message("Forgot your password, USER<br>
+                          We received a request to reset the password for your (User account)<br>
+To reset your password, click on the link below (or copy and past the URL in your beowser):<br>
+Thank you<br>
+Check our support pages for more information<br><br>
+=================================<br>
+※ This email was sent automatically please do not reply this mail back, sorry for your inconvinient.)<br>");
 	$this->email->send();
 	//echo $this->email->print_debugger();
-  print "<script type=\"text/javascript\">alert('Send maill Successfully');</script>";
+  print "<script type=\"text/javascript\">alert('Send maill Successfully, Please check your email');</script>";
   redirect('login', 'refresh');
  }
 }
