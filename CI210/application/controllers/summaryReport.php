@@ -9,9 +9,8 @@ class SummaryReport extends CI_Controller {
 
 	}  
 	
-	public function school()
-	{  //$this->load->view("summary/upload");
-  
+	public function school(){
+	  //$this->load->view("summary/upload");
       if ( isset($_GET['Place']) ) {
        $place = $_GET['Place'];
    		 $this->load->view("header");
@@ -20,6 +19,7 @@ class SummaryReport extends CI_Controller {
        $data['distinctEvent'] = $this->summary->get_distinctEvent($place);
        $data['Program'] = $this->summary->get_programTable(null,$place);
        $data['Profile'] = $this->summary->get_schoolProfile($place);
+       $data['CostEvent'] = $this->summary->get_schoolCostEvent($place);
        $data['schoolYear'] = $this->summary->get_schoolYearTable(null,$place);
        $data['Contact'] = $this->summary->get_ContactPerson($place);
        $data['Event'] = $this->summary->get_Event($place);
@@ -52,6 +52,7 @@ class SummaryReport extends CI_Controller {
          $data['distinctEvent'] = $this->summary->get_distinctEvent($place);
          $data['Program'] = $this->summary->get_programTable($event,$place);
          $data['Profile'] = $this->summary->get_schoolProfile($place);
+         $data['CostEvent'] = $this->summary->get_schoolCostEvent($place);
          $data['schoolYear'] = $this->summary->get_schoolYearTable($event,$place);
          $data['Contact'] = $this->summary->get_ContactPerson($place);
          $data['Event'] = $this->summary->get_Event($place);
@@ -132,14 +133,18 @@ class SummaryReport extends CI_Controller {
 
  function do_upload(){
   $name = $this->input->post('image_Name');
+  $this->load->helper('file');
+  $path_to_file = 'img/schoolLogo/'.$name.'.png';
+  if(unlink($path_to_file)) {
     $config = array(
       "upload_path"=>"img/schoolLogo/",
       "allowed_types"=>"png",
       "max_size"=>1024,
-      "max_height"=>2000,
-      "max_width"=>2000,
+      "max_height"=>5000,
+      "max_width"=>5000,
       "file_name"=>$name
       );
+
     $this->upload->initialize($config);
     if($this->upload->do_upload("upload")){
       $data = $this->upload->data();
@@ -155,12 +160,23 @@ class SummaryReport extends CI_Controller {
     );
     $this->image_lib->initialize($config);
     if(!$this->image_lib->resize()){
-      echo $this->image_lib->display_errors();
+      print "<script type=\"text/javascript\">alert(".$this->image_lib->display_errors().");</script>";
+      redirect('summaryReport/school?Place='.$name, 'refresh');
+    }
+    else{
+      redirect('summaryReport/school?Place='.$name, 'refresh');
     }
   }
     else{
-      echo $this->upload->display_errors();
+      print "<script type=\"text/javascript\">alert(".$this->image_lib->display_errors().");</script>";
+      redirect('summaryReport/school?Place='.$name, 'refresh');
     } 
+  }
+  else {
+      print "<script type=\"text/javascript\">alert('Some error occur, please try again');</script>";
+      redirect('summaryReport/school?Place='.$name, 'refresh');
+  }
+  
  }
 }
 

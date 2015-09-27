@@ -23,6 +23,15 @@
         <div id="response"></div>
         <div class="box"><br>
         <table id="example1"class="table table-bordered table-striped dataTable">
+                     <col width="50">
+                     <col width="80">
+                     <col width="100">
+                     <col width="100">
+                     <col width="60">
+                     <col width="40">
+                     <col width="40">
+                     <col width="140">
+                     <col width="60">
             <thead><tr>
               <th>เลขประชาชน</th>
               <th>ชื่อ</th>
@@ -54,8 +63,15 @@
         <th>โรงเรียน</th>
       </tr></thead>
       <tbody >
+         <col width="180">
+                     <col width="100">
+                     <col width="130">
+                     <col width="150">
+                     <col width="120">
+                     <col width="70">
+                     <col width="100">
       <form class="form-inline" role="form" id="frmadd" action="<?php echo base_url() ?>table/createStudent" method="POST">
-        <td><input type="number" class="form-control" name="nationalID" placeholder="เลขประจำตัวประชาชน"></td>
+        <td style="width=70"><input type="number" class="form-control" name="nationalID" placeholder="เลขประจำตัวประชาชน"></td>
         <td><input type="text"   class="form-control" name="FName"      placeholder="ชื่อ"></td>
         <td><input type="text"   class="form-control" name="LName"      placeholder="นามสกุล"></td>
         <td><select class="form-control" name = "school_year"  >              
@@ -66,14 +82,14 @@
                 <option value="มัธยมศึกษาปีที่5">มัธยมศึกษาปีที่5</option>
                 <option value="มัธยมศึกษาปีที่6">มัธยมศึกษาปีที่6</option>
         </select></td>
-        <td><select class="form-control" name = "program" >
+        <td style="width=180"><select class="form-control" name = "program" >
                 <option value="วิทย์-คณิต">วิทย์-คณิต</option>
                 <option value="ศิลป์-คำนวน">ศิลป์-คำนวน</option>
                 <option value="ศิลป์-ภาษา" >ศิลป์-ภาษา</option>
                 <option value="ศิลป์-สังคม">ศิลป์-สังคม</option>
                 <option value="อื่นๆ">อื่นๆ</option>
         </select></td>
-        <td><select name="gender" class="form-control">
+        <td><select name="gender" class="form-control" style="width=70">
                 <option value="ชาย">ชาย</option>
                 <option value="หญิง">หญิง</option>
         </select></td>

@@ -27,7 +27,7 @@
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
-                        <th>Id</th>
+                        <th>nationalID</th>
                         <th>FirstName</th>
                         <th>LastName</th>
                         <th>Grade</th>
@@ -36,10 +36,12 @@
                     <tbody>
     <?php
       while (($objArr = fgetcsv($objCSV, 1000, ",")) !== FALSE) {
+        $nameSTD = iconv("ISO-8859-11", "UTF-8", $objArr[1]) ;
     ?>
         <tr>
+
           <td><div align="center"><?php echo $objArr[0];?></div></td>
-          <td><?php echo $objArr[1];?></td>
+          <td><?php echo $nameSTD ?></td>
           <td><?php echo $objArr[2];?></td>
           <td><div align="center"><?php echo $objArr[3];?></div></td>
         </tr>

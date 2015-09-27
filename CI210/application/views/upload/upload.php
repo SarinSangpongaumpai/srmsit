@@ -14,26 +14,33 @@
         </section>
 
         <section class="content">
+          <ul class="nav nav-tabs">
+                  <li class="active"><a href="#fa-icons" data-toggle="tab">Font Awesome</a></li>
+                  <li><a href="#glyphicons" data-toggle="tab">Glyphicons</a></li>
+                </ul>
                  <div class="box box-primary">
                    <br>  
-               
-            <?php echo form_open_multipart("upload/do_upload")?> 
-               <div class="center">
-                  <strong > Participant </strong>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input  id="uploadFile" placeholder="Choose File" size="70" />
+               <div class="row invoice-info">
+            <div class="col-sm-4 invoice-col">
+            </div><!-- /.col -->
+            <div class="center">
+            <div class="col-md-8 invoice-col">
+                <?php echo form_open_multipart("upload/do_upload")?> 
+                <div class="center">
+                    <input  id="uploadFile" placeholder="Choose File" size="19" />
                       <div class="fileUpload btn btn-primary">
                         <span>Upload</span>
                           <input id="uploadBtn" name="upload"type="file" class="upload" accept=".csv" />
                       </div>
+                    </div><br>
                       <div class = "center">
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                           <button id = "submit"type ="submit" name="save" value="Upload" class="btn btn-primary" style="width: 200px">Submit</button>
                      </div>
-                 </div>
+                   </div>
               <?php echo form_close();?>
+            </div><!-- /.col -->
+          </div>
+          
                     <!-- 
                <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
                  <strong > Applicants </strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -60,26 +67,39 @@
 
               <div class="box-body" >
                   <table id="example1" class="table table-bordered table-striped">
+                    
                     <thead>
                       <tr>
-                        <th>Id</th>
+                        <th>nationalId</th>
                         <th>FirstName</th>
                         <th>LastName</th>
-                        <th>Grade</th>
+                        <th>School Year</th>
+                        <th>Program</th>
+                        <th>Gender</th>
+                        <th>GPA</th>
+                        <th>School</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
                         <td>1101500230012</td>
-                        <td>James</td>
-                        <td>BKK</td>
+                        <td>เขมชาติ</td>
+                        <td>จุฑาเพ็ชร์</td>
+                        <td>มัธยมศึกษาปีที่4</td>
+                        <td>วิทย์-คณิต</td>
+                        <td>ชาย</td>
                         <td>4.00</td>
+                        <td>โรงเรียนสวนกุหลาบรังสิต</td>
                       </tr>
-                       <tr>
-                        <td>1111100230012</td>
-                        <td>Wiwat</td>
-                        <td>BKK</td>
-                        <td>3.03</td>
+                      <tr>
+                        <td>1101500250012</td>
+                        <td>วิภาวี</td>
+                        <td>โมจนกุล</td>
+                        <td>มัธยมศึกษาปีที่6</td>
+                        <td>อื่นๆ</td>
+                        <td>หญิง</td>
+                        <td>2.53</td>
+                        <td>โรงเรียนสตรีวิทยา</td>
                       </tr>
                     </tbody>
                   </table>
@@ -93,7 +113,7 @@
         <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights reserved.
       </footer>
     </div><!-- ./wrapper -->
-
+</div>
     
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script>
@@ -144,17 +164,14 @@
     .center {
         margin-left: auto;
         margin-right: auto;
-        width: 75%;
-    }
-    .Fontcenter {
-        margin-left: 250px;
-        margin-right: 300px;
         width: 100%;
     }
-    .fileUpload {
-      position: relative;
+    .Fontcenter {
+        margin-left: 28%;
+        width: 100%;
+    }
+    .fileUpload { 
       overflow: hidden;
-      margin: 20px;
     }
     .fileUpload input.upload {
       position: absolute;
@@ -166,6 +183,9 @@
       cursor: pointer;
       opacity: 0;
       filter: alpha(opacity=0);
+    }
+    .col-md-8{
+      padding-left: 60px;
     }
     </style>
   </body>

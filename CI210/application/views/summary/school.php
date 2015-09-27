@@ -41,19 +41,31 @@
        }
 ?>
 <?php 
-      if(isset($Profile)){
+
+      if(false !== ($Profile)){
           foreach($Profile as $profile){
              $name = $profile->name;
-             $cost = $profile->cost;
              $location = $profile->location;
              $latitude = $profile->latitude;
              $longitude = $profile->longitude;
-             $totalEvent = $profile->totalEvent;
              $note = $profile->note;
            }
        }
        else{
 
+       }
+?>
+<?php 
+
+      if(false !== ($CostEvent)){
+          foreach($CostEvent as $CostEvent){
+             $cost = $CostEvent->cost;
+             $totalEvent = $CostEvent->totalEvent;
+           }
+       }
+       else{
+          $cost = "0";
+          $totalEvent = "0";
        }
 ?>
 <?php 
@@ -174,7 +186,7 @@
                 <ul class="nav nav-tabs pull-right"></ul>
               </div>
               <ul class="nav nav-tabs pull-right">
-              <?php if(isset($Event)){  ?>
+              <?php if(false !== ($Event)){  ?>
                 
                 <?php $number = 1;
                   foreach($Event as $event){

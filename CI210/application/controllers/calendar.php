@@ -13,7 +13,7 @@ class Calendar extends CI_Controller {
 		
 		$this->load->view("header");
 		$this->load->view("calendar/calendar");
-		$this->data();
+		//$this->data();
 	}	
 	public function data(){
 		print $json = json_encode($this->calendar_m->get_calendar());

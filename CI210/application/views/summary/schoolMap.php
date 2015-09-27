@@ -108,7 +108,7 @@
     <div class="modal-dialog modal-md">
       <div class="modal-content">
         <div class="modal-body">
-          <div style="height: 300px;overflow: scroll;">
+          <div style="height: 300px;overflow: scroll;overflow-x: hidden;">
             <?php if(false !== ($allSchool)){
                       foreach($allSchool as $allSchool){
                       $name= $allSchool->name;
@@ -118,7 +118,7 @@
               <span class="input-group-addon">
                 <button class="btn-default"onclick="location.href='<?php echo base_url()?>summaryReport/school?Place=<?php echo $code?>'"
                 style="position:relative;text-align:left;padding: 0;border:none;background: none;">
-                <img style="width:10%;"src="<?php echo base_url()?>img/schoolLogo/<?php echo $code?>.png" alt="User profile picture">
+                <img style="width:10%;margin-right:10px"src="<?php echo base_url()?>img/schoolLogo/<?php echo $code?>.png" alt="User profile picture">
                 <?php echo $name?>
                 </buton>
               </span> 

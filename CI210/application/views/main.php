@@ -215,6 +215,7 @@
         <h4 class="modal-title" id="myModalLabel">Event</h4>
       </div>
       <div class="modal-body">
+        <div style="height: 300px;overflow: scroll;overflow-x: hidden;">
         <div class="table-responsive">
               <table id="example1" class="table table-bordered table-striped" >
                 <thead >
@@ -225,7 +226,7 @@
                     <th style="text-align:center">Place</th>
                   </tr>
                 </thead>
-                    <?php $ID = 0; ?>
+                    <?php $ID = 1; ?>
                     <?php foreach($Calendar as $calendar){
                     ?>
                 <tbody>
@@ -248,6 +249,7 @@
                 </tfoot>
               </table>
             </div><!-- /.table-responsive -->
+          </div>
       </div>
     </div>
   </div>

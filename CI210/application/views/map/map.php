@@ -193,6 +193,36 @@ function placeKMUTT(){
     icon: image,
     title: 'King Mongkut’s University of Technology Thonburi'
   });
+
+      google.maps.event.addListener(beachMarker, 'click', function() {
+        infowindow.setContent("KMUTT");
+        infowindow.open(map, this);
+      });
+  <?php 
+    if(false !== ($DBSchool)){
+          foreach($DBSchool as $DBSchool){
+             $name = $DBSchool->name;
+             $location = $name."<br>".$DBSchool->location;
+             $latitude = $DBSchool->latitude;
+             $longitude = $DBSchool->longitude;
+
+  ?>
+  var beachMarker = new google.maps.Marker({
+    position: {lat: <?php echo $latitude?>, lng: <?php echo $longitude?>} ,
+    map: map,
+    icon: image,
+    title: "<?php echo $name ?>"
+  });
+
+      google.maps.event.addListener(beachMarker, 'click', function() {
+        infowindow.setContent('<?php echo $location ?>');
+        infowindow.open(map, this);
+      });
+  <?php
+           }
+       }
+  ?>
+
   var cityCircle = new google.maps.Circle({
       clickable: true,
       strokeColor: '#FF0000',

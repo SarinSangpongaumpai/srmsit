@@ -10,7 +10,18 @@ class Map extends CI_Controller {
 	public function index()
 	{	
 		$this->load->view('header');
-		$this->load->view('map/map');
+		$this -> db -> select("school.name,school.location,school.note,school.latitude,school.longitude");
+	    $this -> db -> from('school');
+	    $query = $this -> db -> get();
+	    if($query -> num_rows() >= 1)
+	    {
+	     $data['DBSchool'] = $query->result();
+	    }
+	    else
+	    {
+	     $data['DBSchool'] = false;
+	    }
+		$this->load->view('map/map',$data);
 		$this->load->view('footer');
 	}
 	public function addSchool(){
@@ -20,6 +31,13 @@ class Map extends CI_Controller {
                 'latitude'=>$this->input->post('latitude'),
                 'longitude' =>$this->input->post('longtitude'));
                 $this->db->insert('school', $data); 
+        $school_code = $this->input->post('code');
+        $this->load->helper('file');
+		$file = 'img/schoolLogo/no_img.png';
+		$newfile = 'img/schoolLogo/'.$school_code.'.png';
+		  if (!copy($file, $newfile)) {
+		    echo "failed to copy $file...\n";
+		  }
         print "<script type=\"text/javascript\">alert('ลงทะเบียนสำเร็จแล้ว');</script>";
    		redirect('map/index', 'refresh');
 	}

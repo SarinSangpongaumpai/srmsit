@@ -270,8 +270,22 @@ function get_totalRegisterTable($place)
 
 function get_schoolProfile($place)
  {
-   $this -> db -> select("school.name,school.location,school.note,school.latitude,school.longitude,
-    sum(activity.cost)as cost,COUNT(*) as totalEvent");
+   $this -> db -> select("school.name,school.location,school.note,school.latitude,school.longitude");
+   $this -> db -> from('school');
+   $this -> db -> where('school_code',$place);
+   $query = $this -> db -> get();
+   if($query -> num_rows() >= 1)
+   {
+     return $query->result();
+   }
+   else
+   {
+     return false;
+   }
+  }
+  function get_schoolCostEvent($place)
+ {
+   $this -> db -> select("sum(activity.cost)as cost,COUNT(*) as totalEvent");
    $this -> db -> from('activity');
    $this -> db -> where('activity.place',$place);
    $this->db->join('school', 'activity.Place = school.school_code', 'left');
