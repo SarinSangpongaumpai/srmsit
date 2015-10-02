@@ -1,3 +1,22 @@
+            <?php
+                  foreach($Current as $current)
+                  {
+                          $currentDate           = $current->start;
+                          $currentSchool         = $current->place;
+                          $currentDuration       = $current->duration;
+                          $currentCost           = $current->cost;
+                          $currentSchoolName     = $current->name;
+                          $currentTitle          = $current->title;
+                  }
+                  foreach($max as $max)
+                  {
+                          $max           = $max->max;
+                  }
+                  foreach($min as $min)
+                  {
+                          $min           = $min->min;
+                  }
+            ?>
 <div class="content-wrapper">
   <section class="content-header">
     <h1>Main</h1>
@@ -10,34 +29,13 @@
       <div class="col-md-7">   
         <div class="box box-primary">
           <div class="box-header with-border">
-            <h3 class="box-title"><p>Event Details<p></h3>
+            <h3 class="box-title"><strong>Event Details</strong></h3>
             <div class="box-tools pull-right">
               <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
               <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
             </div>
           </div><!-- /.box-header -->     
           <div class="box-body" >
-
-            <?php
-                  foreach($Current as $current)
-                  {
-                          $currentDate           = $current->start;
-                          $currentSchool         = $current->place;
-                          $currentDuration       = $current->duration;
-                          $currentCost           = $current->cost;
-                          $currentSchoolName     = $current->name;
-                  }
-                  foreach($max as $max)
-                  {
-                          $max           = $max->max;
-                  }
-                  foreach($min as $min)
-                  {
-                          $min           = $min->min;
-                  }
-            ?>
-            <script>
-            </script>
             <?php if(isset($min)){
                 if(!strcmp($min,$currentDate)){
               ?>
@@ -97,6 +95,7 @@
             ?>
             <ul class="products-list product-list-in-box">        
               <div style="text-align:center;">
+                <a href="javascript::;" class="product-title"><?php echo $currentTitle ?>:  
                 <a href="javascript::;" class="product-title"><?php echo $currentSchoolName ?>
                   </ul>
               </div><!-- /.box-body -->
@@ -108,7 +107,7 @@
         <div class="col-md-5">
           <div class="box box-info">
             <div class="box-header with-border">
-              <h3 class="box-title">Incoming Events</h3>
+              <h3 class="box-title"><strong>Incoming Events</strong></h3>
               <div class="box-tools pull-right">
               <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
               <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>

@@ -12,6 +12,7 @@ class Map extends CI_Controller {
 		$this->load->view('header');
 		$this -> db -> select("school.name,school.location,school.note,school.latitude,school.longitude");
 	    $this -> db -> from('school');
+	    $this -> db -> where_not_in("school.name","King Mongkut's University of Technology Thonburi");
 	    $query = $this -> db -> get();
 	    if($query -> num_rows() >= 1)
 	    {
@@ -38,10 +39,22 @@ class Map extends CI_Controller {
 		  if (!copy($file, $newfile)) {
 		    echo "failed to copy $file...\n";
 		  }
-        print "<script type=\"text/javascript\">alert('ลงทะเบียนสำเร็จแล้ว');</script>";
+        print "<script type=\"text/javascript\">alert('เพิ่มโรงเรียนสำเร็จแล้ว');</script>";
    		redirect('map/index', 'refresh');
 	}
 	public function searchRange(){
+		$this -> db -> select("school.name,school.location,school.note,school.latitude,school.longitude");
+	    $this -> db -> from('school');
+	    $this -> db -> where_not_in("school.name","King Mongkut's University of Technology Thonburi");
+	    $query = $this -> db -> get();
+	    if($query -> num_rows() >= 1)
+	    {
+	     $data['DBSchool'] = $query->result();
+	    }
+	    else
+	    {
+	     $data['DBSchool'] = false;
+	    }
 		$data['range'] = $this->input->post('range');
    		$this->load->view('header');
 		$this->load->view('map/map',$data);

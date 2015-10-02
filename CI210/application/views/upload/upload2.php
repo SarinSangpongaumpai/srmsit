@@ -27,23 +27,37 @@
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
-                        <th>nationalID</th>
+                        <th>nationalId</th>
                         <th>FirstName</th>
                         <th>LastName</th>
-                        <th>Grade</th>
+                        <th>School Year</th>
+                        <th>Program</th>
+                        <th>Gender</th>
+                        <th>GPA</th>
+                        <th>School</th>
                       </tr>
                     </thead>
                     <tbody>
     <?php
       while (($objArr = fgetcsv($objCSV, 1000, ",")) !== FALSE) {
-        $nameSTD = iconv("ISO-8859-11", "UTF-8", $objArr[1]) ;
+        $FName = iconv("ISO-8859-11", "UTF-8", $objArr[1]) ;
+        $LName = iconv("ISO-8859-11", "UTF-8", $objArr[2]) ;
+        $school_year = iconv("ISO-8859-11", "UTF-8", $objArr[3]) ;
+        $program = iconv("ISO-8859-11", "UTF-8", $objArr[4]) ;
+        $gender = iconv("ISO-8859-11", "UTF-8", $objArr[5]) ;
+        $gpa = iconv("ISO-8859-11", "UTF-8", $objArr[6]) ;
+        $school = iconv("ISO-8859-11", "UTF-8", $objArr[7]) ;
     ?>
         <tr>
 
           <td><div align="center"><?php echo $objArr[0];?></div></td>
-          <td><?php echo $nameSTD ?></td>
-          <td><?php echo $objArr[2];?></td>
-          <td><div align="center"><?php echo $objArr[3];?></div></td>
+          <td><?php echo $FName ?></td>
+          <td><?php echo $LName ?></td>
+          <td><?php echo $school_year ?></td>
+          <td><?php echo $program ?></td>
+          <td><?php echo $gender ?></td>
+          <td><?php echo $gpa ?></td>
+          <td><div align="center"><?php echo $school;?></div></td>
         </tr>
     <?php
       }
@@ -74,28 +88,7 @@ function submitForm(i) {
 </form>
       </section>
      </div><!-- /.content-wrapper -->
-     <footer class="main-footer">
-        <div class="pull-right hidden-xs">
-          <b>Version</b> 2.0
-        </div>
-        <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights reserved.
-      </footer>
-    </div><!-- ./wrapper -->
-
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script>
-    <!-- DATA TABES SCRIPT -->
-    <script src="plugins/datatables/jquery.dataTables.js" type="text/javascript"></script>
-    <script src="plugins/datatables/dataTables.bootstrap.js" type="text/javascript"></script>
-    <script src="plugins/slimScroll/jquery.slimscroll.min.js" type="text/javascript"></script>
-    <!-- AdminLTE App -->
-    <script src="js/app.js" type="text/javascript"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="js/demo.js" type="text/javascript"></script>
-    <script src="//cdn.ckeditor.com/4.4.3/standard/ckeditor.js"></script>
-    <!-- Bootstrap WYSIHTML5 -->
-    <script src="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js" type="text/javascript"></script>
-     <script type="text/javascript">
+  <script type="text/javascript">
       $(function () {
         $("#example1").dataTable();
         $('#example2').dataTable({

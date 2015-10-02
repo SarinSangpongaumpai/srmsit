@@ -5,7 +5,6 @@
         <section class="content-header">
           <h1>
             Upload File
-            <small>Preview</small>
           </h1>
           <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -15,8 +14,8 @@
 
         <section class="content">
           <ul class="nav nav-tabs">
-                  <li class="active"><a href="#fa-icons" data-toggle="tab">Font Awesome</a></li>
-                  <li><a href="#glyphicons" data-toggle="tab">Glyphicons</a></li>
+                  <li class="active"><a href="#fa-icons" data-toggle="tab">Participant</a></li>
+                  <li><a href="#glyphicons" data-toggle="tab">Applicant</a></li>
                 </ul>
                  <div class="box box-primary">
                    <br>  
@@ -66,8 +65,7 @@
       </div><br>
 
               <div class="box-body" >
-                  <table id="example1" class="table table-bordered table-striped">
-                    
+                  <table id="example1" class="table table-bordered table-striped"> 
                     <thead>
                       <tr>
                         <th>nationalId</th>
@@ -106,28 +104,6 @@
                 </div><!-- /.box-body -->
       </section>
      </div><!-- /.content-wrapper -->
-     <footer class="main-footer">
-        <div class="pull-right hidden-xs">
-          <b>Version</b> 2.0
-        </div>
-        <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights reserved.
-      </footer>
-    </div><!-- ./wrapper -->
-</div>
-    
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script>
-    <!-- DATA TABES SCRIPT -->
-    <script src="../plugins/datatables/jquery.dataTables.js" type="text/javascript"></script>
-    <script src="../plugins/datatables/dataTables.bootstrap.js" type="text/javascript"></script>
-    <script src="../plugins/slimScroll/jquery.slimscroll.min.js" type="text/javascript"></script>
-    <!-- AdminLTE App -->
-    <script src="../js/app.js" type="text/javascript"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="../js/demo.js" type="text/javascript"></script>
-    <script src="//cdn.ckeditor.com/4.4.3/standard/ckeditor.js"></script>
-    <!-- Bootstrap WYSIHTML5 -->
-    <script src="../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js" type="text/javascript"></script>
 
     <script>
     //document.getElementById("uploadBtn").onchange = function () {
@@ -188,6 +164,4 @@
       padding-left: 60px;
     }
     </style>
-  </body>
-</html>
 

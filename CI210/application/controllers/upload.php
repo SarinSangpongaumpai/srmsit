@@ -15,6 +15,7 @@ class Upload extends CI_Controller {
 		$this->load->view("header");
 		//$this->load->view("side");
 	    $this->load->view("upload/upload");
+	    $this->load->view('footer');
 
 	}
 	function do_upload(){
@@ -33,6 +34,7 @@ class Upload extends CI_Controller {
 			$this->load->view("header");
 			//$this->load->view("side");
 			$this->load->view('upload/upload2');
+			$this->load->view('footer');
 
 		}
 		else{

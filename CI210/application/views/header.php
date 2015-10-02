@@ -88,7 +88,7 @@
             <li><a href="<?php echo site_url(); ?>summaryReport/activity"><i class="fa fa-angle-double-right"></i>
               <span> Student Report</span></a>
             </li>
-            <li><a href="<?php echo site_url(); ?>summaryReport/university"> <i class="fa fa-angle-double-right"></i>
+            <li><a href="<?php echo site_url(); ?>summaryReportEvent/event"> <i class="fa fa-angle-double-right"></i>
               <span> SIT'SRM activities Report</span></a>
             </li>
           </ul>

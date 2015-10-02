@@ -21,7 +21,8 @@
           "legend":{
             "title":"(Participants)",
             "position":"bottom",
-            "autoMargins":true
+            "autoMargins":true,
+            "valueText":  "[[value]]:<?php echo $total; ?>"
           },
           "innerRadius": "30%",
           "defs": {
@@ -31,7 +32,7 @@
                 "result": "offOut",
                 "in": "SourceAlpha",
                 "dx": 0,
-                "dy": 0
+                "dy": 0,
               },
               "feGaussianBlur": {
                 "result": "blurOut",
@@ -50,7 +51,8 @@
           "titleField": "type",
           "export": {
             "enabled": true
-          }
+          },
+          "labelText": "[[title]]: [[percents]]% ([[value]])"
         });
 
         chart.addListener("init", handleInit);
@@ -204,7 +206,8 @@
           "titleField": "type",
           "export": {
             "enabled": true
-          }
+          },
+          "labelText": "[[title]]: [[percents]]% ([[value]])"
         });
 
         successionChart.addListener("init", handleInit);
@@ -270,7 +273,8 @@
           "titleField": "type",
           "export": {
             "enabled": true
-          }
+          },
+          "labelText": "[[title]]: [[percents]]% ([[value]]) "
         });
 
         successionChart2.addListener("init", handleInit);

@@ -27,7 +27,7 @@
                      <col width="80">
                      <col width="100">
                      <col width="100">
-                     <col width="60">
+                     <col width="80">
                      <col width="40">
                      <col width="40">
                      <col width="140">
@@ -64,12 +64,12 @@
       </tr></thead>
       <tbody >
          <col width="180">
-                     <col width="100">
-                     <col width="130">
-                     <col width="150">
-                     <col width="120">
-                     <col width="70">
-                     <col width="100">
+         <col width="100">
+         <col width="130">
+         <col width="150">
+         <col width="120">
+         <col width="70">
+         <col width="100">
       <form class="form-inline" role="form" id="frmadd" action="<?php echo base_url() ?>table/createStudent" method="POST">
         <td style="width=70"><input type="number" class="form-control" name="nationalID" placeholder="เลขประจำตัวประชาชน"></td>
         <td><input type="text"   class="form-control" name="FName"      placeholder="ชื่อ"></td>

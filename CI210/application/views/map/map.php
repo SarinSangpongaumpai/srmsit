@@ -195,7 +195,7 @@ function placeKMUTT(){
   });
 
       google.maps.event.addListener(beachMarker, 'click', function() {
-        infowindow.setContent("KMUTT");
+        infowindow.setContent("King Mongkut’s University of Technology Thonburi<br>126 ถนน ประชาอุทิศ กรุงเทพมหานคร Thung Khru 10140");
         infowindow.open(map, this);
       });
   <?php 

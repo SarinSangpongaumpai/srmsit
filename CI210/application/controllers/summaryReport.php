@@ -60,7 +60,7 @@ class SummaryReport extends CI_Controller {
          $data['totalRegister'] = $this->summary->get_totalRegisterTable($place);
          $data['Faculty'] = $this->summary->get_FacultyTable($place);
 
-
+         $data['allSchool'] = $this->summary->get_allSchool($place);
          $data['totalRegisterP'] = $this->summary->get_totalRegisterPTable($place);
          $data['FacultyParticipant'] = $this->summary->get_FacultyParticipantTable($place);
 

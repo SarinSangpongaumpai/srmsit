@@ -32,7 +32,7 @@ Class Summary extends CI_Model
    else{
     $this -> db -> where('register.study_In',$place);
    }
-   $this->db->join('activity', 'participant.ac_id = activity.id', 'inner');
+   $this->db->join('activity', 'participant.ac_title = activity.title', 'inner');
    $this->db->join('register', 'participant.nationalID = register.nationalID', 'inner');
    $this->db->group_by("register.type"); 
    $query = $this -> db -> get();
@@ -71,7 +71,7 @@ function get_FacultyTable($place)
    $this -> db -> select("COUNT(Distinct(participant.nationalID)) as number,faculty");
    $this -> db -> from('participant ');
    $this -> db -> where('activity.place',$place);
-   $this->db->join('activity', 'participant.ac_id = activity.id', 'inner');
+   $this->db->join('activity', 'participant.ac_title = activity.title', 'inner');
    $this->db->join('register', 'participant.nationalID = register.nationalID', 'inner');
    $this->db->group_by("register.faculty"); 
    if(!strcmp($place,"KMUTT")){
@@ -95,7 +95,7 @@ function get_FacultyTable($place)
    $this -> db -> select("COUNT(Distinct(participant.nationalID)) as total");
    $this -> db -> from('participant ');
    $this -> db -> where('activity.place',$place);
-   $this->db->join('activity', 'participant.ac_id = activity.id', 'inner');
+   $this->db->join('activity', 'participant.ac_title = activity.title', 'inner');
    $this->db->join('register', 'participant.nationalID = register.nationalID', 'inner');
    if(!strcmp($place,"KMUTT")){
     //$this -> db -> where ('register.study_In');
@@ -139,7 +139,7 @@ function get_totalRegisterTable($place)
    $this -> db -> select("activity.type , count(participant.no_student) As student");
    $this -> db -> from('activity ');
    $this -> db -> where('activity.place',$place);
-   $this->db->join('participant', 'participant.ac_id = activity.id', 'left');
+   $this->db->join('participant', 'participant.ac_title = activity.title', 'left');
    $this->db->group_by("activity.type"); 
    $query = $this -> db -> get();
    if($query -> num_rows() >= 1)
@@ -171,7 +171,7 @@ function get_totalRegisterTable($place)
    $this -> db -> select("activity.type , count(participant.no_student) As student");
    $this -> db -> from('activity ');
    $this -> db -> where('activity.place',$place);
-   $this->db->join('participant', 'participant.ac_id = activity.id', 'left');
+   $this->db->join('participant', 'participant.ac_title = activity.title', 'left');
    $this->db->group_by("activity.type"); 
    $query = $this -> db -> get();
    if($query -> num_rows() >= 1)
@@ -192,7 +192,7 @@ function get_totalRegisterTable($place)
    if(!is_null($type)){
     $this -> db -> where('activity.type',$type);
    }
-   $this->db->join('activity', 'participant.ac_id = activity.id', 'left');
+   $this->db->join('activity', 'participant.ac_title = activity.title', 'left');
    $this->db->join('student', 'participant.nationalID = student.nationalID', 'left');
    $this->db->group_by("student.gender"); 
    $query = $this -> db -> get();
@@ -213,7 +213,7 @@ function get_totalRegisterTable($place)
    if(!is_null($type)){
     $this -> db -> where('activity.type',$type);
    }
-   $this->db->join('activity', 'participant.ac_id = activity.id', 'left');
+   $this->db->join('activity', 'participant.ac_title = activity.title', 'left');
    $this->db->join('student', 'participant.nationalID = student.nationalID', 'left');
    $query = $this -> db -> get();
    if($query -> num_rows() >= 1)
@@ -233,7 +233,7 @@ function get_totalRegisterTable($place)
    if(!is_null($type)){
     $this -> db -> where('activity.type',$type);
    }
-   $this->db->join('activity', 'participant.ac_id = activity.id', 'left');
+   $this->db->join('activity', 'participant.ac_title = activity.title', 'left');
    $this->db->join('student', 'participant.nationalID = student.nationalID', 'left');
    $this->db->group_by("student.program"); 
    $query = $this -> db -> get();
@@ -254,7 +254,7 @@ function get_totalRegisterTable($place)
    if(!is_null($type)){
     $this -> db -> where('activity.type',$type);
    }
-   $this->db->join('activity', 'participant.ac_id = activity.id', 'left');
+   $this->db->join('activity', 'participant.ac_title = activity.title', 'left');
    $this->db->join('student', 'participant.nationalID = student.nationalID', 'left');
    $this->db->group_by("student.school_year"); 
    $query = $this -> db -> get();
