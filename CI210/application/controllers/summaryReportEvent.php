@@ -17,13 +17,18 @@ class SummaryReportEvent extends CI_Controller {
 			 $this->load->view("footer");
   }
   
-	public function test()
+	public function getCostParticipant()
 	{
     //$place = $_GET['Place'];
 		$json = json_encode($this->summaryEvent->getCostParticipant() , JSON_NUMERIC_CHECK);
      print $json;
 	}
-
+  public function getCostEffective()
+  {
+    //$place = $_GET['Place'];
+    $json = json_encode($this->summaryEvent->getCostParticipant() , JSON_NUMERIC_CHECK);
+     print $json;
+  }
 
  } 
 
