@@ -67,7 +67,7 @@
 <SCRIPT>
 function submitForm(i) {
    if (i==1) document.theForm.action=
-      'submit2'
+      'studentSubmit'
    if (i==2) document.theForm.action=
       'index'
    document.theForm.submit()

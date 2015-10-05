@@ -26,7 +26,7 @@ class SummaryReportEvent extends CI_Controller {
   public function getCostEffective()
   {
     //$place = $_GET['Place'];
-    $json = json_encode($this->summaryEvent->getCostParticipant() , JSON_NUMERIC_CHECK);
+    $json = json_encode($this->summaryEvent->getCostEffective() , JSON_NUMERIC_CHECK);
      print $json;
   }
 

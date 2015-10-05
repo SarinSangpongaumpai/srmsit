@@ -42,23 +42,46 @@
             <div class="table-responsive" >
               <table  data-toggle="table"   data-id-field="title"
                data-show-refresh="true" data-show-toggle="true" 
-              data-url="getCostParticipant" data-height="400" data-pagination="true" data-search="true"
+              data-url="getCostParticipant" data-height="500" data-pagination="true" data-search="true"
               data-filter-control="false" >
                 <thead>
-                  <tr>
-                    <th data-field="title" data-switchable="false" data-sortable="true" >Event title</th>
-                    <th data-field="cost" data-switchable="false" data-sortable="true"  >Cost</th>
-                    <th data-field="participants"data-switchable="true" data-sortable="true" >Participant</th>
-                    <th data-field="date" data-sortable="true" >Date</th>
+                   <tr>
+                    <th data-halign="center" data-align ="center" rowspan="2" data-field="title" data-sortable="true" tabindex="0">Even title</th>
+                    <th data-halign="center" data-align ="center" colspan="2" >Cost (bahts)</th>
+                    <th data-halign="center" data-align ="center" colspan="2" scope="colgroup">Participants (people)</th>
+                    <th data-halign="center" data-align ="center" rowspan="2" data-field="date" data-sortable="true" tabindex="0">Date</th>
                   </tr>
+                  <tr>
+                    <th data-halign="center" data-align ="center" data-formatter="budget" data-field="budget" data-switchable="false" data-sortable="true"  >Budget </th>
+                    <th data-halign="center" data-align ="center" data-formatter="actual" data-field="cost"  data-switchable="false" data-sortable="true"  >Actual Spend </th>
+                    <th data-halign="center" data-align ="center" data-field="expectPeople"data-switchable="true" data-sortable="true" >Expected</th>
+                    <th data-halign="center" data-align ="center" data-field="participants"data-switchable="true" data-sortable="true" >Actual</th>
+                   </tr>
                 </thead>
               </table>
+              
             </div><!-- /.table-responsive -->
           </div>
         </div>
     <div class="tab-pane" id="test" >
       <div class="nav-tabs-custom">
-        dsadsadasd
+        <div id="chartdiv2"></div> 
+        <div class="table-responsive" >
+              <table  data-toggle="table"   data-id-field="title"
+               data-show-refresh="true" data-show-toggle="true" 
+              data-url="getCostEffective" data-height="500" data-pagination="true" data-search="true"
+              data-filter-control="false" >
+                <thead>
+                  <tr>
+                    <th data-halign="center" data-align ="center"  data-field="title" data-sortable="true" >Even title</th>
+                    <th data-halign="center" data-align ="center"  data-field="date" data-sortable="true" >Date</th>
+                    <th data-halign="center" data-align ="center" data-field="expected"  data-switchable="false" data-sortable="true"  >Expected </th>
+                    <th data-halign="center" data-align ="center" data-field="actual"data-switchable="true" data-sortable="true" >Actual</th>
+                   </tr>
+                </thead>
+              </table>
+              
+            </div><!-- /.table-responsive -->
       </div>
     </div>
   </div>
@@ -72,8 +95,40 @@
 <script src="<?php echo base_url()?>plugins/bootstrap-table-master/dist/bootstrap-table.js"></script>
 <script src="http://www.amcharts.com/lib/3/amcharts.js"></script>
 <script src="http://www.amcharts.com/lib/3/serial.js"></script>
-<script src="http://www.amcharts.com/lib/3/themes/none.js"></script>
+<script src="http://www.amcharts.com/lib/3/themes/light.js"></script>
+<script src="http://www.amcharts.com/lib/3/amstock.js"></script>
+<script>
+              var test = 0;
+    function budget(value, row) {
+        test = value;
+        return value;
+    }
 
+    function actual(value) {
+        // 16777215 == ffffff in decimal
+        if(test == value){
+        var color = '#1a59e0';
+        return '<div  style="color: ' + color + '">' +
+                '<i class="fa fa-caret-right"></i>' +
+                value +
+                '</div>';
+              }
+          else if(test < value){
+        var color= '#E80000';
+        return '<div  style="color: ' + color + '">' +
+                '<i class="fa fa-caret-up"></i>' +
+                value +
+                '</div>';
+              }
+              else{
+                 var color = '#669521';
+        return '<div  style="color: ' + color + '">' +
+                '<i class="fa fa-caret-down"></i>' +
+                value +
+                '</div>';
+              }
+    }
+</script>
 <script>
 var chart;            
     $(document).ready(function(){
@@ -82,116 +137,188 @@ var chart;
         chart.validateData();
       });
     });
-//var chartData = [{"date":"2015-08-21","participants":100,"title":"BootCamp1","cost":25000}];
 var chart = AmCharts.makeChart("chartdiv", {
-  type: "serial",
-  dataDateFormat: "YYYY-MM-DD",
-  
-  addClassNames: true,
-  startDuration: 1,
-  color: "#000000",
-  marginLeft: 0,
-
-  categoryField: "date",
-  categoryAxis: {
-    parseDates: true,
-    minPeriod: "DD",
-    autoGridCount: false,
-    gridCount: 50,
-    gridAlpha: 0.1,
-    gridColor: "#000000",
-    axisColor: "#555555",
-    dateFormats: [{
-        period: 'DD',
-        format: 'DD'
-    }, {
-        period: 'WW',
-        format: 'MMM DD'
-    }, {
-        period: 'MM',
-        format: 'MMM'
-    }, {
-        period: 'YYYY',
-        format: 'YYYY'
-    }]
-  },
-
-  valueAxes: [{
-    id: "a1",
-    title: "Participants (people)",
-    gridAlpha: 0,
-    axisAlpha: 0
-  },{
-    id: "a2",
-    position: "right",
-    gridAlpha: 0,
-    axisAlpha: 0,
-    labelsEnabled: false
-  },{
-    id: "a3",
-    title: "Cost (bahts)",
-    position: "right",
-    gridAlpha: 0,
-    axisAlpha: 0,
-    inside: true
+  "type": "serial",
+  "theme": "light",
+  "dataDateFormat": "YYYY-MM-DD",
+  "precision": 0,
+  "valueAxes": [{
+    "id": "v1",
+    "title": "Participants (people)",
+    "position": "left",
+    "autoGridCount": false
+  }, {
+    "id": "v2",
+    "title": "Cost (bahts)",
+    "gridAlpha": 0,
+    "position": "right",
+    "autoGridCount": false
   }],
-  graphs: [{
-    id: "g1",
-    valueField:  "participants",
-    title:  "Participants",
-    type:  "column",
-    fillAlphas:  0.9,
-    valueAxis:  "a1",
-    balloonText:  "[[title]]: [[value]] people",
-    legendValueText:  "[[value]] people",
-    legendPeriodValueText:  "[[value]] people",
-    lineColor:  "#263138",
-    alphaField:  "alpha",
-  },{
-    id: "g3",
-    title: "Cost",
-    valueField: "cost",
-    type: "line",
-    valueAxis: "a3",
-    lineColor: "#ff5755",
-    balloonText: "[[title]]: [[value]] bahts",
-    lineThickness: 1,
-    legendValueText: "[[value]] bahts",
-    legendFunction: function(item, graph) {
-      var result = graph.balloonText;
-      for (var key in item.dataContext) {
-        if (item.dataContext.hasOwnProperty(key) && !isNaN(item.dataContext[key])) {
-          var formatted = AmCharts.formatNumber(item.dataContext[key], {
-            precision: chart.precision,
-            decimalSeparator: chart.decimalSeparator,
-            thousandsSeparator: chart.thousandsSeparator
-          }, 2);
-          result = result.replace("[[" + key + "]]", formatted);
-        }
-      }
-      return result;
-    },
-    bullet: "square",
-    bulletBorderColor: "#ff5755",
-    bulletBorderThickness: 1,
-    bulletBorderAlpha: 1,
-    dashLengthField: "dashLength",
-    animationPlayed: true
+  "graphs": [{
+    "id": "g1",
+    "precision": 2,
+    "valueAxis": "v2",
+    "bullet": "round",
+    "bulletBorderAlpha": 1,
+    "bulletColor": "#FFFFFF",
+    "bulletSize": 5,
+    "hideBulletsCount": 50,
+    "lineThickness": 2,
+    "lineColor": "#20acd4",
+    "type": "smoothedLine",
+    "title": "Cost",
+    "useLineColorForBulletBorder": true,
+    "valueField": "cost",
+    "balloonText": "Cost<br/><b style='font-size: 130%'>[[value]] (bahts)</b>"
+  }, {
+    "id": "g2",
+    "valueAxis": "v2",
+    "bullet": "round",
+    "bulletBorderAlpha": 1,
+    "bulletColor": "#FFFFFF",
+    "bulletSize": 5,
+    "hideBulletsCount": 50,
+    "lineThickness": 2,
+    "lineColor": "#e1ede9",
+    "type": "smoothedLine",
+    "dashLength": 5,
+    "title": "Budget",
+    "useLineColorForBulletBorder": true,
+    "valueField": "budget",
+    "balloonText": "Budget<br/><b style='font-size: 130%'>[[value]] (bahts)</b>"
+  }, {
+    "id": "g2",
+    "valueAxis": "v1",
+    "lineColor": "#62cf73",
+    "fillColors": "#62cf73",
+    "fillAlphas": 1,
+    "type": "column",
+    "title": "Participants",
+    "valueField": "participants",
+    "clustered": false,
+    "columnWidth": 0.3,
+    "legendValueText": "[[value]]",
+    "balloonText": "Actual Participants<br/><b style='font-size: 130%'>[[value]] (people)</b>"
+  }, {
+    "id": "g3",
+    "valueAxis": "v1",
+    "lineColor": "#e1ede9",
+    "fillColors": "#e1ede9",
+    "fillAlphas": 1,
+    "type": "column",
+    "title": "Expected",
+    "valueField": "expectPeople",
+    "clustered": false,
+    "labelText": "[[title]]",
+    "columnWidth": 0.5,
+    "legendValueText": "[[value]]",
+    "balloonText": "Expected Participants<br/><b style='font-size: 130%'>[[value]] (people)</b>"
   }],
-
-  chartCursor: {
-    zoomable: false,
-    categoryBalloonDateFormat: "DD",
-    cursorAlpha: 0,
-    valueBalloonsEnabled: false
+  "chartScrollbar": {
+    "graph": "g1",
+    "oppositeAxis": false,
+    "offset": 30,
+    "scrollbarHeight": 50,
+    "backgroundAlpha": 0,
+    "selectedBackgroundAlpha": 0.1,
+    "selectedBackgroundColor": "#888888",
+    "graphFillAlpha": 0,
+    "graphLineAlpha": 0.5,
+    "selectedGraphFillAlpha": 0,
+    "selectedGraphLineAlpha": 1,
+    "autoGridCount": true,
+    "color": "#AAAAAA"
   },
-  legend: {
-    bulletType: "round",
-    equalWidths: false,
-    valueWidth: 120,
-    useGraphSettings: true,
-    color: "#000000"
+  "chartCursor": {
+    "pan": true,
+    "valueLineEnabled": true,
+    "valueLineBalloonEnabled": true,
+    "cursorAlpha": 0,
+    "valueLineAlpha": 0.2
+  },
+  "categoryField": "date",
+  "categoryAxis": {
+    "parseDates": true,
+    "dashLength": 1,
+    "minorGridEnabled": true
+  },
+  "legend": {
+    "useGraphSettings": true,
+    "position": "top"
+  },
+  "balloon": {
+    "borderThickness": 1,
+    "shadowAlpha": 0
+  },
+  "export": {
+   "enabled": true
   }
+});
+</script>
+<script>
+var chart2;            
+    $(document).ready(function(){
+      $.getJSON("<?php echo base_url() ?>summaryReportEvent/getCostEffective",  function (data) {
+        chart2.dataProvider = data; 
+        chart2.validateData();
+      });
+    });
+var chart2 = AmCharts.makeChart("chartdiv2", {
+  "type": "serial",
+    "theme": "light",
+    "marginRight": 80,
+    "autoMarginOffset": 20,
+    "marginTop": 7,
+    "valueAxes": [{
+        "axisAlpha": 0.2,
+        "dashLength": 1,
+        "position": "left"
+    }],
+    "mouseWheelZoomEnabled": true,
+    "graphs": [{
+        "id": "g1",
+        "labelText": "[[title]]",
+        "balloonText": "Actual <br>[[category]]<br/><b><span style='font-size:14px;'>value: [[value]]</span></b>",
+        "bullet": "round",
+        "bulletBorderAlpha": 1,
+        "bulletColor": "#FFFFFF",
+        "hideBulletsCount": 50,
+        "title": "Actual",
+        "valueField": "actual",
+        "useLineColorForBulletBorder": true
+    },{
+        "id": "g2",
+        "balloonText": "Expected <br>[[category]]<br/><b><span style='font-size:14px;'>value: [[value]]</span></b>",
+        "bullet": "round",
+        "bulletBorderAlpha": 1,
+        "bulletColor": "#FFFFFF",
+        "hideBulletsCount": 50,
+        "title": "Expected",
+        "valueField": "expected",
+        "useLineColorForBulletBorder": true
+    }],
+    "chartScrollbar": {
+        "autoGridCount": true,
+        "graph": "g1",
+        "scrollbarHeight": 40
+    },
+    "chartCursor": {
+
+    },
+    "categoryField": "date",
+    "categoryAxis": {
+        "parseDates": true,
+        "axisColor": "#DADADA",
+        "dashLength": 1,
+        "minorGridEnabled": true
+    },
+    "export": {
+        "enabled": true
+    },
+    "legend": {
+      "useGraphSettings": true,
+      "position": "top"
+    }
 });
   </script>
 
@@ -203,93 +330,9 @@ var chart = AmCharts.makeChart("chartdiv", {
     width   : 100%;
   height    : 500px;
 }
-
-.amcharts-graph-g2 .amcharts-graph-stroke {
-  stroke-dasharray: 3px 3px;
-  stroke-linejoin: round;
-  stroke-linecap: round;
-  -webkit-animation: am-moving-dashes 1s linear infinite;
-  animation: am-moving-dashes 1s linear infinite;
+#chartdiv2 {
+    width   : 100%;
+  height    : 500px;
 }
-
-@-webkit-keyframes am-moving-dashes {
-  100% {
-    stroke-dashoffset: -31px;
-  }
-}
-@keyframes am-moving-dashes {
-  100% {
-    stroke-dashoffset: -31px;
-  }
-}
-
-
-.lastBullet {
-  -webkit-animation: am-pulsating 1s ease-out infinite;
-  animation: am-pulsating 1s ease-out infinite;
-}
-@-webkit-keyframes am-pulsating {
-  0% {
-    stroke-opacity: 1;
-    stroke-width: 0px;
-  }
-  100% {
-    stroke-opacity: 0;
-    stroke-width: 50px;
-  }
-}
-@keyframes am-pulsating {
-  0% {
-    stroke-opacity: 1;
-    stroke-width: 0px;
-  }
-  100% {
-    stroke-opacity: 0;
-    stroke-width: 50px;
-  }
-}
-
-.amcharts-graph-column-front {
-  -webkit-transition: all .3s .3s ease-out;
-  transition: all .3s .3s ease-out;
-}
-.amcharts-graph-column-front:hover {
-  fill: #496375;
-  stroke: #496375;
-  -webkit-transition: all .3s ease-out;
-  transition: all .3s ease-out;
-}
-
-.amcharts-graph-g3 {
-  stroke-linejoin: round;
-  stroke-linecap: round;
-  stroke-dasharray: 500%;
-  stroke-dasharray: 0 \0/;    /* fixes IE prob */
-  stroke-dashoffset: 0 \0/;   /* fixes IE prob */
-  -webkit-animation: am-draw 10s;
-  animation: am-draw 10s;
-}
-@-webkit-keyframes am-draw {
-    0% {
-        stroke-dashoffset: 500%;
-    }
-    100% {
-        stroke-dashoffset: 0px;
-    }
-}
-@keyframes am-draw {
-    0% {
-        stroke-dashoffset: 500%;
-    }
-    100% {
-        stroke-dashoffset: 0px;
-    }
-}
-/* OVERWRITE OUR MAIN STYLE */
-.demo-flipper-front.demo-panel-white, body {
-  background-color: #161616;  
-}               
-}
-       
 </style>
 

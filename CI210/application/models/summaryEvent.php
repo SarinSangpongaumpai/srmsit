@@ -4,7 +4,7 @@ Class SummaryEvent extends CI_Model
 
   function getCostParticipant()
  {
-   $this -> db -> select("start as date,count(participant.no_student) as participants,activity.title,activity.cost  ");
+   $this -> db -> select("start as date,count(participant.no_student) as participants,activity.title,activity.cost,budget,expectPeople ");
    $this -> db -> from('activity');
    $this -> db -> join('participant', 'participant.ac_title = activity.title', 'left');
    $this -> db -> group_by("activity.title"); 
@@ -21,7 +21,7 @@ Class SummaryEvent extends CI_Model
  }
    function getCostEffective()
  {
-   $this -> db -> select("start as date,count(participant.no_student) as participants/cost,activity.title ");
+   $this -> db -> select("start as date,(count(participant.no_student)/cost*budget/100) as actual,activity.title,(expectPeople/budget*cost/100) as expected");
    $this -> db -> from('activity');
    $this -> db -> join('participant', 'participant.ac_title = activity.title', 'left');
    $this -> db -> group_by("activity.title"); 
@@ -36,5 +36,6 @@ Class SummaryEvent extends CI_Model
      return false;
    }
  }
+
 }
 ?>

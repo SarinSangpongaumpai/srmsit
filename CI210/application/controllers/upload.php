@@ -13,12 +13,11 @@ class Upload extends CI_Controller {
 	{
 		
 		$this->load->view("header");
-		//$this->load->view("side");
-	    $this->load->view("upload/upload");
+	    $this->load->view("upload/studentUpload");
 	    $this->load->view('footer');
 
 	}
-	function do_upload(){
+	function studentUpload(){
 		$config = array(
 			"upload_path"=>"uploadFile/",
 			"allowed_types"=>"csv|docx",
@@ -32,18 +31,17 @@ class Upload extends CI_Controller {
 			$name="temp";
 			rename($data['full_path'],$data['file_path'].$name.$data['file_ext']);
 			$this->load->view("header");
-			//$this->load->view("side");
-			$this->load->view('upload/upload2');
+			$this->load->view('upload/studentUploadCon');
 			$this->load->view('footer');
 
 		}
 		else{
 			echo $this->upload->display_errors();
-			echo anchor("upload","Back");
+			echo anchor("studentUpload","Back");
 		}
 			
 	}
-	function submit(){
+	function submit2(){
 		$this->function->upload_csv();
 		$this->index();
 		print "<script type=\"text/javascript\">alert('Upload File SuccessFul');;</script>";
