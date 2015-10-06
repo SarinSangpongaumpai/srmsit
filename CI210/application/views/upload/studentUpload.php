@@ -13,19 +13,19 @@
       <div class="col-md-12">
         <div class="nav-tabs-custom">
           <ul class="nav nav-tabs pull-right">
-            <li class="active"><a href="#activity" data-toggle="tab">Activity</a></li>
-            <li><a href="#timeline" data-toggle="tab">Timeline</a></li>
+            <li><a href="#participant" data-toggle="tab">Participant</a></li>
+            <li class="active"><a href="#student" data-toggle="tab">Student</a></li>
             <li class="pull-left header"><i class="fa fa-table"></i> Table</li>
           </ul>
           <div class="tab-content">
-            <div class="active tab-pane" id="activity">
+            <div class="active tab-pane" id="student">
               <div class="row invoice-info">
-                <div class="col-sm-4 invoice-col"></div><!-- /.col -->
+                <div class="col-sm-3 invoice-col"></div><!-- /.col -->
                 <div class="center">
                   <div class="col-md-8 invoice-col">
                     <?php echo form_open_multipart("upload/studentUpload")?> 
                     <div class="center">
-                      <input  id="uploadFile" placeholder="Choose File" size="19" />
+                      <input  id="uploadFile" placeholder="Choose File" size="45" />
                         <div class="fileUpload btn btn-primary">
                           <span>Upload</span>
                           <input id="uploadBtn" name="upload"type="file" class="upload" accept=".csv" />
@@ -33,24 +33,24 @@
                     </div><br>
                 
                     <div class = "center">
-                        <button id = "submit"type ="submit" name="save" value="Upload" class="btn btn-primary" style="width: 200px">Submit</button>
+                        <button id = "submit"type ="submit" name="save" value="Upload" class="btn btn-primary" style="width: 200px;margin-left:75px">Submit</button>
                     </div>
                   </div>
                   <?php echo form_close();?>
                 </div><!-- /.col -->
               </div>
               <div class="box-body" >
-              <table id="example1" class="table table-bordered table-striped"> 
+              <table id="example1" class="table table-bordered table-striped" > 
                 <thead>
-                  <tr>
-                    <th>nationalId</th>
-                    <th>FirstName</th>
-                    <th>LastName</th>
-                    <th>School Year</th>
-                    <th>Program</th>
-                    <th>Gender</th>
-                    <th>GPA</th>
-                    <th>School</th>
+                  <tr >
+                    <th>เลขประจำตัวประชาชน</th>
+                    <th>ชื่อ</th>
+                    <th>นามสกุล</th>
+                    <th>ชั่นปี</th>
+                    <th>สายวิชา</th>
+                    <th>เพศ</th>
+                    <th>เกรดเฉลี่ย</th>
+                    <th>โรงเรียน</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -78,8 +78,54 @@
               </table>  
              </div>
             </div><!-- /.tab-pane -->
-            <div class="tab-pane" id="timeline">
-              kkk
+            <div class="tab-pane" id="participant">
+              <div class="row invoice-info">
+                <div class="col-sm-3 invoice-col"></div><!-- /.col -->
+                <div class="center">
+                  <div class="col-md-8 invoice-col">
+                    <?php echo form_open_multipart("upload/participantUpload")?> 
+                    <div class="center">
+                      <input  id="uploadFileParticipant" placeholder="Choose File" size="45" />
+                        <div class="fileUpload btn btn-primary">
+                          <span>Upload</span>
+                          <input id="uploadParticipant" name="upload"type="file" class="upload" accept=".csv" />
+                        </div>
+                    </div><br>
+                
+                    <div class = "center">
+                        <button id = "submitParticipant"type ="submit" name="save" value="Upload" class="btn btn-primary" style="width: 200px;margin-left:75px">Submit</button>
+                    </div>
+                  </div>
+                  <?php echo form_close();?>
+                </div><!-- /.col -->
+              </div>
+
+              <div class="box-body" >
+              <div class="row" >
+                <div class="col-md-3">  
+                </div>
+              <div class="col-md-5">   
+              <table id="example1" class="table table-bordered table-striped"  > 
+                <thead>
+                  <tr>
+                    <th   >เลขประจำตัวประชาชน</th>
+                    <th   >กิจกรรมที่เข้าร่วม</th>
+                  </tr>
+                </thead>
+                <tbody >
+                  <tr>
+                    <td >1101500230012</td>
+                    <td >JPC11</td>
+                  </tr>
+                  <tr>
+                    <td>1101500250012</td>
+                    <td>WIP7</td>
+                  </tr>
+                </tbody>
+              </table>  
+            </div>
+            </div>
+             </div>
             </div><!-- /.tab-pane -->
           </div><!-- /.tab-content -->
         </div><!-- /.nav-tabs-custom -->
@@ -87,7 +133,9 @@
      </div><!-- /.row -->
   </section>
 </div>
-
+<style>
+ th,tr,td{ text-align:center;}
+</style>
     <script>
     //document.getElementById("uploadBtn").onchange = function () {
     //document.getElementById("uploadFile").value = this.value; 
@@ -111,6 +159,32 @@
         switch(val.substring(val.lastIndexOf('.') + 1).toLowerCase()){
             case 'csv':
             document.getElementById("uploadFile").value = this.value;
+                break;
+            default:
+                $(this).val('');
+                alert("File must be .csv ");
+                break;
+        }
+    });
+
+     $(document).ready(function() {
+      $('#submitParticipant').bind("click",function() 
+      { 
+
+      if(!$('#uploadParticipant').val())
+                  {
+                      alert("Please input file");
+                      return false;
+
+                  }
+
+          }); 
+      });
+     $("#uploadParticipant").change(function() {
+        var val = $(this).val();
+        switch(val.substring(val.lastIndexOf('.') + 1).toLowerCase()){
+            case 'csv':
+            document.getElementById("uploadFileParticipant").value = this.value;
                 break;
             default:
                 $(this).val('');

@@ -4,7 +4,6 @@ class Map extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('map_model');
-		$this->load->library('googlemaps');
 	}  
 	
 	public function index()
@@ -25,6 +24,7 @@ class Map extends CI_Controller {
 		$this->load->view('map/map',$data);
 		$this->load->view('footer');
 	}
+	// Add school detail to DB
 	public function addSchool(){
 		$data = array('name'=>  $this->input->post('name'),
                 'location'=>$this->input->post('location'),
@@ -42,6 +42,7 @@ class Map extends CI_Controller {
         print "<script type=\"text/javascript\">alert('เพิ่มโรงเรียนสำเร็จแล้ว');</script>";
    		redirect('map/index', 'refresh');
 	}
+	// Search school in specific range
 	public function searchRange(){
 		$this -> db -> select("school.name,school.location,school.note,school.latitude,school.longitude");
 	    $this -> db -> from('school');

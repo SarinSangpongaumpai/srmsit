@@ -30,9 +30,6 @@ function get_people() {
 		static $query;
 		$this->db->select('year, participants, applicants, students');
 		$query = $this->db->get('amchart');
-		#If you don't want to use acrtive record then you can write your own querys aswell
-		#example: $query = $this->db->query('SELECT id, name FROM people');
- 
 		if($query->num_rows() > 0) return $query->result();
 		else return FALSE;
 	}

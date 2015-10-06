@@ -10,7 +10,6 @@ class SummaryReport extends CI_Controller {
 	}  
 	
 	public function school(){
-	  //$this->load->view("summary/upload");
       if ( isset($_GET['Place']) ) {
        $place = $_GET['Place'];
    		 $this->load->view("header");
@@ -92,7 +91,7 @@ class SummaryReport extends CI_Controller {
     print $json = json_encode($this->summary->get_schoolTotalRegisterChart($place));
   }
 
-
+ // Change school's data
   function editSchoolData()
  {
   $place = $_GET['Place'];
@@ -111,7 +110,8 @@ class SummaryReport extends CI_Controller {
    print "<script type=\"text/javascript\">alert('Successful Register');</script>";
    redirect('summaryReport/school?Place='.$place, 'refresh');
   }
- } 
+ }
+ // send email to School's contact person 
   function sendSchoolMail(){
   $place = $_GET['Place'];
   $To = $this->input->post('To');

@@ -8,29 +8,22 @@ class SummaryReportEvent extends CI_Controller {
 
 	}  
 	
-	public function event(){
-	  //$this->load->view("summary/upload");
-     
-   		 $this->load->view("header");
+	public function event()
+	{
+   	   $this->load->view("header");
    	   $data['CostParticipant'] = $this->summaryEvent->getCostParticipant();
        $this->load->view("summary/event",$data);
-			 $this->load->view("footer");
-  }
+	   $this->load->view("footer");
+    }
   
 	public function getCostParticipant()
 	{
-    //$place = $_GET['Place'];
-		$json = json_encode($this->summaryEvent->getCostParticipant() , JSON_NUMERIC_CHECK);
+     $json = json_encode($this->summaryEvent->getCostParticipant() , JSON_NUMERIC_CHECK);
      print $json;
 	}
-  public function getCostEffective()
-  {
-    //$place = $_GET['Place'];
-    $json = json_encode($this->summaryEvent->getCostEffective() , JSON_NUMERIC_CHECK);
+    public function getCostEffective()
+    {
+     $json = json_encode($this->summaryEvent->getCostEffective() , JSON_NUMERIC_CHECK);
      print $json;
-  }
-
+    }
  } 
-
-/* End of file chart.php */
-/* Location: ./application/controllers/chart.php */

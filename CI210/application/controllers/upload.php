@@ -4,7 +4,6 @@ class Upload extends CI_Controller {
 	public $data;
 	public function __construct()
 	{
-	//Core controller constructor
 	parent::__construct();
 	$this->load->model('upload_function', 'function');
 	$this->load->helper("form");
@@ -41,13 +40,42 @@ class Upload extends CI_Controller {
 		}
 			
 	}
-	function submit2(){
-		$this->function->upload_csv();
+	function studentSubmit(){
+		$this->function->studentUpload_csv();
 		$this->index();
 		print "<script type=\"text/javascript\">alert('Upload File SuccessFul');;</script>";
 		
 	}
+	function participantUpload(){
+		$config = array(
+			"upload_path"=>"uploadFile/",
+			"allowed_types"=>"csv|docx",
+			"max_size"=>2000,
+			"max_height"=>2000,
+			"max_width"=>2000
+			);
+		$this->load->library("upload",$config);
+		if($this->upload->do_upload("upload")){
+			$data = $this->upload->data();
+			$name="temp";
+			rename($data['full_path'],$data['file_path'].$name.$data['file_ext']);
+			$this->load->view("header");
+			$this->load->view('upload/participantUploadCon');
+			$this->load->view('footer');
 
+		}
+		else{
+			echo $this->upload->display_errors();
+			echo anchor("participantUpload","Back");
+		}
+			
+	}
+	function participantSubmit(){
+		$this->function->participantUpload_csv();
+		$this->index();
+		print "<script type=\"text/javascript\">alert('Upload File SuccessFul');;</script>";
+		
+	}
 }
 
 /* End of file chart.php */

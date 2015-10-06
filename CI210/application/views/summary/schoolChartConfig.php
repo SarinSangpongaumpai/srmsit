@@ -52,7 +52,7 @@
           "export": {
             "enabled": true
           },
-          "labelText": "[[title]]: [[percents]]% ([[value]])"
+          "labelText": "[[title]]: [[percents]]% ([[value]] people) "
         });
 
         chart.addListener("init", handleInit);
@@ -108,7 +108,7 @@
                 }],
 
                 graphs: [{
-                    balloonText: "[[category]]: <b>[[value]]</b>",
+                    balloonText: "[[category]]: <b>[[value]]</b> people",
                     valueField: "student",
                     colorField: "color",
                     type: "column",

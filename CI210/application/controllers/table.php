@@ -11,15 +11,12 @@ class Table extends CI_Controller {
     public function index()
     {   
   		$this->load->view('header');
-  		//$this->load->view('side');
         $this->load->view('table/studentTable');
     }
     public function student()
     {   
         $this->load->view('header');
-        //$this->load->view('side');
         $this->load->view('table/studentTable');
-        //$this->load->view('footer');
     }
     // Fill table    
     public function fillstudentTable(){

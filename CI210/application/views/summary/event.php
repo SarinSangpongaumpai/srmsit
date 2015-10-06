@@ -54,8 +54,8 @@
                   <tr>
                     <th data-halign="center" data-align ="center" data-formatter="budget" data-field="budget" data-switchable="false" data-sortable="true"  >Budget </th>
                     <th data-halign="center" data-align ="center" data-formatter="actual" data-field="cost"  data-switchable="false" data-sortable="true"  >Actual Spend </th>
-                    <th data-halign="center" data-align ="center" data-field="expectPeople"data-switchable="true" data-sortable="true" >Expected</th>
-                    <th data-halign="center" data-align ="center" data-field="participants"data-switchable="true" data-sortable="true" >Actual</th>
+                    <th data-halign="center" data-align ="center" data-formatter="expect"data-field="expectPeople"data-switchable="true" data-sortable="true" >Expected</th>
+                    <th data-halign="center" data-align ="center" data-formatter="participant"data-field="participants"data-switchable="true" data-sortable="true" >Actual</th>
                    </tr>
                 </thead>
               </table>
@@ -75,8 +75,8 @@
                   <tr>
                     <th data-halign="center" data-align ="center"  data-field="title" data-sortable="true" >Even title</th>
                     <th data-halign="center" data-align ="center"  data-field="date" data-sortable="true" >Date</th>
-                    <th data-halign="center" data-align ="center" data-field="expected"  data-switchable="false" data-sortable="true"  >Expected </th>
-                    <th data-halign="center" data-align ="center" data-field="actual"data-switchable="true" data-sortable="true" >Actual</th>
+                    <th data-halign="center" data-align ="center" data-formatter="expectCost" data-field="expected"  data-switchable="false" data-sortable="true"  >Expected </th>
+                    <th data-halign="center" data-align ="center" data-formatter="actualCost" data-field="actual"data-switchable="true" data-sortable="true" >Actual</th>
                    </tr>
                 </thead>
               </table>
@@ -98,22 +98,24 @@
 <script src="http://www.amcharts.com/lib/3/themes/light.js"></script>
 <script src="http://www.amcharts.com/lib/3/amstock.js"></script>
 <script>
-              var test = 0;
+    var budgetVal = 0;
     function budget(value, row) {
-        test = value;
+        budgetVal = value;
         return value;
     }
 
     function actual(value) {
-        // 16777215 == ffffff in decimal
-        if(test == value){
+        if(value == null){
+          return 0;
+        }
+        else if(budgetVal == value){
         var color = '#1a59e0';
         return '<div  style="color: ' + color + '">' +
                 '<i class="fa fa-caret-right"></i>' +
                 value +
                 '</div>';
               }
-          else if(test < value){
+          else if(budgetVal < value){
         var color= '#E80000';
         return '<div  style="color: ' + color + '">' +
                 '<i class="fa fa-caret-up"></i>' +
@@ -124,6 +126,68 @@
                  var color = '#669521';
         return '<div  style="color: ' + color + '">' +
                 '<i class="fa fa-caret-down"></i>' +
+                value +
+                '</div>';
+              }
+    }
+    var expected = 0;
+    function expect(value, row) {
+        expected = value;
+        return value;
+    }
+
+    function participant(value) {
+        // 16777215 == ffffff in decimal
+        if(expected == value){
+        var color = '#1a59e0';
+        return '<div  style="color: ' + color + '">' +
+                '<i class="fa fa-caret-right"></i>' +
+                value +
+                '</div>';
+              }
+          else if(expected > value){
+        var color= '#E80000';
+        return '<div  style="color: ' + color + '">' +
+                '<i class="fa fa-caret-down"></i>' +
+                value +
+                '</div>';
+              }
+              else{
+                 var color = '#669521';
+        return '<div  style="color: ' + color + '">' +
+                '<i class="fa fa-caret-up"></i>' +
+                value +
+                '</div>';
+              }
+    }
+    var expectedCost = 0;
+    function expectCost(value, row) {
+        expectedCost = value;
+        return value;
+    }
+
+    function actualCost(value) {
+        if(value == null){
+          return 0;
+        }
+        else if(expectedCost == value){
+        var color = '#1a59e0';
+        return '<div  style="color: ' + color + '">' +
+                '<i class="fa fa-caret-right"></i>' +
+                value +
+                '</div>';
+              }
+          else if(expectedCost > value){
+        var color= '#E80000';
+        return '<div  style="color: ' + color + '">' +
+                '<i class="fa fa-caret-down"></i>' +
+                value +
+                '</div>';
+              }
+              else{
+                 var color = '#669521';
+        return '<div  style="color: ' + color + '">' +
+                '<i class="fa fa-caret-up"></i>' +
                 value +
                 '</div>';
               }
@@ -156,7 +220,6 @@ var chart = AmCharts.makeChart("chartdiv", {
   }],
   "graphs": [{
     "id": "g1",
-    "precision": 2,
     "valueAxis": "v2",
     "bullet": "round",
     "bulletBorderAlpha": 1,
@@ -172,6 +235,7 @@ var chart = AmCharts.makeChart("chartdiv", {
     "balloonText": "Cost<br/><b style='font-size: 130%'>[[value]] (bahts)</b>"
   }, {
     "id": "g2",
+    "labelText": "[[title]]",
     "valueAxis": "v2",
     "bullet": "round",
     "bulletBorderAlpha": 1,
@@ -179,14 +243,27 @@ var chart = AmCharts.makeChart("chartdiv", {
     "bulletSize": 5,
     "hideBulletsCount": 50,
     "lineThickness": 2,
-    "lineColor": "#e1ede9",
+    "lineColor": "#EDED00",
     "type": "smoothedLine",
     "dashLength": 5,
     "title": "Budget",
     "useLineColorForBulletBorder": true,
     "valueField": "budget",
     "balloonText": "Budget<br/><b style='font-size: 130%'>[[value]] (bahts)</b>"
-  }, {
+  },{
+    "id": "g3",
+    "valueAxis": "v1",
+    "lineColor": "#e1ede9",
+    "fillColors": "#e1ede9",
+    "fillAlphas": 1,
+    "type": "column",
+    "title": "Expected",
+    "valueField": "expectPeople",
+    "clustered": false,
+    "columnWidth": 0.5,
+    "legendValueText": "[[value]]",
+    "balloonText": "Expected Participants<br/><b style='font-size: 130%'>[[value]] (people)</b>"
+  },{
     "id": "g2",
     "valueAxis": "v1",
     "lineColor": "#62cf73",
@@ -199,20 +276,6 @@ var chart = AmCharts.makeChart("chartdiv", {
     "columnWidth": 0.3,
     "legendValueText": "[[value]]",
     "balloonText": "Actual Participants<br/><b style='font-size: 130%'>[[value]] (people)</b>"
-  }, {
-    "id": "g3",
-    "valueAxis": "v1",
-    "lineColor": "#e1ede9",
-    "fillColors": "#e1ede9",
-    "fillAlphas": 1,
-    "type": "column",
-    "title": "Expected",
-    "valueField": "expectPeople",
-    "clustered": false,
-    "labelText": "[[title]]",
-    "columnWidth": 0.5,
-    "legendValueText": "[[value]]",
-    "balloonText": "Expected Participants<br/><b style='font-size: 130%'>[[value]] (people)</b>"
   }],
   "chartScrollbar": {
     "graph": "g1",

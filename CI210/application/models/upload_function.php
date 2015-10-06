@@ -5,7 +5,7 @@ function __construct()
 {			
 	parent::__construct();			 
 }
- function upload_csv()
+ function studentUpload_csv()
  {
  		$objCSV = fopen("uploadFile/temp.csv", "r");
 		while (($objArr = fgetcsv($objCSV, 1000, ",")) !== FALSE) {
@@ -25,7 +25,23 @@ function __construct()
 		//$this->db->delete('student');	
 		fclose($objCSV);
 		$name=date("YmdHis");
-	    rename("uploadFile/temp.csv", "uploadFile/".$name.".csv");
+	    rename("uploadFile/temp.csv", "uploadFile/student/student".$name.".csv");
 	}
-
+function participantUpload_csv()
+ {
+ 		$objCSV = fopen("uploadFile/temp.csv", "r");
+		while (($objArr = fgetcsv($objCSV, 1000, ",")) !== FALSE) {
+			$strSQL = "INSERT INTO participant ";
+			$strSQL .="(nationalID,ac_title) ";
+			$strSQL .="VALUES ";
+			$strSQL .="('".$objArr[0]."','".iconv("ISO-8859-11", "UTF-8", $objArr[1])."') ";
+			$objQuery = mysql_query($strSQL);
+		}
+		//$names = array(0);
+		//$this->db->where_in('nationalID', $names);
+		//$this->db->delete('student');	
+		fclose($objCSV);
+		$name=date("YmdHis");
+	    rename("uploadFile/temp.csv", "uploadFile/participant/participant".$name.".csv");
+	}
 }

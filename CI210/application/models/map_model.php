@@ -4,7 +4,6 @@ class Map_model extends CI_Model {
 
     function __construct()
     {
-        // Call the Model constructor
         parent::__construct();
     }
     
@@ -13,10 +12,10 @@ class Map_model extends CI_Model {
     $this->db->select('Place_name');
     $this->db->from('place');
     $query = $this->db->get();
-     if($query)
+    if($query)
     {
-    $query = $query->result_array();
-    return $query;
+      $query = $query->result_array();
+      return $query;
     }
   }
     function getLatLon($place)
