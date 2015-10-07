@@ -9,21 +9,38 @@ class Calendar_m extends CI_Model {
 
     function get_calendar()
     {
-        $this->db->select('id,title,start,end');
+        $this->db->select('id,title,start,end,type,place,budget,expectPeople');
         $this->db->from('activity');
         $query = $this->db->get();
         return $query->result();
     }
-    function addEvent($title,$start,$end,$type,$place)
+    function addEvent($title,$start,$end,$type,$place,$budget,$expectPeople)
     {
         $data = array(
         'title' => $title,
         'start' =>  $start,
         'end' =>  $end,
         'Place' => $place,
-        'type' => $type
+        'type' => $type,
+        'budget' => $budget,
+        'expectPeople' =>$expectPeople
         );
         $this->db->insert('activity', $data);
+        return $query->result();
+    }
+    function updateEvent($id,$title,$start,$end,$type,$place,$budget,$expectPeople)
+    {
+        $data = array(
+        'title' => $title,
+        'start' =>  $start,
+        'end' =>  $end,
+        'Place' => $place,
+        'type' => $type,
+        'budget' => $budget,
+        'expectPeople' =>$expectPeople
+        );
+        $this->db->where('id', $id);
+        $this->db->update('activity', $data); 
         return $query->result();
     }
     function removeEvent($id)

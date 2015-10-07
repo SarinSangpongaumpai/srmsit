@@ -22,7 +22,7 @@
             "title":"(Participants)",
             "position":"bottom",
             "autoMargins":true,
-            "valueText":  "[[value]]:<?php echo $total; ?>"
+            "valueText":  "[[value]]:<?php echo $totalP; ?>"
           },
           "innerRadius": "30%",
           "defs": {

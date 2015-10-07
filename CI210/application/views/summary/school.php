@@ -3,11 +3,21 @@
 <?php 
       if(isset($total)){
           foreach($total as $total){
-             $total = $total->total;
+             $total = $total->total;       
            }
        }
        else{
 
+       }
+?>
+<?php 
+      if(isset($totalP)){
+          foreach($totalP as $totalP){
+             $totalP = $totalP->total;
+           }
+       }
+       else{
+          $totalP = $total;
        }
 ?>
 <?php 
@@ -113,7 +123,7 @@
                 <b>Events</b> <a class="pull-right"><?php echo $totalEvent ?> times</a>
               </li>
               <li class="list-group-item">
-                <b>Participants</b> <a class="pull-right"><?php echo $total ?> peoples</a>
+                <b>Participants</b> <a class="pull-right"><?php echo $totalP ?> peoples</a>
               </li>
             </ul>
             <a href="#mapmodals" data-toggle="modal" class="btn btn-primary btn-block"><b>ViewMap</b></a>

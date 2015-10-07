@@ -214,7 +214,7 @@
         <h4 class="modal-title" id="myModalLabel">Event</h4>
       </div>
       <div class="modal-body">
-        <div style="height: 300px;overflow: scroll;overflow-x: hidden;">
+        <div style="height: 300px;overflow: scroll;">
         <div class="table-responsive">
               <table id="example1" class="table table-bordered table-striped" >
                 <thead >

@@ -47,6 +47,7 @@ class SummaryReport extends CI_Controller {
          $place = $_GET['Place'];
          $this->load->view("header");
          $data['Gender'] = $this->summary->get_genderTable($event,$place);
+         $data['totalP'] = $this->summary->get_totalTable(null,$place);
          $data['total'] = $this->summary->get_totalTable($event,$place);
          $data['distinctEvent'] = $this->summary->get_distinctEvent($place);
          $data['Program'] = $this->summary->get_programTable($event,$place);

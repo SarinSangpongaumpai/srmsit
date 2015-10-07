@@ -70,11 +70,35 @@ class Upload extends CI_Controller {
 		}
 			
 	}
-	function participantSubmit(){
-		$this->function->participantUpload_csv();
+	function registerSubmit(){
+		$this->function->registerUpload_csv();
 		$this->index();
 		print "<script type=\"text/javascript\">alert('Upload File SuccessFul');;</script>";
 		
+	}
+	function registerUpload(){
+		$config = array(
+			"upload_path"=>"uploadFile/",
+			"allowed_types"=>"csv|docx",
+			"max_size"=>2000,
+			"max_height"=>2000,
+			"max_width"=>2000
+			);
+		$this->load->library("upload",$config);
+		if($this->upload->do_upload("upload")){
+			$data = $this->upload->data();
+			$name="temp";
+			rename($data['full_path'],$data['file_path'].$name.$data['file_ext']);
+			$this->load->view("header");
+			$this->load->view('upload/registerUploadCon');
+			$this->load->view('footer');
+
+		}
+		else{
+			echo $this->upload->display_errors();
+			echo anchor("registerUpload","Back");
+		}
+			
 	}
 }
 

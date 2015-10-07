@@ -85,9 +85,6 @@
             <li><a href="<?php echo site_url(); ?>summaryReport/index"><i class="fa fa-angle-double-right"></i>
               <span> School Report</span></a>
             </li>
-            <li><a href="<?php echo site_url(); ?>summaryReport/activity"><i class="fa fa-angle-double-right"></i>
-              <span> Student Report</span></a>
-            </li>
             <li><a href="<?php echo site_url(); ?>summaryReportEvent/event"> <i class="fa fa-angle-double-right"></i>
               <span> SIT'SRM activities Report</span></a>
             </li>
@@ -97,7 +94,6 @@
       <a href="#"><i class="fa fa-bar-chart-o"></i><span>Comparison Charts</span><i class="fa fa-angle-left pull-right"></i></a>
         <ul class="treeview-menu">
           <li><a href="<?php echo site_url(); ?>pages/charts/morris.html"><i class="fa fa-angle-double-right"></i> School</a></li>
-          <li><a href="<?php echo site_url(); ?>pages/charts/flot.html"><i class="fa fa-angle-double-right"></i> Student</a></li>
           <li><a href="<?php echo site_url(); ?>pages/charts/inline.html"><i class="fa fa-angle-double-right"></i> SIT'SRM activities</a></li>
         </ul>
     </li>

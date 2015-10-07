@@ -45,9 +45,10 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-       
+        <h4 class="modal-title" id="myModalLabel">List of school in range</h4>
+      </div>
         <div class="modal-body">
-           <div id="results" class="position:relative">
+           <div id="results" class="position:relative" style="height:500px;overflow: scroll;">
               <table id="example1"class="table">
                 <thead><tr>
                  <th>ลำดับ</th>

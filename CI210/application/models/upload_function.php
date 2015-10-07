@@ -44,4 +44,22 @@ function participantUpload_csv()
 		$name=date("YmdHis");
 	    rename("uploadFile/temp.csv", "uploadFile/participant/participant".$name.".csv");
 	}
+	function registerUpload_csv()
+ {
+ 		$objCSV = fopen("uploadFile/temp.csv", "r");
+		while (($objArr = fgetcsv($objCSV, 1000, ",")) !== FALSE) {
+			$strSQL = "INSERT INTO register ";
+			$strSQL .="(nationalID,study_In,type,faculty) ";
+			$strSQL .="VALUES ";
+			$strSQL .="('".$objArr[0]."','".iconv("ISO-8859-11", "UTF-8", $objArr[1])."','".iconv("ISO-8859-11", "UTF-8", $objArr[2])."' ";
+			$strSQL .=",'".iconv("ISO-8859-11", "UTF-8", $objArr[3])."' )";
+			$objQuery = mysql_query($strSQL);
+		}
+		//$names = array(0);
+		//$this->db->where_in('nationalID', $names);
+		//$this->db->delete('student');	
+		fclose($objCSV);
+		$name=date("YmdHis");
+	    rename("uploadFile/temp.csv", "uploadFile/register/register".$name.".csv");
+	}
 }
