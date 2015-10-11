@@ -79,19 +79,33 @@
        }
 ?>
 <?php 
-  if(isset($_GET['Place'])){
-         $place = $_GET['Place'];
+  if(isset($_GET['place'])){
+         $place = $_GET['place'];
   }
   if(isset($_GET['Event'])){
          $event = $_GET['Event'];
   }
+  else{
+        $event = " ";
+  }
 ?>
-
+<?php 
+  if(isset($_GET['start']) && isset($_GET['end'])){
+         $start = $_GET['start'];
+         $end   = $_GET['end'];
+    }
+    else{
+          $start = "2015-01-01";
+          $end   = date("Y-m-d");
+    }
+?>
  <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
-    <h1>School Report</h1>
+    <h1><i class="fa fa-book"></i> School Report <small>(<?php echo $start." - ".$end ?>)</small>
+      <small><a style=" font-weight: bold;"
+        href="#changeDate" data-toggle="modal" >Click change date</a></small></h1>
     <ol class="breadcrumb">
       <li><a href="<?php echo base_url()?>main/current"><i class="fa fa-home"></i> Home</a></li>
       <li><a href="<?php echo base_url()?>summaryReport/index"><i class="fa fa-book"></i>SummaryReport</a></li>
@@ -172,18 +186,18 @@
        <div class="nav-tabs-custom">
           <ul class="nav nav-tabs">
             <li class="active"><a href="<?php echo site_url(); ?>summaryReport/index#activity" data-toggle="tab">Activity</a></li>
-            <li><a href="<?php echo site_url(); ?>summaryReport?index?Place=<?php echo $place ?>#succession" data-toggle="tab">Success</a></li>
-            <li><a href="<?php echo site_url(); ?>summaryReport/index?Place=<?php echo $place ?>#timeline" data-toggle="tab">Timeline</a></li>
-            <li><a href="<?php echo site_url(); ?>summaryReport?index?Place=<?php echo $place ?>#sendEmail" data-toggle="tab">Send Email</a></li>
-            <li><a href="<?php echo site_url(); ?>summaryReport?index?Place=<?php echo $place ?>#edit" data-toggle="tab">Edit</a></li>
+            <li><a href="<?php echo site_url(); ?>summaryReport?index?place=<?php echo $place ?>#succession" data-toggle="tab">Success</a></li>
+            <li><a href="<?php echo site_url(); ?>summaryReport/index?place=<?php echo $place ?>#timeline" data-toggle="tab">Timeline</a></li>
+            <li><a href="<?php echo site_url(); ?>summaryReport?index?place=<?php echo $place ?>#sendEmail" data-toggle="tab">Send Email</a></li>
+            <li><a href="<?php echo site_url(); ?>summaryReport?index?place=<?php echo $place ?>#edit" data-toggle="tab">Edit</a></li>
           </ul>
           <div class="tab-content">
             <div class="active tab-pane" id="activity">
                <!-- Custom tabs (Charts with tabs)-->
               <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs pull-right">
-                  <li class="active"><a href="<?php echo site_url(); ?>summaryReport/school?Place=<?php echo $place ?>#pieChart" data-toggle="tab">PieChart</a></li>
-                  <li><a href="<?php echo site_url(); ?>summaryReport/school?Place=<?php echo $place ?>#columnChart" data-toggle="tab">ColumnChart</a></li>
+                  <li class="active"><a href="<?php echo site_url(); ?>summaryReport/school?place=<?php echo $place ?>#pieChart" data-toggle="tab">PieChart</a></li>
+                  <li><a href="<?php echo site_url(); ?>summaryReport/school?place=<?php echo $place ?>#columnChart" data-toggle="tab">ColumnChart</a></li>
                   <li class="pull-left header"><i class="fa fa-bar-chart"></i> Number of participants</li>
                 </ul>
                 <div class="tab-content no-padding">
@@ -205,29 +219,34 @@
                   <?php if(isset($_GET['Event'])){ ?>
                     <?php if($number == 1){ ?>
                       <li><a href="<?php echo 
-                    base_url() ?>summaryReport/school?Place=<?php echo $place ?>" >Total Event</a></li>
+                    base_url() ?>summaryReport/school?place=<?php 
+                    echo $place ?>&start=<?php echo $start ?>&end=<?php echo $end ?>" >Total Event</a></li>
                     <?php  $number = $number+1; }?>
                     <?php if (strcmp($_GET['Event'], $event->type) == 0) { ?>
                       <li class="active"><a  
                       href="<?php echo 
-                    base_url() ?>summaryReport/changeEvent?Place=<?php echo $place ?>&Event=<?php echo $event->type ?>" data-toggle="tab">
+                    base_url() ?>summaryReport/changeEvent?place=<?php echo $place ?>&Event=<?php 
+                    echo $event->type ?>&start=<?php echo $start ?>&end=<?php echo $end ?>" data-toggle="tab">
                       <?= $event->type ?></a></li>
                     <?php  }
                     else if (strcmp($_GET['Event'], $event->type) !== 0){ ?>
                     <li> <a  href="<?php echo 
-                    base_url() ?>summaryReport/changeEvent?Place=<?php echo $place ?>&Event=<?php echo $event->type ?>">
+                    base_url() ?>summaryReport/changeEvent?place=<?php echo $place ?>&Event=<?php 
+                    echo $event->type ?>&start=<?php echo $start ?>&end=<?php echo $end ?>">
                     <?= $event->type ?></a></li>
                     <?php  }
                   }
                 } ?>
                 <?php if(!isset($_GET['Event'])){ ?>
                   <li class="active"><a href="<?php echo 
-                    base_url() ?>summaryReport/school?Place=<?php echo $place ?>" data-toggle="tab">Total Event</a></li>
+                    base_url() ?>summaryReport/school?place=<?php 
+                    echo $place ?>&start=<?php echo $start ?>&end=<?php echo $end ?>" data-toggle="tab">Total Event</a></li>
                 <?php 
                   foreach($Event as $event){
                 ?>    
                     <li> <a  href="<?php echo 
-                    base_url() ?>summaryReport/changeEvent?Place=<?php echo $place ?>&Event=<?php echo $event->type ?>">
+                    base_url() ?>summaryReport/changeEvent?place=<?php echo $place ?>&Event=<?php 
+                    echo $event->type ?>&start=<?php echo $start ?>&end=<?php echo $end ?>">
                     <?= $event->type ?></a></li>
                 <?php  }
                 }
@@ -486,7 +505,7 @@
                 </ul>
               </div>
                 <div class="box-body">
-                  <form class="form-horizontal" method="post"  action="sendEmail?Place=<?php echo $place?>" />
+                  <form class="form-horizontal" method="post"  action="sendEmail?place=<?php echo $place?>" />
                   <div class="form-group">
                     <input class="form-control" name = "to" placeholder="To:" value="<?php echo $contactEmail ?>">
                   </div>
@@ -525,7 +544,7 @@
                 <li class="pull-left header"><i class="fa fa-database"></i>Edit Data</li>
               </ul>
             </div>
-              <form class="form-horizontal" method="post"  action="editSchoolData?Place=<?php echo $place?>" />
+              <form class="form-horizontal" method="post"  action="editSchoolData?place=<?php echo $place?>" />
                 <div class="form-group">
                   <label class="col-sm-2 control-label">Name</label>
                   <div class="col-sm-10">

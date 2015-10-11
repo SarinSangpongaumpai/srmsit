@@ -10,24 +10,26 @@ class SummaryReport extends CI_Controller {
 	}  
 	
 	public function school(){
-      if ( isset($_GET['Place']) ) {
-       $place = $_GET['Place'];
+    if ( isset($_GET['place']) and isset($_GET['start']) and isset($_GET['end'])) {
+       $place = $_GET['place'];
+       $start = $_GET['start'];
+       $end = $_GET['end'];
    		 $this->load->view("header");
-   		 $data['Gender'] = $this->summary->get_genderTable(null,$place);
-       $data['total'] = $this->summary->get_totalTable(null,$place);
-       $data['distinctEvent'] = $this->summary->get_distinctEvent($place);
-       $data['Program'] = $this->summary->get_programTable(null,$place);
+   		 $data['Gender'] = $this->summary->get_genderTable(null,$place,$start,$end);
+       $data['total'] = $this->summary->get_totalTable(null,$place,$start,$end);
+       $data['distinctEvent'] = $this->summary->get_distinctEvent($place,$start,$end);
+       $data['Program'] = $this->summary->get_programTable(null,$place,$start,$end);
        $data['Profile'] = $this->summary->get_schoolProfile($place);
-       $data['CostEvent'] = $this->summary->get_schoolCostEvent($place);
-       $data['schoolYear'] = $this->summary->get_schoolYearTable(null,$place);
+       $data['CostEvent'] = $this->summary->get_schoolCostEvent($place,$start,$end);
+       $data['schoolYear'] = $this->summary->get_schoolYearTable(null,$place,$start,$end);
        $data['Contact'] = $this->summary->get_ContactPerson($place);
-       $data['Event'] = $this->summary->get_Event($place);
+       $data['Event'] = $this->summary->get_Event($place,$start,$end);
 
        $data['totalRegister'] = $this->summary->get_totalRegisterTable($place);
        $data['Faculty'] = $this->summary->get_FacultyTable($place);
 
-       $data['totalRegisterP'] = $this->summary->get_totalRegisterPTable($place);
-       $data['FacultyParticipant'] = $this->summary->get_FacultyParticipantTable($place);
+       $data['totalRegisterP'] = $this->summary->get_totalRegisterPTable($place,$start,$end);
+       $data['FacultyParticipant'] = $this->summary->get_FacultyParticipantTable($place,$start,$end);
 
        $data['timeLine'] = $this->summary->get_TimeLine($place);
 
@@ -36,33 +38,59 @@ class SummaryReport extends CI_Controller {
 			 $this->load->view("footer");
       }
       else{
-        $this->load->view("footer");
+       $place = $_GET['place'];
+       $start = null;
+       $end = null;
+       $this->load->view("header");
+       $data['Gender'] = $this->summary->get_genderTable(null,$place,$start,$end);
+       $data['total'] = $this->summary->get_totalTable(null,$place,$start,$end);
+       $data['distinctEvent'] = $this->summary->get_distinctEvent($place,$start,$end);
+       $data['Program'] = $this->summary->get_programTable(null,$place,$start,$end);
+       $data['Profile'] = $this->summary->get_schoolProfile($place);
+       $data['CostEvent'] = $this->summary->get_schoolCostEvent($place,$start,$end);
+       $data['schoolYear'] = $this->summary->get_schoolYearTable(null,$place,$start,$end);
+       $data['Contact'] = $this->summary->get_ContactPerson($place);
+       $data['Event'] = $this->summary->get_Event($place,$start,$end);
+
+       $data['totalRegister'] = $this->summary->get_totalRegisterTable($place);
+       $data['Faculty'] = $this->summary->get_FacultyTable($place);
+
+       $data['totalRegisterP'] = $this->summary->get_totalRegisterPTable($place,$start,$end);
+       $data['FacultyParticipant'] = $this->summary->get_FacultyParticipantTable($place,$start,$end);
+
+       $data['timeLine'] = $this->summary->get_TimeLine($place);
+
+       $data['allSchool'] = $this->summary->get_allSchool($place);
+       $this->load->view("summary/school",$data);
+       $this->load->view("footer");
       }
       
 	}
   public function changeEvent()
   {
-       if ( isset($_GET['Event']) and isset($_GET['Place'])) {
+       if ( isset($_GET['Event']) and isset($_GET['place'])) {
          $event = $_GET['Event'];
-         $place = $_GET['Place'];
+         $place = $_GET['place'];
+         $start = $_GET['start'];
+         $end = $_GET['end'];
          $this->load->view("header");
-         $data['Gender'] = $this->summary->get_genderTable($event,$place);
-         $data['totalP'] = $this->summary->get_totalTable(null,$place);
-         $data['total'] = $this->summary->get_totalTable($event,$place);
-         $data['distinctEvent'] = $this->summary->get_distinctEvent($place);
-         $data['Program'] = $this->summary->get_programTable($event,$place);
+         $data['Gender'] = $this->summary->get_genderTable($event,$place,$start,$end);
+         $data['totalP'] = $this->summary->get_totalTable(null,$place,$start,$end);
+         $data['total'] = $this->summary->get_totalTable($event,$place,$start,$end);
+         $data['distinctEvent'] = $this->summary->get_distinctEvent($place,$start,$end);
+         $data['Program'] = $this->summary->get_programTable($event,$place,$start,$end);
          $data['Profile'] = $this->summary->get_schoolProfile($place);
-         $data['CostEvent'] = $this->summary->get_schoolCostEvent($place);
-         $data['schoolYear'] = $this->summary->get_schoolYearTable($event,$place);
+         $data['CostEvent'] = $this->summary->get_schoolCostEvent($place,$start,$end);
+         $data['schoolYear'] = $this->summary->get_schoolYearTable($event,$place,$start,$end);
          $data['Contact'] = $this->summary->get_ContactPerson($place);
-         $data['Event'] = $this->summary->get_Event($place);
+         $data['Event'] = $this->summary->get_Event($place,$start,$end);
 
          $data['totalRegister'] = $this->summary->get_totalRegisterTable($place);
          $data['Faculty'] = $this->summary->get_FacultyTable($place);
 
          $data['allSchool'] = $this->summary->get_allSchool($place);
-         $data['totalRegisterP'] = $this->summary->get_totalRegisterPTable($place);
-         $data['FacultyParticipant'] = $this->summary->get_FacultyParticipantTable($place);
+         $data['totalRegisterP'] = $this->summary->get_totalRegisterPTable($place,$start,$end);
+         $data['FacultyParticipant'] = $this->summary->get_FacultyParticipantTable($place,$start,$end);
 
          $data['timeLine'] = $this->summary->get_TimeLine($place);
          $this->load->view("summary/school",$data);
@@ -72,30 +100,34 @@ class SummaryReport extends CI_Controller {
        
        }
   }
-  
+
 	public function schoolpieChart()
 	{
-    $place = $_GET['Place'];
-		print $json = json_encode($this->summary->get_schoolpieChart($place));
+    $place = $_GET['place'];
+    $start = $_GET['start'];
+    $end   = $_GET['end'];
+		print $json = json_encode($this->summary->get_schoolpieChart($place,$start,$end));
 	}
   public function schoolcolumnChart()
   {
-    $place = $_GET['Place'];
-    print $json = json_encode($this->summary->get_schoolcolumnChart($place));
+    $place = $_GET['place'];
+    $start = $_GET['start'];
+    $end   = $_GET['end'];
+    print $json = json_encode($this->summary->get_schoolcolumnChart($place,$start,$end));
   }
   public function schoolsuccessChart(){
-    $place = $_GET['Place'];
+    $place = $_GET['place'];
     print $json = json_encode($this->summary->get_schoolsuccessChart($place));
   }
   public function schooltotalRegisterChart(){
-    $place = $_GET['Place'];
+    $place = $_GET['place'];
     print $json = json_encode($this->summary->get_schoolTotalRegisterChart($place));
   }
 
  // Change school's data
   function editSchoolData()
  {
-  $place = $_GET['Place'];
+  $place = $_GET['place'];
   $this->load->library('form_validation');
   //$this->form_validation->set_rules('name', 'Name', 'trim|required|is_unique[school.name]');
   //$this->form_validation->set_rules('code', 'Code', 'trim|required|min_length[1]|max_length[13]|is_unique[school.code]');
@@ -103,18 +135,18 @@ class SummaryReport extends CI_Controller {
   {
     $this->summary->editSchoolData();
     print "<script type=\"text/javascript\">alert('Update Successful');</script>";
-    redirect('summaryReport/school?Place='.$place, 'refresh');
+    redirect('summaryReport/school?place='.$place, 'refresh');
   }
   else
   {
    $this->summary->editSchoolData();
    print "<script type=\"text/javascript\">alert('Successful Register');</script>";
-   redirect('summaryReport/school?Place='.$place, 'refresh');
+   redirect('summaryReport/school?place='.$place, 'refresh');
   }
  }
  // send email to School's contact person 
   function sendSchoolMail(){
-  $place = $_GET['Place'];
+  $place = $_GET['place'];
   $To = $this->input->post('To');
   $Subject = $this->input->post('Subject');
   $Message = $this->input->post('Message');
@@ -128,7 +160,7 @@ class SummaryReport extends CI_Controller {
   $this->email->send();
   //echo $this->email->print_debugger();
   print "<script type=\"text/javascript\">alert('Send maill Successfully');</script>";
-  redirect('summaryReport/school?Place='.$place, 'refresh');
+  redirect('summaryReport/school?place='.$place, 'refresh');
  }
 
 
@@ -162,20 +194,20 @@ class SummaryReport extends CI_Controller {
     $this->image_lib->initialize($config);
     if(!$this->image_lib->resize()){
       print "<script type=\"text/javascript\">alert(".$this->image_lib->display_errors().");</script>";
-      redirect('summaryReport/school?Place='.$name, 'refresh');
+      redirect('summaryReport/school?place='.$name, 'refresh');
     }
     else{
-      redirect('summaryReport/school?Place='.$name, 'refresh');
+      redirect('summaryReport/school?place='.$name, 'refresh');
     }
   }
     else{
       print "<script type=\"text/javascript\">alert(".$this->image_lib->display_errors().");</script>";
-      redirect('summaryReport/school?Place='.$name, 'refresh');
+      redirect('summaryReport/school?place='.$name, 'refresh');
     } 
   }
   else {
       print "<script type=\"text/javascript\">alert('Some error occur, please try again');</script>";
-      redirect('summaryReport/school?Place='.$name, 'refresh');
+      redirect('summaryReport/school?place='.$name, 'refresh');
   }
   
  }

@@ -19,7 +19,7 @@
             ?>
 <div class="content-wrapper">
   <section class="content-header">
-    <h1>Main</h1>
+    <h1><i class="fa fa-home"></i> Main</h1>
       <ol class="breadcrumb">
         <li><a href="<?php echo base_url()?>main/current"><i class="fa fa-home"></i> Home</a></li>
       </ol>
@@ -100,7 +100,7 @@
                   </ul>
               </div><!-- /.box-body -->
               <div class="box-footer text-center">
-                <a href="<?php echo base_url()?>summaryReport/school?Place=<?php echo $currentSchool ?>" class="product-title">View more details</a>
+                <a href="<?php echo base_url()?>summaryReport/school?place=<?php echo $currentSchool ?>" class="product-title">View more details</a>
               </div><!-- /.box-footer -->
           </div><!-- /.box -->
         </div><!-- /.col -->

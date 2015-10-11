@@ -10,7 +10,7 @@
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
-    <h1>School Map</h1>
+    <h1><i class="fa fa-location-arrow"></i> School Map</h1>
     <ol class="breadcrumb">
       <li><a href="<?php echo base_url()?>main/current"><i class="fa fa-home"></i> Home</a></li>
       <li class="active"><a href="#"><i class="fa fa-map-marker"></i>Map</a></li>     

@@ -7,8 +7,8 @@
 <script>;
   var chart;            
     $(document).ready(function(){
-      $.getJSON("<?php echo base_url() ?>summaryReport/schoolpieChart?Place=<?php 
-                echo $place ?>",  function (data) {
+      $.getJSON("<?php echo base_url() ?>summaryReport/schoolpieChart?place=<?php 
+                echo $place ?>&&start=<?php echo $start?>&&end=<?php echo $end?>",  function (data) {
         chart.dataProvider = data; 
         chart.validateData();
       });
@@ -76,8 +76,8 @@
   var columnChart;
              
              $(document).ready(function(){
-               $.getJSON("<?php echo base_url() ?>summaryReport/schoolcolumnChart?Place=<?php 
-                echo $place ?>",  function (data) {
+               $.getJSON("<?php echo base_url() ?>summaryReport/schoolcolumnChart?place=<?php 
+                echo $place ?>&&start=<?php echo $start?>&&end=<?php echo $end?>",  function (data) {
                     columnChart.dataProvider = data;   
                     var numberEvent = "<?php echo $distinctEvent; ?>"
                     colorSet(numberEvent);
@@ -163,7 +163,7 @@
   <script>;
   var successionChart;            
     $(document).ready(function(){
-      $.getJSON("<?php echo base_url() ?>summaryReport/schoolsuccessChart?Place=<?php 
+      $.getJSON("<?php echo base_url() ?>summaryReport/schoolsuccessChart?place=<?php 
                 echo $place ?>",  function (data) {
         successionChart.dataProvider = data; 
         successionChart.validateData();
@@ -230,7 +230,7 @@
   <script>;
   var successionChart2;            
     $(document).ready(function(){
-      $.getJSON("<?php echo base_url() ?>summaryReport/schoolTotalRegisterChart?Place=<?php 
+      $.getJSON("<?php echo base_url() ?>summaryReport/schoolTotalRegisterChart?place=<?php 
                 echo $place ?>",  function (data) {
         successionChart2.dataProvider = data; 
         successionChart2.validateData();

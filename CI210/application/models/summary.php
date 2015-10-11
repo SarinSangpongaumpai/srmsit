@@ -7,6 +7,7 @@ Class Summary extends CI_Model
    $this -> db -> from('register');
    if(!strcmp($place,"KMUTT")){
     //$this -> db -> where ('register.study_In');
+
    }
    else{
     $this -> db -> where('register.study_In',$place);
@@ -66,11 +67,15 @@ function get_FacultyTable($place)
      return false;
    }
  }
- function get_FacultyParticipantTable($place)
+ function get_FacultyParticipantTable($place,$start,$end)
  {
    $this -> db -> select("COUNT(Distinct(participant.nationalID)) as number,faculty");
    $this -> db -> from('participant ');
    $this -> db -> where('activity.place',$place);
+   if(!is_null($start) && !is_null($end)){
+    $this -> db -> where('activity.start >',$start);
+    $this -> db -> where('activity.end <',$end);
+   }
    $this->db->join('activity', 'participant.ac_title = activity.title', 'inner');
    $this->db->join('register', 'participant.nationalID = register.nationalID', 'inner');
    $this->db->group_by("register.faculty"); 
@@ -90,7 +95,7 @@ function get_FacultyTable($place)
      return false;
    }
  }
- function get_totalRegisterPTable($place)
+ function get_totalRegisterPTable($place,$start,$end)
  {
    $this -> db -> select("COUNT(Distinct(participant.nationalID)) as total");
    $this -> db -> from('participant ');
@@ -102,6 +107,10 @@ function get_FacultyTable($place)
    }
    else{
     $this -> db -> where('register.study_In',$place);
+   }
+    if(!is_null($start) && !is_null($end)){
+    $this -> db -> where('activity.start >',$start);
+    $this -> db -> where('activity.end <',$end);
    }
    $query = $this -> db -> get();
    if($query -> num_rows() >= 1)
@@ -134,11 +143,15 @@ function get_totalRegisterTable($place)
    }
  }
 
- function get_schoolpieChart($place)
+ function get_schoolpieChart($place,$start,$end)
  {
    $this -> db -> select("activity.type , count(participant.no_student) As student");
    $this -> db -> from('activity ');
    $this -> db -> where('activity.place',$place);
+   if(!is_null($start) && !is_null($end)){
+    $this -> db -> where('activity.start >',$start);
+    $this -> db -> where('activity.end <',$end);
+   }
    $this->db->join('participant', 'participant.ac_title = activity.title', 'left');
    $this->db->group_by("activity.type"); 
    $query = $this -> db -> get();
@@ -151,11 +164,15 @@ function get_totalRegisterTable($place)
      return false;
    }
  }
- function get_distinctEvent($place)
+ function get_distinctEvent($place,$start,$end)
  {
    $this -> db -> select("count(DISTINCT activity.type) As distinctEvent");
    $this -> db -> from('activity');
    $this -> db -> where('activity.place',$place);
+   if(!is_null($start) && !is_null($end)){
+    $this -> db -> where('activity.start >',$start);
+    $this -> db -> where('activity.end <',$end);
+   }
    $query = $this -> db -> get();
    if($query -> num_rows() >= 1)
    {
@@ -166,11 +183,15 @@ function get_totalRegisterTable($place)
      return false;
    }
  }
-  function get_schoolcolumnChart($place)
+  function get_schoolcolumnChart($place,$start,$end)
  {
    $this -> db -> select("activity.type , count(participant.no_student) As student");
    $this -> db -> from('activity ');
    $this -> db -> where('activity.place',$place);
+   if(!is_null($start) && !is_null($end)){
+    $this -> db -> where('activity.start >',$start);
+    $this -> db -> where('activity.end <',$end);
+   }
    $this->db->join('participant', 'participant.ac_title = activity.title', 'left');
    $this->db->group_by("activity.type"); 
    $query = $this -> db -> get();
@@ -184,13 +205,17 @@ function get_totalRegisterTable($place)
    }
  }
 
- function get_GenderTable($type,$place)
+ function get_GenderTable($type,$place,$start,$end)
  {
    $this -> db -> select("count(student.gender) As number,gender");
    $this -> db -> from('participant');
    $this -> db -> where('activity.place',$place);
    if(!is_null($type)){
     $this -> db -> where('activity.type',$type);
+   }
+   if(!is_null($start) && !is_null($end)){
+    $this -> db -> where('activity.start >',$start);
+    $this -> db -> where('activity.end <',$end);
    }
    $this->db->join('activity', 'participant.ac_title = activity.title', 'left');
    $this->db->join('student', 'participant.nationalID = student.nationalID', 'left');
@@ -205,13 +230,17 @@ function get_totalRegisterTable($place)
      return false;
    }
  }
-  function get_TotalTable($type,$place)
+  function get_TotalTable($type,$place,$start,$end)
  {
    $this -> db -> select("count(student.gender) As total");
    $this -> db -> from('participant');
    $this -> db -> where('activity.place',$place);
    if(!is_null($type)){
     $this -> db -> where('activity.type',$type);
+   }
+   if(!is_null($start) && !is_null($end)){
+    $this -> db -> where('activity.start >',$start);
+    $this -> db -> where('activity.end <',$end);
    }
    $this->db->join('activity', 'participant.ac_title = activity.title', 'left');
    $this->db->join('student', 'participant.nationalID = student.nationalID', 'left');
@@ -225,13 +254,17 @@ function get_totalRegisterTable($place)
      return false;
    }
  }
- function get_ProgramTable($type,$place)
+ function get_ProgramTable($type,$place,$start,$end)
  {
    $this -> db -> select("count(student.program) As number,program");
    $this -> db -> from('participant');
    $this -> db -> where('activity.place',$place);
    if(!is_null($type)){
     $this -> db -> where('activity.type',$type);
+   }
+   if(!is_null($start) && !is_null($end)){
+    $this -> db -> where('activity.start >',$start);
+    $this -> db -> where('activity.end <',$end);
    }
    $this->db->join('activity', 'participant.ac_title = activity.title', 'left');
    $this->db->join('student', 'participant.nationalID = student.nationalID', 'left');
@@ -246,13 +279,17 @@ function get_totalRegisterTable($place)
      return false;
    }
  }
- function get_schoolYearTable($type,$place)
+ function get_schoolYearTable($type,$place,$start,$end)
  {
    $this -> db -> select("count(student.school_year) As number,school_year as schoolYear");
    $this -> db -> from('participant');
    $this -> db -> where('activity.place',$place);
    if(!is_null($type)){
     $this -> db -> where('activity.type',$type);
+   }
+   if(!is_null($start) && !is_null($end)){
+    $this -> db -> where('activity.start >',$start);
+    $this -> db -> where('activity.end <',$end);
    }
    $this->db->join('activity', 'participant.ac_title = activity.title', 'left');
    $this->db->join('student', 'participant.nationalID = student.nationalID', 'left');
@@ -283,11 +320,15 @@ function get_schoolProfile($place)
      return false;
    }
   }
-  function get_schoolCostEvent($place)
+  function get_schoolCostEvent($place,$start,$end)
  {
    $this -> db -> select("sum(activity.cost)as cost,COUNT(*) as totalEvent");
    $this -> db -> from('activity');
    $this -> db -> where('activity.place',$place);
+     if(!is_null($start) && !is_null($end)){
+    $this -> db -> where('activity.start >',$start);
+    $this -> db -> where('activity.end <',$end);
+   }
    $this->db->join('school', 'activity.Place = school.school_code', 'left');
    $this->db->group_by("activity.Place"); 
    $query = $this -> db -> get();
@@ -315,11 +356,15 @@ function get_schoolProfile($place)
      return false;
    }
   }
-   function get_Event($place)
+   function get_Event($place,$start,$end)
  {
    $this -> db -> select("distinct(type)");
    $this -> db -> from('activity');
    $this -> db -> where('place',$place);
+   if(!is_null($start) && !is_null($end)){
+    $this -> db -> where('activity.start >',$start);
+    $this -> db -> where('activity.end <',$end);
+   }
    $query = $this -> db -> get();
    if($query -> num_rows() >= 1)
    {

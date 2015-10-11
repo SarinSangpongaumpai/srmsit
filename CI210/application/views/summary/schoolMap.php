@@ -116,7 +116,7 @@
             ?>
             <div class="input-group">
               <span class="input-group-addon">
-                <button class="btn-default"onclick="location.href='<?php echo base_url()?>summaryReport/school?Place=<?php echo $code?>'"
+                <button class="btn-default"onclick="location.href='<?php echo base_url()?>summaryReport/school?place=<?php echo $code?>'"
                 style="position:relative;text-align:left;padding: 0;border:none;background: none;">
                 <img style="width:10%;margin-right:10px"src="<?php echo base_url()?>img/schoolLogo/<?php echo $code?>.png" alt="User profile picture">
                 <?php echo $name?>
@@ -131,8 +131,50 @@
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
+  <!-- Modal -->
 </div>
-
+  <div class="modal fade" id="changeDate">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+          <h4 class="modal-title" id="myModalLabel">Change Start and End date</h4>
+        </div>
+        <div class="modal-body">
+          <div style="height: 200px;">
+                <div class="body ">
+                  <form>
+                  <div class="input-group"><span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                    <input type="date" class="form-control" id="start" name="start">
+                  </div><br>
+                  <div class="input-group"><span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                    <input type="date" class="form-control" id="end" name="end">
+                  </div><br>
+                  <div style="display: none;" class="input-group">
+                    <input type="text" class="form-control" id="place" name="place" value="<?php echo $place?>">
+                  </div>
+                  <?php if ( isset($_GET['Event']))
+                    { ?>
+                  <div style="display: none;" class="input-group">
+                    <input type="text" class="form-control" id="Event" name="Event" value="<?php echo ($_GET['Event']) ?>">
+                  </div>
+                  <?php }?>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                  <button name="submitDate" id="submitDate" type="submit" class="btn btn-primary">Search</button>
+                </div>
+              </form> 
+              <script>
+                  document.getElementById('submitDate').addEventListener('click', function (e) {
+                        window.location.href = "<?php echo base_url()?>summaryReport/school";
+                    });
+              </script>        
+            </div>
+          </div>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
 <script>
 function readURL(input,id) {
   if (input.files && input.files[0]) {
