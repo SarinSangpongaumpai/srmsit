@@ -49,10 +49,10 @@ function participantUpload_csv()
  		$objCSV = fopen("uploadFile/temp.csv", "r");
 		while (($objArr = fgetcsv($objCSV, 1000, ",")) !== FALSE) {
 			$strSQL = "INSERT INTO register ";
-			$strSQL .="(nationalID,study_In,type,faculty) ";
+			$strSQL .="(nationalID,study_In,type,faculty,date) ";
 			$strSQL .="VALUES ";
 			$strSQL .="('".$objArr[0]."','".iconv("ISO-8859-11", "UTF-8", $objArr[1])."','".iconv("ISO-8859-11", "UTF-8", $objArr[2])."' ";
-			$strSQL .=",'".iconv("ISO-8859-11", "UTF-8", $objArr[3])."' )";
+			$strSQL .=",'".iconv("ISO-8859-11", "UTF-8", $objArr[3])."','".date("Y-m-d")."' )";
 			$objQuery = mysql_query($strSQL);
 		}
 		//$names = array(0);
