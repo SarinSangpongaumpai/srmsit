@@ -83,6 +83,8 @@
       else{ $participant1 = 0;}
       if(false !== ($participant2)){ foreach($participant2 as $p2){  $participant2 = $p2->number; }}
       else{ $participant2 = 0;}
+      if($participant1 > $participant2){ $max = $participant1;}
+      else{$max = $participant2;}
 ?>
 <?php 
       if(false !== ($register1)){ foreach($register1 as $r1){  $register1 = $r1->number; }}
@@ -114,16 +116,13 @@
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
-    <h1><i class="fa fa-bar-chart-o"></i>Compare School <small>(<?php echo $start." - ".$end ?>)</small>
-      <small><a style=" font-weight: bold;"
-        href="#changeDate" data-toggle="modal" >Click change date</a></small></h1>
+    <h1><i class="fa fa-bar-chart-o"></i>Compare School </h1>
     <ol class="breadcrumb">
       <li><a href="<?php echo base_url()?>main/current"><i class="fa fa-home"></i> Home</a></li>
       <li><a href="<?php echo base_url()?>summaryReport/index"><i class="fa fa-book"></i>SummaryReport</a></li>
       <li class="active">School</li>
     </ol>
   </section>
-
 
   <!-- Main content -->
   <section class="content">
@@ -136,10 +135,79 @@
                <!-- Custom tabs (Charts with tabs)-->
               <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs pull-right">
-                  <li class="pull-left header"><i class="fa fa-bar-chart"></i><?php echo $school1?> and <?php echo $school2 ?></li>
+                  <li class="pull-left header"><?php echo $school1?> and <?php echo $school2 ?>
+                  <small>( <?php echo $start." - ".$end ?> )</small>
+      <small><a style=" font-weight: bold;"
+        href="#changeDate" data-toggle="modal" >Click change date</a></small></li>
                 </ul>
-                <div id="chartdiv"></div>  
-              </div><!-- /.tab-pane -->
+                <div id="chartdiv"></div> 
+                <br>
+                <div class="nav-tabs-custom">
+                  <ul class="nav nav-tabs ">
+                    <li class="pull-left header" ><i class="fa fa-table"></i><?php echo $school1?> and <?php echo $school2?> Comparing Table</li>
+                  </ul>
+                
+                <div class="table-responsive">
+                  <div style="margin-left:0 auto;margin-right:0 auto">
+                  <table class="table margin" style="text-align: center;">
+                    <tr>
+                      <th style="text-align: center; " rowspan="1" colspan="1">โรงเรียน</th>
+                      <th style="text-align: center; " rowspan="1" colspan="1"><?php echo $school1?></th>
+                      <th style="text-align: center; " rowspan="1" colspan="1"><?php echo $school2?></th>
+                      <tr >
+                        <td>จำนวนคนเข้าสมัครเรียนทั้งหมด</td><td><?php echo $register1?></td><td><?php echo $register2?></td>
+                      </tr>
+                     </tr>
+                        <td>เงินที่ใช้ในกิจกรรม</td><td><?php echo $cost1?></td><td><?php echo $cost2?></td>
+                      </tr>
+                      <tr >
+                        <td>จำนวนครั้งที่จัด</td><td><?php echo $totalEvent1?></td><td><?php echo $totalEvent2?></td>
+                      </tr>
+                       <tr >
+                        <td>ผู้เข้าร่วมทั้งหมด</td><td><?php echo $participant1?></td><td><?php echo $participant2?></td>
+                      </tr>
+                       <tr >
+                        <td>เพศชาย</td><td><?php echo $Male1?></td><td><?php echo $Male2?></td>
+                      </tr>
+                       <tr >
+                        <td>เพศหญิง</td><td><?php echo $Female1?></td><td><?php echo $Female2?></td>
+                      </tr>
+                       <tr >
+                        <td>มัธยมศึกษาปีที่4</td><td><?php echo $M41?></td><td><?php echo $M42?></td>
+                      </tr>
+                       <tr >
+                        <td>มัธยมศึกษาปีที่5</td><td><?php echo $M51?></td><td><?php echo $M52?></td>
+                      </tr>
+                       <tr >
+                        <td>มัธยมศึกษาปีที่6</td><td><?php echo $M61?></td><td><?php echo $M62?></td>
+                      </tr>
+                      <tr >
+                        <td>วิทย์คณิต</td><td><?php echo $MathSci1?></td><td><?php echo $MathSci2?></td>
+                      </tr>
+                      <tr >
+                        <td>ศิลป์คำนวน</td><td><?php echo $ArtMath1?></td><td><?php echo $ArtMath2?></td>
+                      </tr>
+                       <tr >
+                        <td>ศิลป์ภาษา</td><td><?php echo $EngMath1?></td><td><?php echo $EngMath2?></td>
+                      </tr>
+                       <tr >
+                        <td>อื่นๆ</td><td><?php echo $ETC1?></td><td><?php echo $ETC2?></td>
+                      </tr>
+                      <tr >
+                        <td>อื่นๆ</td><td><?php echo $ETC1?></td><td><?php echo $ETC2?></td>
+                      </tr>
+                      <tr >
+                        <td>CS</td><td><?php echo $CS1?></td><td><?php echo $CS2?></td>
+                      </tr>
+                      <tr >
+                        <td>IT</td><td><?php echo $IT1?></td><td><?php echo $IT2?></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div> 
+               </div>
+              </div>
+            </div><!-- /.tab-pane -->
           </div><!-- /.tab-content -->
         </div><!-- /.nav-tabs-custom -->
       </div><!-- /.col -->
@@ -156,6 +224,14 @@
   "rotate": true,
   "marginBottom": 50,
   "dataProvider": [{
+    "col": "จำนวนคนเข้าสมัครทั้งหมด",
+    "school1": -<?php echo $register1 ?>,
+    "school2": <?php echo $register2 ?>
+  },{
+    "col": "เงินที่ใช้ในกิจกรรมทั้งหมด(ล้านบาท)",
+    "school1": -<?php echo $cost1/1000000 ?>,
+    "school2": <?php echo $cost2/1000000 ?>
+  },{
     "col": "จำนวนครั้งที่จัด",
     "school1": -<?php echo $totalEvent1 ?>,
     "school2": <?php echo $totalEvent2 ?>
@@ -200,10 +276,6 @@
     "school1": -<?php echo $ETC1 ?>,
     "school2": <?php echo $ETC2 ?>
   },{
-    "col": "จำนวนคนเข้าสมัครทั้งหมด",
-    "school1": -<?php echo $register1 ?>,
-    "school2": <?php echo $register2 ?>
-  },{
     "col": "CS",
     "school1": -<?php echo $CS1 ?>,
     "school2": <?php echo $CS2 ?>
@@ -212,9 +284,9 @@
     "school1": -<?php echo $IT1 ?>,
     "school2": <?php echo $IT2 ?>
   },{
-    "col": "Center(user for scale graphs)",
-    "school1": -100,
-    "school2": 100
+    "col": "Maximum ",
+    "school1": -<?php echo $max ?>,
+    "school2": <?php echo $max ?>
   }],
   "startDuration": 1,
   "graphs": [{
@@ -231,7 +303,15 @@
     },
     "balloonText" : "[[value]]",
     "balloonFunction": function(item) {
-      return "<?php echo $school1 ?><br>"+item.category + ": " + Math.abs(item.values.value)+" คน" ;
+      if(item.category == "จำนวนครั้งที่จัด" ){
+        return "<?php echo $school1 ?><br>"+item.category + ": " + Math.abs(item.values.value)+" ครั้ง" ;
+      }
+      else if(item.category == "เงินที่ใช้ในกิจกรรมทั้งหมด(ล้านบาท)"){
+        return "<?php echo $school1 ?><br>"+item.category + ": " + Math.abs(item.values.value)+"ล้านบาท" ;
+      }
+      else{
+        return "<?php echo $school1 ?><br>"+item.category + ": " + Math.abs(item.values.value)+" คน" ;
+      }
     }
   }, {
     "fillAlphas": 0.8,
@@ -245,7 +325,12 @@
       return Math.abs(item.values.value);
     },
     "balloonFunction": function(item) {
-      return "<?php echo $school2 ?><br>"+item.category + ": " + Math.abs(item.values.value)+" คน" ;
+      if(item.category == "จำนวนครั้งที่จัด"){
+        return "<?php echo $school1 ?><br>"+item.category + ": " + Math.abs(item.values.value)+" ครั้ง" ;
+      }
+      else{
+        return "<?php echo $school1 ?><br>"+item.category + ": " + Math.abs(item.values.value)+" คน" ;
+      }
     }
   }],
   "categoryField": "col",
@@ -258,7 +343,7 @@
     "gridAlpha": 0,
     "ignoreAxisWidth": true,
     "labelFunction": function(value) {
-      return Math.abs(value)+"คน";
+      return Math.abs(value);
     },
     "guides": [{
       "value": 0,
@@ -275,13 +360,13 @@
   },
   "allLabels": [{
     "text": "<?php echo $school1?>(blue)",
-    "x": "20%",
+    "x": "40%",
     "y": "97%",
     "bold": true,
     "align": "middle"
   }, {
     "text": "<?php echo $school2?>(yellow)",
-    "x": "95%",
+    "x": "75%",
     "y": "97%",
     "bold": true,
     "align": "middle"
@@ -319,13 +404,13 @@
                   </div><br>
                   <?php if ( isset($_GET['school1']))
                     { ?>
-                  <div style="" class="input-group">
+                  <div style="display:none" class="input-group">
                     <input type="text" class="form-control" id="school1" name="school1" value="<?php echo ($_GET['school1']) ?>">
                   </div>
                   <?php }?>
                   <?php if ( isset($_GET['school2']))
                     { ?>
-                  <div style="" class="input-group">
+                  <div style="display:none" class="input-group">
                     <input type="text" class="form-control" id="school2" name="school2" value="<?php echo ($_GET['school2']) ?>">
                   </div>
                   <?php }?>

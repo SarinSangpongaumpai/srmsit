@@ -82,7 +82,7 @@
         <a href="<?php echo base_url()?>main/current"><i class="fa fa-home"></i><span>Main</span></a>
         <a><i class="fa fa-book"></i><span>Summary Report</span> <i class="fa fa-angle-left pull-right"></i> </a>   
           <ul class="treeview-menu">
-            <li><a href="<?php echo site_url(); ?>summaryReport/index"><i class="fa fa-angle-double-right"></i>
+            <li><a href="<?php echo site_url(); ?>summaryReport/school?place=KMUTT"><i class="fa fa-angle-double-right"></i>
               <span> School Report</span></a>
             </li>
             <li><a href="<?php echo site_url(); ?>summaryReportEvent/event"> <i class="fa fa-angle-double-right"></i>
@@ -93,7 +93,7 @@
     <li class="treeview">
       <a href="#"><i class="fa fa-bar-chart-o"></i><span>Comparison Charts</span><i class="fa fa-angle-left pull-right"></i></a>
         <ul class="treeview-menu">
-          <li><a href="<?php echo site_url(); ?>pages/charts/morris.html"><i class="fa fa-angle-double-right"></i> School</a></li>
+          <li><a href="<?php echo site_url(); ?>compareSchool/school?start=2015-08-04&end=<?php echo date("Y-m-d") ?>&school1=KMUTT&school2=ACBK"><i class="fa fa-angle-double-right"></i> School</a></li>
           <li><a href="<?php echo site_url(); ?>pages/charts/inline.html"><i class="fa fa-angle-double-right"></i> SIT'SRM activities</a></li>
         </ul>
     </li>
