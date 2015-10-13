@@ -1,30 +1,16 @@
 <link href="<?php echo base_url();?>css/summaryReport.css" rel="stylesheet" type="text/css" />
  <link rel="stylesheet" href="../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-
 <?php 
-
-      if(false !== ($CostEvent1)){
-          foreach($CostEvent1 as $CostEvent){
-             $cost1 = $CostEvent->cost;
-             $totalEvent1 = $CostEvent->totalEvent;
-           }
-       }
-       else{
-          $cost1 = "0";
-          $totalEvent1 = "0";
-       }
+      if(false !== ($CostEvent1)){ foreach($CostEvent1 as $CostEvent){
+          $cost1 = $CostEvent->cost;
+          $totalEvent1 = $CostEvent->totalEvent;}}
+       else{ $cost1 = "0"; $totalEvent1 = "0"; }
 ?>
 <?php 
-      if(false !== ($CostEvent2)){
-          foreach($CostEvent2 as $CostEvent){
-             $cost2 = $CostEvent->cost;
-             $totalEvent2 = $CostEvent->totalEvent;
-           }
-       }
-       else{
-          $cost2 = "0";
-          $totalEvent2 = "0";
-       }
+      if(false !== ($CostEvent2)){foreach($CostEvent2 as $CostEvent){ 
+          $cost2 = $CostEvent->cost;
+          $totalEvent2 = $CostEvent->totalEvent;}}
+      else{ $cost2 = "0"; $totalEvent2 = "0";}
 ?>
 <?php 
       if(false !== ($CS1)){ foreach($CS1 as $CS1){  $CS1 = $CS1->number; }}
@@ -92,31 +78,25 @@
       if(false !== ($register2)){ foreach($register2 as $r2){  $register2 = $r2->number; }}
       else{ $register2 = 0;}
 ?>
-<?php 
-  if(isset($_GET['start']) && isset($_GET['end'])){
-         $start = $_GET['start'];
-         $end   = $_GET['end'];
-    }
-    else{
-          $start = "2015-01-01";
-          $end   = date("Y-m-d");
-    }
-?>
-<?php 
-  if(isset($_GET['school1']) && isset($_GET['school2'])){
-         $school1 = $_GET['school1'];
-         $school2   = $_GET['school2'];
-    }
-    else{
-          $school1 = "KMUTT";
-          $school2   = "RO";
-    }
+<?php $effective1 = 0; $effective2 = 0;
+      $registerTemp1 = $register1+1;
+      $registerTemp2 = $register2+1;
+      //$half1 = 0;
+      $half1       = $registerTemp1+$registerTemp2;
+      $effective1  = $registerTemp1/$half1*50/100*100;
+      $effective2  = $registerTemp2/$half1*50/100*100;
+
+      $participantTemp1 = $participant1+1;
+      $participantTemp2 = $participant2+1;
+      $half2       = $participantTemp1+$participantTemp2;
+      $effective1  = round($effective1+($participantTemp1/$half2*50/100)*100,2);
+      $effective2  = round($effective2+($participantTemp2/$half2*50/100)*100,2);
 ?>
  <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
-    <h1><i class="fa fa-bar-chart-o"></i>Compare School </h1>
+    <h1><i class="fa fa-bar-chart-o"></i>Compare Event's place </h1>
     <ol class="breadcrumb">
       <li><a href="<?php echo base_url()?>main/current"><i class="fa fa-home"></i> Home</a></li>
       <li><a href="<?php echo base_url()?>summaryReport/index"><i class="fa fa-book"></i>SummaryReport</a></li>
@@ -135,78 +115,133 @@
                <!-- Custom tabs (Charts with tabs)-->
               <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs pull-right">
-                  <li class="pull-left header"><?php echo $school1?> and <?php echo $school2 ?>
-                  <small>( <?php echo $start." - ".$end ?> )</small>
-      <small><a style=" font-weight: bold;"
-        href="#changeDate" data-toggle="modal" >Click change date</a></small></li>
+                  <div class="row" style="font-size:1.5em">
+                    <div class="col-sm-6 col-xs-6">
+                      <div class="description-block border-right" >
+                        <img style="width:50%"
+            src="<?php echo base_url()?>img/schoolLogo/<?php echo $school1?>.png" alt="User profile picture">
+            <br><h5 style=" font-weight: bold;font-size:1.5em"><a 
+                    href="#changeSchool1" data-toggle="modal" ><?php echo $school1?></a></h5>
+                    <?php if($effective1 > $effective2){  ?>
+                        <span class="description-percentage text-green"><i class="fa fa-caret-up"></i> <?php echo $effective1?>%</span>
+                        <?php }
+                        else if($effective1 == $effective2){ ?>
+                        <span class="description-percentage text-yellow"><i class="fa fa-caret-left"></i> <?php echo $effective1?>%</span>
+                        <?php }
+                        else{  ?>
+                        <span class="description-percentage text-red"><i class="fa fa-caret-down"></i> <?php echo $effective1?>%</span>
+                        
+                        <?php }?>
+                      </div><!-- /.description-block -->
+                    </div><!-- /.col -->
+                    <div class="col-sm-6 col-xs-6">
+                      <div class="description-block border-right">
+                        <img style="width:50%"
+            src="<?php echo base_url()?>img/schoolLogo/<?php echo $school2?>.png" alt="User profile picture">
+            <br><h5 style=" font-weight: bold;font-size:1.5em"class="profile-username text-center"><a 
+                    href="#changeSchool2" data-toggle="modal" ><?php echo $school2?></a></h5></h5>
+                      <?php if($effective1 > $effective2){  ?>
+                        <span class="description-percentage text-red"><i class="fa fa-caret-down"></i> <?php echo $effective2?>%</span>
+                        <?php }
+                        else if($effective1 == $effective2){ ?>
+                        <span class="description-percentage text-yellow"><i class="fa fa-caret-left"></i> <?php echo $effective2?>%</span>
+                        <?php }
+                        else{  ?>
+                        <span class="description-percentage text-green"><i class="fa fa-caret-up"></i> <?php echo $effective2?>%</span>
+                        
+                        <?php }?>
+                        <h5 class="description-header"></h5>
+                      </div><!-- /.description-block -->
+                    </div><!-- /.col -->
+                  </div>
+                  <div style="text-align:center;font-size:20px" >
+                  <strong>( <?php echo $start." - ".$end ?> )</strong><br>
+                  <small><a style=" font-weight: bold;"
+                    href="#changeDate" data-toggle="modal" >Click change date</a></small>
                 </ul>
                 <div id="chartdiv"></div> 
                 <br>
                 <div class="nav-tabs-custom">
                   <ul class="nav nav-tabs ">
-                    <li class="pull-left header" ><i class="fa fa-table"></i><?php echo $school1?> and <?php echo $school2?> Comparing Table</li>
+                    <li class="pull-left header" ><i class="fa fa-table"></i>Event's description</li>
                   </ul>
                 
                 <div class="table-responsive">
-                  <div style="margin-left:0 auto;margin-right:0 auto">
-                  <table class="table margin" style="text-align: center;">
+                  <table class="table no-margin" style="text-align: center;">
                     <tr>
                       <th style="text-align: center; " rowspan="1" colspan="1">โรงเรียน</th>
-                      <th style="text-align: center; " rowspan="1" colspan="1"><?php echo $school1?></th>
-                      <th style="text-align: center; " rowspan="1" colspan="1"><?php echo $school2?></th>
+                      <th style="text-align: center; " rowspan="1" colspan="1">จำนวนคนเข้าสมัครเรียน</th>
+                      <th style="text-align: center; " rowspan="1" colspan="1">ComputerScience</th>
+                      <th style="text-align: center; " rowspan="1" colspan="1">InformationTechnology</th>
+                      <th style="text-align: center; " rowspan="1" colspan="1">เงินที่ใช้ในกิจกรรม</th>
+                      <th style="text-align: center; " rowspan="1" colspan="1">จำนวนครั้งที่จัด</th>
+                      <th style="text-align: center; " rowspan="1" colspan="1">ผู้เข้าร่วมทั้งหมด</th>
+                      <th style="text-align: center; " rowspan="1" colspan="1">เพศชาย</th>
+                      <th style="text-align: center; " rowspan="1" colspan="1">เพศหญิง</th>
                       <tr >
-                        <td>จำนวนคนเข้าสมัครเรียนทั้งหมด</td><td><?php echo $register1?></td><td><?php echo $register2?></td>
+                        <td><?php echo $school1?></td>
+                        <td><?php echo $register1?></td>
+                        <td><?php echo $CS1?></td>
+                        <td><?php echo $IT1?></td>
+                        <td><?php echo $cost1?></td>
+                        <td><?php echo $totalEvent1?></td>
+                        <td><?php echo $participant1?></td>
+                        <td><?php echo $Male1?></td>
+                        <td><?php echo $Female1?></td>
                       </tr>
                      </tr>
-                        <td>เงินที่ใช้ในกิจกรรม</td><td><?php echo $cost1?></td><td><?php echo $cost2?></td>
-                      </tr>
-                      <tr >
-                        <td>จำนวนครั้งที่จัด</td><td><?php echo $totalEvent1?></td><td><?php echo $totalEvent2?></td>
-                      </tr>
-                       <tr >
-                        <td>ผู้เข้าร่วมทั้งหมด</td><td><?php echo $participant1?></td><td><?php echo $participant2?></td>
-                      </tr>
-                       <tr >
-                        <td>เพศชาย</td><td><?php echo $Male1?></td><td><?php echo $Male2?></td>
-                      </tr>
-                       <tr >
-                        <td>เพศหญิง</td><td><?php echo $Female1?></td><td><?php echo $Female2?></td>
-                      </tr>
-                       <tr >
-                        <td>มัธยมศึกษาปีที่4</td><td><?php echo $M41?></td><td><?php echo $M42?></td>
-                      </tr>
-                       <tr >
-                        <td>มัธยมศึกษาปีที่5</td><td><?php echo $M51?></td><td><?php echo $M52?></td>
-                      </tr>
-                       <tr >
-                        <td>มัธยมศึกษาปีที่6</td><td><?php echo $M61?></td><td><?php echo $M62?></td>
-                      </tr>
-                      <tr >
-                        <td>วิทย์คณิต</td><td><?php echo $MathSci1?></td><td><?php echo $MathSci2?></td>
-                      </tr>
-                      <tr >
-                        <td>ศิลป์คำนวน</td><td><?php echo $ArtMath1?></td><td><?php echo $ArtMath2?></td>
-                      </tr>
-                       <tr >
-                        <td>ศิลป์ภาษา</td><td><?php echo $EngMath1?></td><td><?php echo $EngMath2?></td>
-                      </tr>
-                       <tr >
-                        <td>อื่นๆ</td><td><?php echo $ETC1?></td><td><?php echo $ETC2?></td>
-                      </tr>
-                      <tr >
-                        <td>อื่นๆ</td><td><?php echo $ETC1?></td><td><?php echo $ETC2?></td>
-                      </tr>
-                      <tr >
-                        <td>CS</td><td><?php echo $CS1?></td><td><?php echo $CS2?></td>
-                      </tr>
-                      <tr >
-                        <td>IT</td><td><?php echo $IT1?></td><td><?php echo $IT2?></td>
+                        <td><?php echo $school2?></td>
+                        <td><?php echo $register2?></td>
+                        <td><?php echo $CS2?></td>
+                        <td><?php echo $IT2?></td>
+                        <td><?php echo $cost2?></td>
+                        <td><?php echo $totalEvent2?></td>
+                        <td><?php echo $participant2?></td>
+                        <td><?php echo $Male2?></td>
+                        <td><?php echo $Female2?></td>
                       </tr>
                     </tbody>
                   </table>
-                </div> 
-               </div>
-              </div>
+                  </div>
+                  <br>
+                  <ul class="nav nav-tabs ">
+                    <li class="pull-left header" ><i class="fa fa-table"></i>Student's description</li>
+                  </ul>
+                <div class="table-responsive">
+                  <table class="table no-margin" style="text-align: center;">
+                    <tr>
+                      <th style="text-align: center; " rowspan="1" colspan="1">โรงเรียน</th>
+                      <th style="text-align: center; " rowspan="1" colspan="1">มัธยมศึกษาปีที่4</th>
+                      <th style="text-align: center; " rowspan="1" colspan="1">มัธยมศึกษาปีที่5</th>
+                      <th style="text-align: center; " rowspan="1" colspan="1">มัธยมศึกษาปีที่6</th>
+                      <th style="text-align: center; " rowspan="1" colspan="1">วิทย์คณิต</th>
+                      <th style="text-align: center; " rowspan="1" colspan="1">ศิลป์คำนวน</th>
+                      <th style="text-align: center; " rowspan="1" colspan="1">ศิลป์ภาษา</th>
+                      <th style="text-align: center; " rowspan="1" colspan="1">อื่นๆ</th>
+                      <tr >
+                      <tr >
+                        <td><?php echo $school1?></td>
+                        <td><?php echo $M41?></td>
+                        <td><?php echo $M51?></td>
+                        <td><?php echo $M61?></td>
+                        <td><?php echo $MathSci1?></td>
+                        <td><?php echo $ArtMath1?></td>
+                        <td><?php echo $EngMath1?></td>
+                        <td><?php echo $ETC1?></td>
+                      </tr>
+                       <tr >
+                        <td><?php echo $school2?></td>
+                        <td><?php echo $M42?></td>
+                        <td><?php echo $M52?></td>
+                        <td><?php echo $M61?></td>
+                        <td><?php echo $MathSci2?></td>
+                        <td><?php echo $ArtMath2?></td>
+                        <td><?php echo $EngMath2?></td>
+                        <td><?php echo $ETC2?></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
             </div><!-- /.tab-pane -->
           </div><!-- /.tab-content -->
         </div><!-- /.nav-tabs-custom -->
@@ -379,7 +414,7 @@
   </script>
   <style>
   #chartdiv {
-  width   : 100%;
+  width   : 86%;
   height    : 500px;
   font-size : 11px;
 }           
@@ -395,25 +430,19 @@
         <div class="modal-body">
           <div style="height: 200px;">
                 <div class="body ">
-                  <form>
+                  <?php echo form_open('compareSchool/school'); ?>
                   <div class="input-group"><span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                     <input type="date" class="form-control" id="start" name="start">
                   </div><br>
                   <div class="input-group"><span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                     <input type="date" class="form-control" id="end" name="end">
                   </div><br>
-                  <?php if ( isset($_GET['school1']))
-                    { ?>
-                  <div style="display:none" class="input-group">
-                    <input type="text" class="form-control" id="school1" name="school1" value="<?php echo ($_GET['school1']) ?>">
+                  <div style="display:none"class="input-group">
+                    <input type="text" class="form-control" id="school1" name="school1" value="<?php echo $school1 ?>">
                   </div>
-                  <?php }?>
-                  <?php if ( isset($_GET['school2']))
-                    { ?>
                   <div style="display:none" class="input-group">
-                    <input type="text" class="form-control" id="school2" name="school2" value="<?php echo ($_GET['school2']) ?>">
+                    <input type="text" class="form-control" id="school2" name="school2" value="<?php echo $school2 ?>">
                   </div>
-                  <?php }?>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
                   <button name="submitDate" id="submitDate" type="submit" class="btn btn-primary">Search</button>
@@ -431,6 +460,123 @@
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
    
+   <div class="modal fade" id="changeSchool1">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+          <h4 class="modal-title" id="myModalLabel">Change 1st School</h4>
+        </div>
+        <div class="modal-body">
+          <div style="height: 150px;">
+                <div class="body ">
+                  <?php echo form_open('compareSchool/school'); ?>
+                  <div style="display:none" class="input-group">
+                    <input type="text" class="form-control" id="school2" name="school2" value="<?php echo $school2 ?>">
+                  </div>
+                   <div style="display:none" class="input-group">
+                    <input type="text" class="form-control" id="start" name="start" value="<?php echo $start ?>">
+                  </div>
+                   <div style="display:none" class="input-group">
+                    <input type="text" class="form-control" id="end" name="end" value="<?php echo $end ?>">
+                  </div>
+                  <div class="form-group">
+                    <label>Minimal</label>
+                    <select id = "school1"  name="school1"
+                    class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                      
+                      <?php foreach ($allSchool as $b) {
+                        $code = $b->school_code;
+                        $name = $b->name;
+                        if($school1 == $code){
+                        ?>
+                          <option value="<?php echo $school1?>"selected="selected"><?php echo $name?></option>
+                        <?php
+                        }
+                        else{
+                          ?>
+                      <option value="<?php echo $code ?>"><?php echo $name?></option>
+                      <?php
+                        }
+                      }
+                      ?>
+                    </select>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                      <button name="submitSchool1" id="submitSchool1" type="submit" class="btn btn-primary">Search</button>
+                    </div> 
+                </form> 
+              <script>
+                  document.getElementById('submitSchool1').addEventListener('click', function (e) {
+                        window.location.href = "<?php echo base_url()?>compareSchool/school";
+                    });
+              </script>        
+            </div>
+          </div>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+  <div class="modal fade" id="changeSchool2">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+          <h4 class="modal-title" id="myModalLabel">Change 2rd School</h4>
+        </div>
+        <div class="modal-body">
+          <div style="height: 150px;">
+                <div class="body ">
+                  <?php echo form_open('compareSchool/school'); ?>
+                  <div style="display:none" class="input-group">
+                    <input type="text" class="form-control" id="school1" name="school1" value="<?php echo $school1 ?>">
+                  </div>
+                   <div style="display:none" class="input-group">
+                    <input type="text" class="form-control" id="start" name="start" value="<?php echo $start ?>">
+                  </div>
+                   <div style="display:none" class="input-group">
+                    <input type="text" class="form-control" id="end" name="end" value="<?php echo $end ?>">
+                  </div>
+                  <div class="form-group">
+                    <label>Minimal</label>
+                    <select id = "school2"  name="school2"
+                    class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                      
+                      <?php foreach ($allSchool as $a) {
+                        $code = $a->school_code;
+                        $name = $a->name;
+                        if($school2 == $code){
+                        ?>
+                          <option value="<?php echo $school2?>"selected="selected"><?php echo $name?></option>
+                        <?php
+                        }
+                        else{
+                          ?>
+                      <option value="<?php echo $code ?>"><?php echo $name?></option>
+                      <?php
+                        }
+                      }
+                      ?>
+                    </select>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                    <button name="submitSchool2" id="submitSchool2" type="submit" class="btn btn-primary">Search</button>
+                </div>
+              </form> 
+              <script>
+                  document.getElementById('submitSchool2').addEventListener('click', function (e) {
+                        window.location.href = "<?php echo base_url()?>compareSchool/school";
+                    });
+              </script>        
+            </div>
+          </div>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
 
 
       

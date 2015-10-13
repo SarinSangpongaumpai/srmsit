@@ -47,15 +47,15 @@
                 <thead>
                    <tr>
                     <th data-halign="center" data-align ="center" rowspan="2" data-field="title" data-sortable="true" tabindex="0">Even title</th>
-                    <th data-halign="center" data-align ="center" colspan="2" >Cost (bahts)</th>
-                    <th data-halign="center" data-align ="center" colspan="2" scope="colgroup">Participants (people)</th>
+                    <th data-halign="center" data-align ="center" rowspan="1"colspan="2" >Cost (bahts)</th>
+                    <th data-halign="center" data-align ="center" rowspan="1"colspan="2" scope="colgroup">Participants (people)</th>
                     <th data-halign="center" data-align ="center" rowspan="2" data-field="date" data-sortable="true" tabindex="0">Date</th>
                   </tr>
                   <tr>
-                    <th data-halign="center" data-align ="center" data-formatter="budget" data-field="budget" data-switchable="false" data-sortable="true"  >Budget </th>
-                    <th data-halign="center" data-align ="center" data-formatter="actual" data-field="cost"  data-switchable="false" data-sortable="true"  >Actual Spend </th>
-                    <th data-halign="center" data-align ="center" data-formatter="expect"data-field="expectPeople"data-switchable="true" data-sortable="true" >Expected</th>
-                    <th data-halign="center" data-align ="center" data-formatter="participant"data-field="participants"data-switchable="true" data-sortable="true" >Actual</th>
+                    <th data-halign="center" data-align ="center" rowspan="1" data-formatter="budget" data-field="budget" data-switchable="false" data-sortable="true"  >Budget </th>
+                    <th data-halign="center" data-align ="center" rowspan="1" data-formatter="actual" data-field="cost"  data-switchable="false" data-sortable="true"  >Actual Spend </th>
+                    <th data-halign="center" data-align ="center" rowspan="1" data-formatter="expect"data-field="expectPeople"data-switchable="true" data-sortable="true" >Expected</th>
+                    <th data-halign="center" data-align ="center" rowspan="1" data-formatter="participant"data-field="participants"data-switchable="true" data-sortable="true" >Actual</th>
                    </tr>
                 </thead>
               </table>

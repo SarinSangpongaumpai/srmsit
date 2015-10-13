@@ -6,15 +6,31 @@ class CompareSchool extends CI_Controller {
 		parent::__construct();
 		$this->load->model('compare_school_model','csm',TRUE);
 	}  
-	
+
 	public function school(){
-      if ( isset($_GET['school1']) && isset($_GET['school2']) and isset($_GET['start']) 
-        and isset($_GET['end']) ) {
-       $school1 = $_GET['school1'];
-       $school2 = $_GET['school2'];
-       $start   = $_GET['start'];
-       $end     = $_GET['end'];
-   	   $this->load->view("header");
+      if ( isset($_POST['school1']) and isset($_POST['school2']) and isset($_POST['start']) 
+        and isset($_POST['end']) ) {
+             $school1 = $_POST['school1'];
+             $school2 = $_POST['school2'];
+             $start   = $_POST['start'];
+             $end     = $_POST['end'];
+         	 $this->getData($school1,$school2,$start,$end);
+      }
+      else{
+             $school1 = "KMUTT";
+             $school2 = "ACBK";
+             $start = "2015-01-01";
+             $end   = date("Y-m-d");
+             $this->getData($school1,$school2,$start,$end);
+      }
+      
+	}
+      public function getData($school1,$school2,$start,$end){
+       $this->load->view("header");
+       $data['school1'] = $school1;
+       $data['school2'] = $school2;
+       $data['start']   = $start;
+       $data['end']     = $end;
        $data['CostEvent1'] = $this->csm->schoolCostEvent($school1,$start,$end);
        $data['CostEvent2'] = $this->csm->schoolCostEvent($school2,$start,$end);
        $data['CS1']        = $this->csm->FacultyParticipant($school1,$start,$end,"CS");
@@ -43,21 +59,8 @@ class CompareSchool extends CI_Controller {
        $data['participant2']  = $this->csm->total($school2,$start,$end);
        $data['register1']     = $this->csm->register($school1,$start,$end);
        $data['register2']     = $this->csm->register($school2,$start,$end);
+       $data['allSchool']     = $this->csm->allSchool();
        $this->load->view("compare/school",$data);
-			 $this->load->view("footer");
+       $this->load->view("footer");
       }
-      else{
-       $school1 = $_GET['school1'];
-       $school2 = $_GET['school2'];
-   	   $this->load->view("header");
-       $data['CostEvent1'] = $this->csm->schoolCostEvent($school1);
-       $data['CostEvent2'] = $this->csm->schoolCostEvent($school2);
-       $this->load->view("compare/school",$data);
-			 $this->load->view("footer");
-      }
-      
-	}
 }
-
-/* End of file chart.php */
-/* Location: ./application/controllers/chart.php */

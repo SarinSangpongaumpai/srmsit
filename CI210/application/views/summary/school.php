@@ -133,11 +133,12 @@
             style=" font-weight: bold;"class="profile-username text-center" >change school</a><br>
             <br>
             <ul class="list-group list-group-unbordered">
-              <li class="list-group-item">
-                <b>Events</b> <a class="pull-right"><?php echo $totalEvent ?> times</a>
+              <li class="list-group-item" >
+                <b style="text-align:center">Events&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </b> <a class="pull-center"><?php echo $totalEvent ?>&nbsp;times</a>
               </li>
               <li class="list-group-item">
-                <b>Participants</b> <a class="pull-right"><?php echo $totalP ?> peoples</a>
+                <b>Participants&nbsp;&nbsp;</b><a class="pull-center"><?php echo $totalP ?> peoples</a>
               </li>
             </ul>
             <a href="#mapmodals" data-toggle="modal" class="btn btn-primary btn-block"><b>ViewMap</b></a>

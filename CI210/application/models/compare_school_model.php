@@ -169,5 +169,20 @@ Class Compare_School_Model extends CI_Model
      return false;
    }
  }
+ function allSchool()
+ {
+   $this -> db -> select("school_code,name");
+   $this -> db -> from('school');
+   $this->db->order_by("name", "");
+   $query = $this -> db -> get();
+   if($query -> num_rows() >= 1)
+   {
+     return $query->result();
+   }
+   else
+   {
+     return false;
+   }
+ }
 }
 ?>
