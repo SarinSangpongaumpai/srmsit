@@ -96,11 +96,11 @@
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
-    <h1><i class="fa fa-bar-chart-o"></i>Compare Event's place </h1>
+    <h1><i class="fa fa-bar-chart-o"></i>Compare Place </h1>
     <ol class="breadcrumb">
       <li><a href="<?php echo base_url()?>main/current"><i class="fa fa-home"></i> Home</a></li>
-      <li><a href="<?php echo base_url()?>summaryReport/index"><i class="fa fa-book"></i>SummaryReport</a></li>
-      <li class="active">School</li>
+      <li><a href="<?php echo base_url()?>summaryReport/school?place=KMUTT"><i class="fa fa-book"></i>SummaryReport</a></li>
+      <li class="active">ComparePlace</li>
     </ol>
   </section>
 
@@ -361,10 +361,10 @@
     },
     "balloonFunction": function(item) {
       if(item.category == "จำนวนครั้งที่จัด"){
-        return "<?php echo $school1 ?><br>"+item.category + ": " + Math.abs(item.values.value)+" ครั้ง" ;
+        return "<?php echo $school2 ?><br>"+item.category + ": " + Math.abs(item.values.value)+" ครั้ง" ;
       }
       else{
-        return "<?php echo $school1 ?><br>"+item.category + ": " + Math.abs(item.values.value)+" คน" ;
+        return "<?php echo $school2 ?><br>"+item.category + ": " + Math.abs(item.values.value)+" คน" ;
       }
     }
   }],
@@ -481,7 +481,7 @@
                     <input type="text" class="form-control" id="end" name="end" value="<?php echo $end ?>">
                   </div>
                   <div class="form-group">
-                    <label>Minimal</label>
+                    <label>School's name</label>
                     <select id = "school1"  name="school1"
                     class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
                       
@@ -540,7 +540,7 @@
                     <input type="text" class="form-control" id="end" name="end" value="<?php echo $end ?>">
                   </div>
                   <div class="form-group">
-                    <label>Minimal</label>
+                    <label>School's name</label>
                     <select id = "school2"  name="school2"
                     class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
                       
@@ -578,5 +578,80 @@
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
 
+<script>
+var chart2;            
+    $(document).ready(function(){
+      $.getJSON("<?php echo base_url() ?>summaryReportEvent/getCostEffective",  function (data) {
+        chart2.dataProvider = data; 
+        chart2.validateData();
+      });
+    });
+var chart2 = AmCharts.makeChart("chartdiv2", {
+  "type": "serial",
+    "theme": "light",
+    "marginRight": 80,
+    "autoMarginOffset": 20,
+    "marginTop": 7,
+    "valueAxes": [{
+        "axisAlpha": 0.2,
+        "dashLength": 1,
+        "position": "left"
+    }],
+    "mouseWheelZoomEnabled": true,
+    "graphs": [{
+        "id": "g1",
+        "labelText": "[[title]]",
+        "balloonText": "Actual <br>[[category]]<br/><b><span style='font-size:14px;'>value: [[value]]</span></b>",
+        "bullet": "round",
+        "bulletBorderAlpha": 1,
+        "bulletColor": "#FFFFFF",
+        "hideBulletsCount": 50,
+        "title": "Actual",
+        "valueField": "actual",
+        "useLineColorForBulletBorder": true
+    },{
+        "id": "g2",
+        "balloonText": "Expected <br>[[category]]<br/><b><span style='font-size:14px;'>value: [[value]]</span></b>",
+        "bullet": "round",
+        "bulletBorderAlpha": 1,
+        "bulletColor": "#FFFFFF",
+        "hideBulletsCount": 50,
+        "title": "Expected",
+        "valueField": "expected",
+        "useLineColorForBulletBorder": true
+    }],
+    "chartScrollbar": {
+        "autoGridCount": true,
+        "graph": "g1",
+        "scrollbarHeight": 40
+    },
+    "chartCursor": {
 
+    },
+    "categoryField": "date",
+    "categoryAxis": {
+        "parseDates": true,
+        "axisColor": "#DADADA",
+        "dashLength": 1,
+        "minorGridEnabled": true
+    },
+    "export": {
+        "enabled": true
+    },
+    "legend": {
+      "useGraphSettings": true,
+      "position": "top"
+    }
+});
+  </script>
+
+
+
+      
+<style>
+#chartdiv2 {
+    width   : 100%;
+  height    : 500px;
+}
+</style>
       

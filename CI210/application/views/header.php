@@ -111,7 +111,7 @@
          <a href="<?php echo site_url('calendar/index'); ?>"><i class="fa fa-calendar"></i> <span>Calendar</span></a>
     </li>
     <li>
-        <a href="<?php echo site_url('event/index'); ?>"><i class="fa fa-edit"></i> <span>Event Setting</span></a>
+        <a href="<?php echo site_url('event/setting'); ?>"><i class="fa fa-edit"></i> <span>Event Setting</span></a>
     </li>
   </ul>
 </section>

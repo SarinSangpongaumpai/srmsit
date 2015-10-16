@@ -160,22 +160,13 @@
                     </div><br>
                   </div>
                   <?php echo form_close();?>
-                </div><!-- /.col -->
-              </div>
-              
-              
-              <div class="box-body" >
-              <div class="row" >
-                <div class="col-md-2">  
-                </div>
-              <div class="col-md-7">   
               <table id="example1" class="table table-bordered table-striped"  > 
                 <thead>
                   <tr>
                     <th>เลขประจำตัวประชาชน</th>
                     <th>โรงเรียน</th>
                     <th>ช่องทางการสมัครเข้าศึกษา</th>
-                    <th>ถาควิชาที่สมัคร</th>
+                    <th>ภาควิชาที่สมัคร</th>
                   </tr>
                 </thead>
                 <tbody >
@@ -193,8 +184,6 @@
                   </tr>
                 </tbody>
               </table>  
-            </div>
-            </div>
              </div>
             </div><!-- /.tab-pane -->
           </div><!-- /.tab-content -->
