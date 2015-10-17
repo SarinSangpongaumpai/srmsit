@@ -17,7 +17,7 @@
     <script src="js/bootstrap/bootstrap.min.js"></script>
 </head>
 <body >
-  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <link href="css/font-awesome-4.4.0/css/font-awesome.css" rel="stylesheet">
   <div class="container"  style="text-align:center">  
     <br><br>
     
@@ -48,6 +48,7 @@
         <?php echo form_close();?>
       </div>
     </div>
+    <br>
     <div class="row omb_row-sm-offset-3" >
         <p class="omb_forgotPwd" style="text-align:center;  text-decoration: underline;">
           <a data-toggle="modal" data-target="#myModal">Forget password?</a>

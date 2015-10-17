@@ -3,7 +3,7 @@ Class MainEvent extends CI_Model
 {
  function getEvent()
  {
-   $this -> db -> select("title,start,end,type,place,cost,DATEDIFF( start,NOW()) AS timeLeft,
+   $this -> db -> select("title,start,end,type,place,budget,DATEDIFF( start,NOW()) AS timeLeft,
     DATEDIFF( end,start ) AS duration");
    $this -> db -> from('activity');
    $this -> db -> where('NOW()< start');
@@ -21,7 +21,7 @@ Class MainEvent extends CI_Model
  }
  function changeEvent()
  {
-   $this -> db -> select("title,start,end,type,place,cost,name,DATEDIFF( start,NOW()) AS timeLeft,
+   $this -> db -> select("title,start,end,type,place,budget,name,DATEDIFF( start,NOW()) AS timeLeft,
     DATEDIFF( end,start ) AS duration");
    $this -> db -> from('activity');
    $this -> db -> where('NOW()< start');
@@ -40,7 +40,7 @@ Class MainEvent extends CI_Model
  }
   function previous($date)
  {
-   $this -> db -> select("title,start,end,type,place,cost,name,DATEDIFF( start,NOW()) AS timeLeft,
+   $this -> db -> select("title,start,end,type,place,budget,name,DATEDIFF( start,NOW()) AS timeLeft,
     DATEDIFF( end,start ) AS duration");
    $this -> db -> from('activity');
    $this -> db -> where("start < '".$date."'");
@@ -59,7 +59,7 @@ Class MainEvent extends CI_Model
  }
   function next($date)
  {
-   $this -> db -> select("title,start,end,type,place,cost,name,DATEDIFF( start,NOW()) AS timeLeft,
+   $this -> db -> select("title,start,end,type,place,budget,name,DATEDIFF( start,NOW()) AS timeLeft,
     DATEDIFF( end,start ) AS duration");
    $this -> db -> from('activity');
    $this -> db -> where("start > '".$date."'");
@@ -78,7 +78,7 @@ Class MainEvent extends CI_Model
  }
  function getLastEvent()
  {
-   $this -> db -> select("title,start,end,type,place,cost,name,DATEDIFF( start,NOW()) AS timeLeft,
+   $this -> db -> select("title,start,end,type,place,budget,name,DATEDIFF( start,NOW()) AS timeLeft,
     DATEDIFF( end,start ) AS duration");
    $this -> db -> from('activity');
    $this -> db -> where('NOW()> start');

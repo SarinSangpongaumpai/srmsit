@@ -21,6 +21,9 @@ class Event_m extends CI_Model {
        if(!is_null($mincost)){
         $this -> db -> where('cost >=',$mincost);
        }
+       if(!is_null($duration)){
+        $this -> db -> where('DATEDIFF( end,start ) <=',$duration);
+       }
        if(!is_null($maxcost)){
         $this -> db -> where('cost <=',$maxcost);
        }
@@ -54,6 +57,9 @@ class Event_m extends CI_Model {
        }
        if(!is_null($maxcost)){
         $this -> db -> where('cost <=',$maxcost);
+       }
+       if(!is_null($duration)){
+        $this -> db -> where('DATEDIFF( end,start ) <=',$duration);
        }
        $this -> db -> join('participant', 'participant.ac_title = activity.title', 'left');
        $this -> db -> group_by("activity.title"); 

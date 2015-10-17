@@ -4,7 +4,7 @@
                           $currentDate           = $current->start;
                           $currentSchool         = $current->place;
                           $currentDuration       = $current->duration;
-                          $currentCost           = $current->cost;
+                          $currentBudget         = $current->budget;
                           $currentSchoolName     = $current->name;
                           $currentTitle          = $current->title;
                   }
@@ -170,8 +170,8 @@
         <div class="info-box">
           <span class="info-box-icon bg-aqua"><i class="fa fa-bitcoin "></i></span>
             <div class="info-box-content">
-              <span class="info-box-text">COST</span>
-              <span class="info-box-number"><?php echo $currentCost ?> bahts<small></small></span>
+              <span class="info-box-text">Budget</span>
+              <span class="info-box-number"><?php echo $currentBudget ?> bahts<small></small></span>
             </div><!-- /.info-box-content -->
           </div><!-- /.info-box -->
         </div><!-- /.col -->
