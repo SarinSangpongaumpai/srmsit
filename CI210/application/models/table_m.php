@@ -3,7 +3,7 @@
 class Table_M extends CI_Model {
 
   	public function fillstudentTable(){
-        $this->db->order_by("nationalID", "desc"); 
+        $this->db->order_by("nationalID", "asc"); 
         $data = $this->db->get('student');
         foreach ($data->result() as $row){
             $edit   = base_url().'table/editStudent/';
@@ -37,4 +37,49 @@ class Table_M extends CI_Model {
     }
    private function edit(){}
    private function delete(){}
-}
+   private function editSchool(){}
+   private function deleteSchool(){}
+   public function fillSchoolTable(){
+        $this->db->order_by("school_code", "asc"); 
+        $data = $this->db->get('school');
+        foreach ($data->result() as $row){
+            $editSchool   = base_url().'table/editSchool/';
+            $deleteSchool = base_url().'table/deleteSchool/';
+            echo "<tr>
+                        <td>$row->school_code</td>
+                        <td>$row->name</td>
+                        <td>$row->location</td>
+                        <td>$row->note</td>
+                        <td>$row->latitude</td>
+                        <td>$row->longitude</td>
+                        <td><a href='$editSchool' data-id='$row->school_code' class='btnedit' title='editSchool'><i class='glyphicon glyphicon-pencil' title='editSchool'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href='$deleteSchool' data-id='$row->school_code' class='btndelete' title='deleteSchool'><i class='glyphicon glyphicon-remove'></i></a></td>    
+                    </tr>";    
+        }
+        exit;
+    }
+
+    private function editEvent(){}
+   private function deleteEvent(){}
+   public function fillEventTable(){
+        $this->db->order_by("id", "asc"); 
+        $data = $this->db->get('activity');
+        foreach ($data->result() as $row){
+            $editEvent   = base_url().'table/editEvent/';
+            $deleteEvent = base_url().'table/deleteEvent/';
+            echo "<tr>
+                        <td>$row->id</td>
+                        <td>$row->title</td>
+                        <td>$row->start</td>
+                        <td>$row->end</td>
+                        <td>$row->type</td>
+                        <td>$row->Place</td>
+                        <td>$row->budget</td>
+                        <td>$row->cost</td>
+                        <td>$row->expectPeople</td>
+                        <td>$row->Detail</td>
+                        <td><a href='$editEvent' data-id='$row->id' class='btnedit' title='editEvent'><i class='glyphicon glyphicon-pencil' title='editEvent'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href='$deleteEvent' data-id='$row->id' class='btndelete' title='deleteEvent'><i class='glyphicon glyphicon-remove'></i></a></td>    
+                    </tr>";    
+        }
+        exit;
+    }
+} 

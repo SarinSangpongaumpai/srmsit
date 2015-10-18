@@ -98,7 +98,7 @@
         <ul class="treeview-menu">
           <li><a href="<?php echo site_url('table/student'); ?>"><i class="fa fa-angle-double-right"></i>Student</a></li>
           <li><a href="<?php echo site_url('table/school'); ?>"><i class="fa fa-angle-double-right"></i>School</a></li>
-          <li><a href="<?php echo site_url('table/activities'); ?>"><i class="fa fa-angle-double-right"></i> SIT'SRM Activities</a></li>
+          <li><a href="<?php echo site_url('table/event'); ?>"><i class="fa fa-angle-double-right"></i> SIT'SRM Activities</a></li>
         </ul>
     </li>
     <li>
